@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "alwaysStrict": true,
+    "moduleResolution": "node",
+    "target": "es6"
+  },
+  "include": ["src"]
+}
