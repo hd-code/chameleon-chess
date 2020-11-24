@@ -25,7 +25,47 @@ describe('models/game-state/board', () => {
         });
     });
 
-    test.todo(isInPositions.name);
-    test.todo(isSamePosition.name);
-    test.todo(sortPositions.name);
+    describe(isInPositions.name, () => {
+        test.each([
+            [ {row:0,col:0}, [{row:0,col:0},{row:1,col:1}], true ],
+            [ {row:1,col:1}, [{row:0,col:0},{row:1,col:1}], true ],
+            [ {row:1,col:0}, [{row:0,col:0},{row:1,col:1}], false ],
+            [ {row:6,col:4}, [], false ],
+            [ {row:2,col:5}, [{row:2,col:5}], true ],
+            [ {row:2,col:5}, [{row:2,col:4}], false ],
+            [ {row:2,col:5}, [{row:3,col:5}], false ],
+        ])('%o in %j, expect: %j', (position, positions, expected) => {
+            const actual = isInPositions(position, positions);
+            expect(actual).toBe(expected);
+        });
+    });
+
+    describe(isSamePosition.name, () => {
+        test.each([
+            [ { row: 0, col: 0 }, { row: 0, col: 0 }, true ],
+            [ { row: 3, col: 3 }, { row: 3, col: 3 }, true ],
+            [ { row: 6, col: 3 }, { row: 6, col: 3 }, true ],
+            [ { row: 6, col: 3 }, { row: 1, col: 1 }, false ],
+            [ { row: 6, col: 6 }, { row: 1, col: 1 }, false ],
+            [ { row: 5, col: 5 }, { row: 2, col: 3 }, false ],
+            [ { row: 5, col: 5 }, { row: 5, col: 3 }, false ],
+            [ { row: 1, col: 3 }, { row: 5, col: 3 }, false ],
+        ])('%o and %o, expect: %j', (position, positions, expected) => {
+            const actual = isSamePosition(position, positions);
+            expect(actual).toBe(expected);
+        });
+    });
+
+    describe(sortPositions.name, () => {
+        test.each([
+            [ 'just one position', [{row:3,col:5}], [{row:3,col:5}] ],
+            [ 'two positions, rows not sorted', [{row:7,col:5},{row:3,col:5}], [{row:3,col:5},{row:7,col:5}] ],
+            [ 'two positions, rows sorted already', [{row:3,col:5},{row:7,col:5}], [{row:3,col:5},{row:7,col:5}] ],
+            [ 'two positions, rows are equal, cols not sorted', [{row:2,col:5},{row:2,col:3}], [{row:2,col:3},{row:2,col:5}] ],
+            [ 'two positions, rows are equal, cols sorted', [{row:2,col:3},{row:2,col:5}], [{row:2,col:3},{row:2,col:5}] ],
+        ])('%s', (_, input, expected) => {
+            input.sort(sortPositions);
+            expect(input).toEqual(expected);
+        });
+    });
 });
