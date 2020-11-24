@@ -7,7 +7,7 @@ import { Player, getNextPlayer } from './player';
 
 export { getBoard, FieldColor, Position } from './board';
 export { Limits, isWithinLimits } from './limits';
-export { getPawnIndexAtPosition, getRole, getRoleMapping, Pawn, Role } from './pawn';
+export { getMoves, getPawnIndexAtPosition, getRole, getRoleMapping, Pawn, Role } from './pawn';
 export { arePlayersAlive, Player } from './player';
 
 // -----------------------------------------------------------------------------

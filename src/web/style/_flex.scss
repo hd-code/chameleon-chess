@@ -1,0 +1,47 @@
+.flex {
+    display: flex;
+
+    &.col { flex-direction: column }
+    &.col-reverse { flex-direction: column-reverse }
+    &.row { flex-direction: row }
+    &.row-reverse { flex-direction: row-reverse }
+
+    &.nowrap { flex-wrap: nowrap }
+    &.wrap { flex-wrap: wrap }
+
+    &.left { justify-content: flex-start }
+    &.center { justify-content: center }
+    &.right { justify-content: flex-end }
+    &.justify { justify-content: space-between }
+
+    &.top { align-items: flex-start }
+    &.middle { align-items: center }
+    &.bottom { align-items: flex-end }
+    &.stretch { align-items: stretch }
+
+    > .flex-1 { flex: 1 }
+    > .flex-2 { flex: 2 }
+    > .flex-3 { flex: 3 }
+    > .flex-4 { flex: 4 }
+
+    > .grow-0 { flex-grow: 0 }
+    > .grow,
+    > .grow-1 { flex-grow: 1 }
+    > .grow-2 { flex-grow: 2 }
+    > .grow-3 { flex-grow: 3 }
+    > .grow-4 { flex-grow: 4 }
+
+    > .shrink-0 { flex-shrink: 0 }
+    > .shrink,
+    > .shrink-1 { flex-shrink: 1 }
+    > .shrink-2 { flex-shrink: 2 }
+    > .shrink-3 { flex-shrink: 3 }
+    > .shrink-4 { flex-shrink: 4 }
+    
+    > .order,
+    > .order-0 { order: 0 }
+    > .order-1 { order: 1 }
+    > .order-2 { order: 2 }
+    > .order-3 { order: 3 }
+    > .order-4 { order: 4 }
+}

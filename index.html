@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chameleon Chess WebApp</title>
+</head>
+<body>
+    <div id="root">
+        <style>
+            .loading { height: 5em; width: 100% }
+            .loading::after {
+                animation: rotate 1s linear infinite;
+                content: '';
+                border: .5em solid #888;
+                border-color: #B9542D #51A230 #DDBB71 #04909D;
+                border-radius: 50%;
+                display: block;
+                height: 4em;
+                width: 4em;
+                margin: .5em auto;
+            }
+            @keyframes rotate {
+                from { transform: rotate(0) }
+                to { transform: rotate(360deg) }
+            }
+        </style>
+        <div class="loading"></div>
+    </div>
+
+    <script src="build/index.js"></script>
+</body>
+</html>

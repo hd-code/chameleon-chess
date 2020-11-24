@@ -1,0 +1,33 @@
+.bgc {
+    &-red { background-color: #B9542D }
+    &-green { background-color: #51A230 }
+    &-yellow { background-color: #DDBB71 }
+    &-blue { background-color: #04909D }
+}
+
+.c {
+    &-red { color: #B9542D }
+    &-green { color: #51A230 }
+    &-yellow { color: #DDBB71 }
+    &-blue { color: #04909D }
+}
+
+.overlay {
+    &-parent { position: relative }
+
+    &-bright, &-dark, &-frame {
+        position: relative;
+        overflow: hidden;
+    }
+
+    &, &-bright::after, &-dark::after, &-frame::after {
+        position: absolute;
+        top: 0; bottom: 0; left: 0; right: 0;
+    }
+
+    &-bright::after, &-dark::after, &-frame::after { content: '' }
+
+    &-bright::after { background-color: #fff8 }
+    &-dark::after { background-color: #000a }
+    &-frame::after { border: 0.25em solid #fffc }
+}

@@ -1,0 +1,41 @@
+@import 'reset';
+@import 'base';
+
+@import 'colors';
+@import 'flex';
+@import 'text';
+
+// -----------------------------------------------------------------------------
+
+.hw {
+    &-100 { height: 100%; width: 100% }
+    &-90 { height: 90%; width: 90% }
+    &-80 { height: 80%; width: 80% }
+    &-50 { height: 50%; width: 50% }
+    &-12 { height: 12.5%; width: 12.5% }
+}
+
+.w {
+    &-100 { width: 100% }
+}
+
+.mxw {
+    &-100vh { max-width: 100vh }
+}
+
+.shadow { box-shadow: 0 0 .2em #000 }
+
+.border { border: 1px solid currentColor }
+
+.square {
+    height: 0;
+    overflow: hidden;
+    padding-bottom: 100%;
+    width: 100%;
+}
+
+.rounded { border-radius: 10% }
+
+.absolute { position: absolute }
+
+.transition { transition: .5s }

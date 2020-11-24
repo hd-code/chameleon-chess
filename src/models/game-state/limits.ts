@@ -1,5 +1,5 @@
-import { Position } from './board';
-import { Pawn } from './pawn';
+import type { Position } from './board';
+import type { Pawn } from './pawn';
 
 // -----------------------------------------------------------------------------
 
