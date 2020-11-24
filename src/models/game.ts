@@ -1,5 +1,5 @@
-import { GameState, getStartGameState, makeMove as makeMoveGS, Player, Position } from './game-state';
-import { Players, PlayerType } from './players';
+import { GameState, Player, Position, getStartGameState, makeMove as makeMoveGS } from './game-state';
+import { PlayerType, Players } from './players';
 
 // -----------------------------------------------------------------------------
 

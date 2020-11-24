@@ -65,24 +65,27 @@ function sortIndexScore(a: IndexScore, b: IndexScore): number {
 
 // -----------------------------------------------------------------------------
 
-const mapDifficultyChance = {
-    [Difficulty.easy]: 0.7,
+/** If the random number is below the chance, the current score (which is the
+ * better one) will be taken. If random number is above, the next (worse) score
+ * will be considered. */
+const mapDifficultyChanceForBetterMove = {
+    [Difficulty.easy]: 0.2,
     [Difficulty.normal]: 0.5,
-    [Difficulty.hard]: 0,
+    [Difficulty.hard]: 1,
 };
 
 function selectMove(player: Player, scores: Score[], difficulty: Difficulty): number {
     const indexScores = scores.map((score, index) => ({index, score: score[player]}));
     indexScores.sort(sortIndexScore);
 
-    let selectedI = 0;
+    const chanceToTakeBetterScore = mapDifficultyChanceForBetterMove[difficulty];
 
-    while (Math.random() < mapDifficultyChance[difficulty]) {
+    let selectedI = 0;
+    while (chanceToTakeBetterScore < Math.random()) {
         selectedI++;
         if (selectedI >= indexScores.length) {
             selectedI = 0;
         }
     }
-
     return indexScores[selectedI].index;
 }

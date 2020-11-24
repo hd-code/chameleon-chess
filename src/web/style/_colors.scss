@@ -3,6 +3,9 @@
     &-green { background-color: #51A230 }
     &-yellow { background-color: #DDBB71 }
     &-blue { background-color: #04909D }
+
+    &-brighten { background-color: #fff8 }
+    &-darken { background-color: #000a }
 }
 
 .c {
@@ -10,14 +13,16 @@
     &-green { color: #51A230 }
     &-yellow { color: #DDBB71 }
     &-blue { color: #04909D }
+
+    &-white { color: #fff }
 }
 
 .overlay {
     &-parent { position: relative }
 
     &-bright, &-dark, &-frame {
+        border-radius: inherit;
         position: relative;
-        overflow: hidden;
     }
 
     &, &-bright::after, &-dark::after, &-frame::after {
@@ -30,4 +35,9 @@
     &-bright::after { background-color: #fff8 }
     &-dark::after { background-color: #000a }
     &-frame::after { border: 0.25em solid #fffc }
+
+    &-screen {
+        position: fixed;
+        top: 0; bottom: 0; left: 0; right: 0;
+    }
 }

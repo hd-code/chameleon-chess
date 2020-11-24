@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { FieldColor, Role, Pawn, getRoleMapping } from 'models/game-state';
+import { FieldColor, Pawn, Role, getRoleMapping } from 'models/game-state';
+import { imgDir } from 'web/constants';
 
 // -----------------------------------------------------------------------------
 
@@ -33,11 +34,9 @@ const mapColorClass = {
     [FieldColor.blue]: 'bgc-blue',
 };
 
-const baseUrl = 'assets/img/';
-
 const mapRoleIcon = {
-    [Role.knight]: baseUrl + 'knight.svg',
-    [Role.queen]: baseUrl + 'queen.svg',
-    [Role.bishop]: baseUrl + 'bishop.svg',
-    [Role.rook]: baseUrl + 'rook.svg',
+    [Role.knight]: imgDir + 'knight.svg',
+    [Role.queen]: imgDir + 'queen.svg',
+    [Role.bishop]: imgDir + 'bishop.svg',
+    [Role.rook]: imgDir + 'rook.svg',
 };

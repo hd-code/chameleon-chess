@@ -3,13 +3,13 @@ import React, { useState } from 'react';
 import Field, { FieldProps, FieldState } from './field';
 import Pawn from './pawn';
 
-import { GameState as GameStateModel, Position, getBoard, getPawnIndexAtPosition, getMoves, isWithinLimits } from 'models/game-state';
+import { GameState as GameStateModel, Position, getBoard, getMoves, getPawnIndexAtPosition, isWithinLimits } from 'models/game-state';
 import { getCurrentGameState } from 'models/game';
 import { GameState } from 'state/game';
 
 // -----------------------------------------------------------------------------
 
-export interface BoardProps extends GameState {}
+export type BoardProps = GameState
 
 export default function Board(props: BoardProps) {
     const [selectedPawnI, setSelected] = useState(-1);
@@ -22,7 +22,7 @@ export default function Board(props: BoardProps) {
     const onClick = (event: React.MouseEvent) => {
         const clickPos = getClickPosition(event);
         const clickedPawnI = getPawnIndexAtPosition(clickPos, gs.pawns);
-        clickedPawnI !== null && setSelected(clickedPawnI);
+        clickedPawnI !== -1 && setSelected(clickedPawnI);
         selectedPawnI !== -1 && props.makeMove(selectedPawnI, clickPos) && setSelected(-1);
     };
 

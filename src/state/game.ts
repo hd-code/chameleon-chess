@@ -26,6 +26,7 @@ export function initGameState(storage: Storage): GameState {
         }
         storage.write<Game>(storageKey, newGame);
         setGame(newGame);
+        return true;
     };
 
     const onNextTurn = () => {};
