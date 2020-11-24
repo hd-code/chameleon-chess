@@ -17,10 +17,6 @@ export interface Position {
     col: number;
 }
 
-export function isSamePosition(a: Position, b: Position): boolean {
-    return a.row === b.row && a.col === b.col;
-}
-
 export function isInPositions(postion: Position, positions: Position[]): boolean {
     for (let i = 0, ie = positions.length; i < ie; i++) {
         if (isSamePosition(postion, positions[i])) {
@@ -28,6 +24,10 @@ export function isInPositions(postion: Position, positions: Position[]): boolean
         }
     }
     return false;
+}
+
+export function isSamePosition(a: Position, b: Position): boolean {
+    return a.row === b.row && a.col === b.col;
 }
 
 /** First by row, then by column. */

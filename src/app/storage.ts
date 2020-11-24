@@ -22,7 +22,7 @@ async function del(key: string): Promise<void> {
 async function read<T>(key: string): Promise<T> {
     return new Promise<T>((resolve, reject) => setTimeout(() => {
         try {
-            const data = '{}' // TODO
+            const data = '{}'; // TODO
             if (!data) {
                 throw 'No data in storage under key: ' + key;
             }

@@ -4,5 +4,6 @@
       "noEmit": true
     },
     "exclude": ["src/cli","src/web"],
-    "extends": "./tsconfig.json"
+    "extends": "./tsconfig.json",
+    "include": ["src"]
   }
