@@ -1,10 +1,11 @@
-html,body {
+html,body,#root {
     height: 100%;
     width: 100%;
     overflow-x: hidden;
 }
 
 body {
+    background: url(assets/img/background-image.png) center/cover;
     font-family: Helvetica, Arial, sans-serif;
     line-height: 1.2;
 }
@@ -27,9 +28,11 @@ hr { border: 0; border-top: 1px solid currentColor }
 button,[type=button],[type=reset],[type=submit] {
     background: transparent;
     border: 1px solid;
-    border-radius: .3em;
+    border-radius: .5em;
+    color: inherit;
     cursor: pointer;
-    padding: .3em;
+    display: block;
+    padding: .5em;
 }
 
 // --- Forms -------------------------------------------------------------------

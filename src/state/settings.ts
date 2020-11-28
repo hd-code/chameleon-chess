@@ -8,7 +8,7 @@ export interface SettingsState {
     settings: any;
 }
 
-export function initSettingsState(storage: Storage): SettingsState {
+export function useSettingsState(storage: Storage): SettingsState {
     const [settings, setSettings] = useState(null);
 
     storage.read<any>(storageKey)

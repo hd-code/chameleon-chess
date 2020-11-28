@@ -1,4 +1,4 @@
-import { GameState, Player, Position, getStartGameState, makeMove as makeMoveGS } from './game-state';
+import { GameState, Player, Position, getStartGameState, isGameOver as isGameOverGS, makeMove as makeMoveGS } from './game-state';
 import { PlayerType, Players } from './players';
 
 // -----------------------------------------------------------------------------
@@ -25,6 +25,11 @@ export function initGame(players: Players): Game | null {
     }
 
     return { gameStates: [gs], players };
+}
+
+export function isGameOver(game: Game): boolean {
+    const gs = getCurrentGameState(game);
+    return isGameOverGS(gs);
 }
 
 export function makeMove(pawnIndex: number, destination: Position, game: Game): Game | null {

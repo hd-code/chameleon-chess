@@ -17,11 +17,19 @@
 
 .w {
     &-100 { width: 100% }
+    &-95v { width: 95vw }
+}
+
+@media (orientation: landscape) {
+    .w-95v { width: 95vh }
 }
 
 .mxw {
     &-100vh { max-width: 100vh }
+    &\-20em { max-width: 20em }
 }
+
+.mb { margin-bottom: .5em }
 
 .shadow { box-shadow: 0 0 .2em #000 }
 

@@ -8,8 +8,17 @@
 <body>
     <div id="root">
         <style>
-            .loading { height: 5em; width: 100% }
-            .loading::after {
+            html,body,#root {
+                margin: 0;
+                height: 100%;
+                width: 100%;
+            }
+            #root {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            #root::after {
                 animation: rotate 1s linear infinite;
                 content: '';
                 border: .5em solid #888;
@@ -18,14 +27,13 @@
                 display: block;
                 height: 4em;
                 width: 4em;
-                margin: .5em auto;
+                margin: 1em auto;
             }
             @keyframes rotate {
                 from { transform: rotate(0) }
                 to { transform: rotate(360deg) }
             }
         </style>
-        <div class="loading"></div>
     </div>
 
     <script src="build/web.js"></script>

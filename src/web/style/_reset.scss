@@ -1,4 +1,4 @@
-/* General Reset */
+// General Reset
 * {
     box-sizing: border-box;
     font-family: inherit;
@@ -7,31 +7,31 @@
     padding: 0;
 }
 
-/* make embedded elements responsive by default */
-canvas,iframe,img,video { border: 0; height: auto; max-width: 100% }
+// reset table spacings
+table { border-collapse: collapse; border-spacing: 0 }
 
-/* Restore monofont */
+// restore monofonts
 code,kbd,pre,samp { font-family: monospace, monospace }
 
-/* restore list indentation */
+// restore list indentation
 ol,ul { padding-left: 1.5em }
 
-/* restore smaller text elements */
+// restore smaller text elements 
 small,sub,sup { font-size: .75em }
-/* prevent from effecting the line height */
+// prevent sub,sup from effecting the line height
 sub,sup { position: relative; vertical-align: baseline }
 sub { bottom: -0.25em }
 sup { top: -0.5em }
 
-/* prevent double borders */
-table { border-collapse: collapse; border-spacing: 0 }
+// make embedded elements responsive by default
+canvas,iframe,img,video { border: 0; height: auto; max-width: 100% }
 
-/* IE */
+// IE
 a { background-color: transparent }
 button,input { overflow: visible }
 main { display: block }
 
-/* Safari */
+// Safari
 button,[type="button"],[type="reset"],[type="submit"] { -webkit-appearance: button }
 [type="search"] { -webkit-appearance: textfield; outline-offset: -2px }
 [type="search"]::-webkit-search-decoration { -webkit-appearance: none }
