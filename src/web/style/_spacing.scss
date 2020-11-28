@@ -1,0 +1,27 @@
+$base: .25em;
+
+.p { padding: .5em }
+.pt { padding-top: .5em }
+.pb { padding-bottom: .5em }
+.pl { padding-left: .5em }
+.pr { padding-right: .5em }
+
+.m { margin: .5em }
+.mt { margin-top: .5em }
+.mb { margin-bottom: .5em }
+.ml { margin-left: .5em }
+.mr { margin-right: .5em }
+
+@for $i from 1 through 12 {
+    .p-#{$i} { padding: $i * $base }
+    .pb-#{$i} { padding-bottom: $i * $base }
+    .pl-#{$i} { padding-left: $i * $base }
+    .pr-#{$i} { padding-right: $i * $base }
+    .pt-#{$i} { padding-top: $i * $base }
+
+    .m-#{$i} { margin: $i * $base }
+    .mb-#{$i} { margin-bottom: $i * $base }
+    .ml-#{$i} { margin-left: $i * $base }
+    .mr-#{$i} { margin-right: $i * $base }
+    .mt-#{$i} { margin-top: $i * $base }
+}

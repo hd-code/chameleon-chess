@@ -6,16 +6,17 @@ import { imgDir } from 'web/constants';
 // -----------------------------------------------------------------------------
 
 export interface PawnProps extends Pawn {
+    key?: string;
     selected: boolean;
 }
 
 export default function Pawn(props: PawnProps) {
     const offset = { left: props.position.col * 12.5 + '%', top: props.position.row * 12.5 + '%' };
     const roleMap = getRoleMapping(props);
-    return <div className='hw-12 flex center middle absolute' style={offset}>
+    return <div key={props.key} className='hw-12 flex center middle absolute' style={offset}>
         <div className={'hw-80 rounded shadow flex center middle ' + mapColorClass[props.player] + (props.selected ? ' overlay-bright' : '')}>
             <div className='hw-80 flex wrap'>
-                {colorOrder.map(color => <div className={'hw-50 ' + mapColorClass[color]}>
+                {colorOrder.map(color => <div key={color} className={'hw-50 ' + mapColorClass[color]}>
                     <img src={mapRoleIcon[roleMap[color]]} className='hw-100' />
                 </div>)}
             </div>

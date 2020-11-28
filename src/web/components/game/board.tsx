@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Field, { FieldProps, FieldState } from './field';
 import Pawn from './pawn';
 
-import { GameState as GameStateModel, Position, getBoard, getMoves, getPawnIndexAtPosition, isWithinLimits } from 'models/game-state';
+import * as GS from 'models/game-state';
 import { getCurrentGameState } from 'models/game';
 import { GameState } from 'state/game';
 
@@ -21,7 +21,7 @@ export default function Board(props: BoardProps) {
 
     const onClick = (event: React.MouseEvent) => {
         const clickPos = getClickPosition(event);
-        const clickedPawnI = getPawnIndexAtPosition(clickPos, gs.pawns);
+        const clickedPawnI = GS.getPawnIndexAtPosition(clickPos, gs.pawns);
         clickedPawnI !== -1 && setSelected(clickedPawnI);
         selectedPawnI !== -1 && props.makeMove(selectedPawnI, clickPos) && setSelected(-1);
     };
@@ -31,7 +31,7 @@ export default function Board(props: BoardProps) {
     return <div className='square overlay-parent'>
         <div className='overlay flex wrap'>
             {fields.map((field, i) => <Field key={i} {...field} />)}
-            {pawns.map(pawn => <Pawn {...pawn} />)}
+            {pawns.map(pawn => <Pawn key={getPawnKey(pawn)} {...pawn} />)}
         </div>
         <div className='overlay' onClick={onClick}></div>
     </div>;
@@ -39,21 +39,21 @@ export default function Board(props: BoardProps) {
 
 // -----------------------------------------------------------------------------
 
-const fieldColors = getBoard();
+const fieldColors = GS.getBoard();
 
-function makeFields(gs: GameStateModel, pawnIndex: number): FieldProps[] {
+function makeFields(gs: GS.GameState, pawnIndex: number): FieldProps[] {
     const result: FieldProps[] = [];
     for (let i = 0, ie = fieldColors.length; i < ie; i++) {
         for (let j = 0, je = fieldColors[i].length; j < je; j++) {
             result.push({
                 color: fieldColors[i][j],
-                state: isWithinLimits({row: i, col: j}, gs.limits) ? FieldState.normal : FieldState.disabled
+                state: GS.isWithinLimits({row: i, col: j}, gs.limits) ? FieldState.normal : FieldState.disabled
             });
         }
     }
 
     if (pawnIndex !== -1) {
-        const marked = getMoves(pawnIndex, gs.pawns, gs.limits);
+        const marked = GS.getMoves(pawnIndex, gs.pawns, gs.limits);
         marked.forEach(({row, col}) => result[row * 8 + col].state = FieldState.marked);
     }
 
@@ -62,7 +62,7 @@ function makeFields(gs: GameStateModel, pawnIndex: number): FieldProps[] {
 
 // -----------------------------------------------------------------------------
 
-function getClickPosition(event: React.MouseEvent): Position {
+function getClickPosition(event: React.MouseEvent): GS.Position {
     const { x, y } = calcRelativeClickPosition(event);
     return { row: Math.floor(y * 8), col: Math.floor(x * 8) };
 }
@@ -73,4 +73,10 @@ function calcRelativeClickPosition(event: React.MouseEvent): { x: number, y: num
         x: event.nativeEvent.offsetX / rect.width,
         y: event.nativeEvent.offsetY / rect.height,
     };
+}
+
+// -----------------------------------------------------------------------------
+
+function getPawnKey({player, knightColor}: GS.Pawn): string {
+    return player + '' + knightColor;
 }

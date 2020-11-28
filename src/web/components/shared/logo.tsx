@@ -2,7 +2,7 @@ import React, { HTMLAttributes } from 'react';
 
 // -----------------------------------------------------------------------------
 
-export interface LogoProps extends HTMLAttributes<unknown> {}
+export type LogoProps = HTMLAttributes<unknown>
 
 export default function Logo(props: LogoProps): JSX.Element {
     const {className, ...rest} = props;
@@ -10,7 +10,7 @@ export default function Logo(props: LogoProps): JSX.Element {
         {text.split('').map((char, i) => char === '\n'
             ? <br /> : <span className={colors[i % colors.length]}>{char}</span>
         )}
-    </div>
+    </div>;
 }
 
 // -----------------------------------------------------------------------------

@@ -21,7 +21,7 @@ describe('models/game-state/board', () => {
         test('should have 8 rows', () => expect(board).toHaveLength(8));
         test('should have 8 columns', () => board.forEach(row => expect(row).toHaveLength(8)));
         test('should only contain integers from 0 to 7', () => {
-            board.forEach(row => row.forEach(val => expect(val+'').toMatch(/[0-7]/)))
+            board.forEach(row => row.forEach(val => expect(val+'').toMatch(/[0-7]/)));
         });
     });
 

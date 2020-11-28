@@ -6,36 +6,36 @@ import Home from './home';
 import Setup from './setup';
 import Settings from './settings';
 
-import { useGameState } from 'state/game';
-import { useSettingsState } from 'state/settings';
-import { useViewState, View } from 'state/view';
+import { useGame } from 'state/game';
+import { useSettings } from 'state/settings';
+import { View, useView } from 'state/view';
 import WebStorage from 'web/storage';
 
 // -----------------------------------------------------------------------------
 
 export default function App(): JSX.Element {
-    const gameState = useGameState(WebStorage);
-    const settingsState = useSettingsState(WebStorage);
-    const viewState = useViewState();
+    const gameState = useGame(WebStorage);
+    const settingsState = useSettings(WebStorage);
+    const viewState = useView();
 
     return <div className='hw-100 flex center middle'>{loadView()}</div>;
 
     function loadView() {
         switch (viewState.view) {
-            case View.about:
-                return <About />;
+        case View.about:
+            return <About />;
 
-            case View.game:
-                return <Game {...gameState} />;
+        case View.game:
+            return <Game {...gameState} />;
 
-            case View.home:
-                return <Home {...{...gameState, ...viewState}} />;
+        case View.home:
+            return <Home {...{...gameState, ...viewState}} />;
 
-            case View.setup:
-                return <Setup />;
+        case View.setup:
+            return <Setup game={gameState.game} />;
 
-            case View.settings:
-                return <Settings />;
+        case View.settings:
+            return <Settings />;
         }
     }
 }

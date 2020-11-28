@@ -1,18 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
+
+import Players from './players';
+
+import { Game } from 'models/game';
+import { nextPlayersType } from 'models/players';
+import { Player } from 'models/game-state';
 
 // -----------------------------------------------------------------------------
 
-interface SetupProps {}
+interface SetupProps {
+    game: Game | null;
+}
 
 export default function Setup(props: SetupProps): JSX.Element {
+    const initPlayers = props.game?.players || {0:1, 1:0, 2:2, 3:0};
+    const [players, setPlayers] = useState(initPlayers);
+    const onClick = (player: Player) => setPlayers(nextPlayersType(players, player));
     return <div className='text-center'>
         <h1>Neues Spiel starten</h1>
-        <div className='flex'>
-            <div>Player Red</div>
-            <div>Player Green</div>
-            <div>Player Yellow</div>
-            <div>Player Blue</div>
-        </div>
+        <Players {...{...players, onClick}} />
         <p>Hinweisetext</p>
         <h2>KI-Level</h2>
         <select name="ki">

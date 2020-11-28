@@ -9,7 +9,7 @@ export interface ViewState {
     goTo: (view: View) => void;
 }
 
-export function useViewState(): ViewState {
+export function useView(): ViewState {
     const [view, goTo] = useState(View.home);
     return { view, goTo };
 }

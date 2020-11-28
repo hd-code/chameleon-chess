@@ -12,7 +12,7 @@ export interface GameState {
     onNextTurn: () => void;
 }
 
-export function useGameState(storage: Storage): GameState {
+export function useGame(storage: Storage): GameState {
     const [game, setGame] = useState(startGame);
 
     storage.read<Game>(storageKey)
