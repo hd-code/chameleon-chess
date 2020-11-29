@@ -19,11 +19,11 @@ export function arePlayersAlive(pawns: Pawn[]): {[player in Player]: boolean} {
 
 export function getNextPlayer(current: Player, pawns: Pawn[]): Player {
     const playersState = arePlayersAlive(pawns);
-    let result = mapPlayerNext[current];
-    while (!playersState[result] && result !== current) {
-        result = mapPlayerNext[current];
+    let nextPlayer = mapPlayerNext[current];
+    while (!playersState[nextPlayer] && nextPlayer !== current) {
+        nextPlayer = mapPlayerNext[nextPlayer];
     }
-    return result;
+    return nextPlayer;
 }
 
 // -----------------------------------------------------------------------------
