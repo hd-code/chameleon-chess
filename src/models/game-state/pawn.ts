@@ -1,5 +1,6 @@
 import { FieldColor, Position, getFieldColor, isSamePosition } from './board';
 import { Limits, isWithinLimits } from './limits';
+import { Player } from './player';
 
 // -----------------------------------------------------------------------------
 
@@ -7,7 +8,7 @@ export enum Role { knight, queen, bishop, rook }
 
 export interface Pawn {
     knightColor: FieldColor;
-    player: number;
+    player: Player;
     position: Position;
 }
 
@@ -47,7 +48,7 @@ export function getRoleMapping(pawn: Pawn): {[color in FieldColor]: Role} {
     return {...mapKnightColorRoles[pawn.knightColor]};
 }
 
-export function getStartPawns(player: number): Pawn[] {
+export function getStartPawns(player: Player): Pawn[] {
     return createPawns(player);
 }
 
@@ -62,27 +63,27 @@ const mapKnightColorRoles = {
 
 // -----------------------------------------------------------------------------
 
-function createPawns(player: number): Pawn[] {
+function createPawns(player: Player): Pawn[] {
     switch (player) {
-    case 0: return [
+    case Player.red: return [
         createPawn(player, 7, 0, FieldColor.red),
         createPawn(player, 7, 1, FieldColor.green),
         createPawn(player, 7, 2, FieldColor.yellow),
         createPawn(player, 7, 3, FieldColor.blue),
     ];
-    case 1: return [
+    case Player.green: return [
         createPawn(player, 7, 7, FieldColor.green),
         createPawn(player, 6, 7, FieldColor.yellow),
         createPawn(player, 5, 7, FieldColor.blue),
         createPawn(player, 4, 7, FieldColor.red),
     ];
-    case 2: return [
+    case Player.yellow: return [
         createPawn(player, 0, 7, FieldColor.yellow),
         createPawn(player, 0, 6, FieldColor.blue),
         createPawn(player, 0, 5, FieldColor.red),
         createPawn(player, 0, 4, FieldColor.green),
     ];
-    case 3: return [
+    case Player.blue: return [
         createPawn(player, 0, 0, FieldColor.blue),
         createPawn(player, 1, 0, FieldColor.red),
         createPawn(player, 2, 0, FieldColor.green),
@@ -91,7 +92,7 @@ function createPawns(player: number): Pawn[] {
     }
 }
 
-function createPawn(player: number, row: number, col: number, knightColor: FieldColor): Pawn {
+function createPawn(player: Player, row: number, col: number, knightColor: FieldColor): Pawn {
     return { knightColor, player, position: { row, col } };
 }
 
