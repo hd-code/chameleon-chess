@@ -1,4 +1,4 @@
-import { getStartLimits, isSmallestLimits, updateLimits } from 'models/game-state/limits';
+import { getStartLimits, isSmallestLimits, isWithinLimits, updateLimits } from 'models/game-state/limits';
 
 // -----------------------------------------------------------------------------
 
@@ -21,6 +21,30 @@ describe('models/game-state/limits', () => {
             [ { minRow: 0, maxRow: 4, minCol: 2, maxCol: 6 }, false ],
         ])('%o expect %o', (limits, expected) => {
             const actual = isSmallestLimits(limits);
+            expect(actual).toBe(expected);
+        });
+    });
+
+    describe(isWithinLimits.name, () => {
+        test.each([
+            [ { row: 0, col: 0 }, { minRow: 0, maxRow: 7, minCol: 0, maxCol: 7 }, true ],
+            [ { row: 3, col: 5 }, { minRow: 0, maxRow: 7, minCol: 0, maxCol: 7 }, true ],
+            [ { row: 6, col: 1 }, { minRow: 0, maxRow: 7, minCol: 0, maxCol: 7 }, true ],
+            [ { row: 7, col: 7 }, { minRow: 0, maxRow: 7, minCol: 0, maxCol: 7 }, true ],
+            [ { row: 4, col: 5 }, { minRow: 3, maxRow: 6, minCol: 2, maxCol: 5 }, true ],
+            [ { row: 3, col: 2 }, { minRow: 3, maxRow: 6, minCol: 2, maxCol: 5 }, true ],
+            [ { row: 7, col: 2 }, { minRow: 5, maxRow: 7, minCol: 2, maxCol: 4 }, true ],
+            [ { row: 7, col: 3 }, { minRow: 5, maxRow: 7, minCol: 2, maxCol: 4 }, true ],
+            [ { row: 7, col: 1 }, { minRow: 5, maxRow: 7, minCol: 2, maxCol: 4 }, false ],
+            [ { row: 4, col: 2 }, { minRow: 5, maxRow: 7, minCol: 2, maxCol: 4 }, false ],
+            [ { row: 0, col: 0 }, { minRow: 5, maxRow: 7, minCol: 2, maxCol: 4 }, false ],
+            [ { row: 7, col: 7 }, { minRow: 0, maxRow: 2, minCol: 0, maxCol: 2 }, false ],
+            [ { row: 5, col: 4 }, { minRow: 0, maxRow: 2, minCol: 0, maxCol: 2 }, false ],
+            [ { row: 1, col: 3 }, { minRow: 0, maxRow: 2, minCol: 0, maxCol: 2 }, false ],
+            [ { row: 1, col: 3 }, { minRow: 5, maxRow: 7, minCol: 5, maxCol: 7 }, false ],
+            [ { row: 4, col: 4 }, { minRow: 5, maxRow: 7, minCol: 5, maxCol: 7 }, false ],
+        ])('%o in %o expect %o', (position, limits, expected) => {
+            const actual = isWithinLimits(position, limits);
             expect(actual).toBe(expected);
         });
     });

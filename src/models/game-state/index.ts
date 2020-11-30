@@ -81,7 +81,7 @@ function updateGameState(gs: GameState, pawnI: number, destination: Position): G
         const centerPawnI = getPawnIndexAtPosition(centerPos, pawns);
         if (centerPawnI >= 0) {
             const role = getRole(pawns[centerPawnI]);
-            if (role === Role.knight) {
+            if (role === Role.knight && !isGameOver({limits, pawns, player: gs.player})) {
                 pawns.splice(centerPawnI, 1);
             }
         }
