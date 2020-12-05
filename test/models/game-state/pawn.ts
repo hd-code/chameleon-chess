@@ -3,9 +3,9 @@ import { getMoves, getPawnIndexAtPosition, getRole, getRoleMapping, getStartPawn
 // -----------------------------------------------------------------------------
 
 describe('models/game-state/pawn', () => {
-    test.todo(getMoves.name);
-    test.todo(getPawnIndexAtPosition.name);
-    test.todo(getRole.name);
-    test.todo(getRoleMapping.name);
-    test.todo(getStartPawns.name);
+    it(getMoves.name);
+    it(getPawnIndexAtPosition.name);
+    it(getRole.name);
+    it(getRoleMapping.name);
+    it(getStartPawns.name);
 });

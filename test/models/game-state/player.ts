@@ -1,4 +1,5 @@
 import { arePlayersAlive, getNextPlayer } from 'models/game-state/player';
+import * as assert from 'assert';
 
 import { FieldColor, Pawn, Player } from 'models/game-state';
 
@@ -27,36 +28,74 @@ const allPawns = [ ...redPawns, ...greenPawns, ...yellowPawns, ...bluePawns ];
 
 describe('models/game-state/player', () => {
     describe(arePlayersAlive.name, () => {
-        test.each([
-            [ 'only red pawns', redPawns, { 0: true, 1: false, 2: false, 3: false } ],
-            [ 'only yellow pawns', yellowPawns, { 0: false, 1: false, 2: true, 3: false } ],
-            [ 'only blue pawns', bluePawns, { 0: false, 1: false, 2: false, 3: true } ],
-            [ 'red and green pawns', [...redPawns, ...greenPawns], { 0: true, 1: true, 2: false, 3: false } ],
-            [ 'red and yellow pawns', redYellowPawns, { 0: true, 1: false, 2: true, 3: false } ],
-            [ 'green and blue pawns', greenBluePawns, { 0: false, 1: true, 2: false, 3: true } ],
-            [ 'pawns of all', allPawns, { 0: true, 1: true, 2: true, 3: true } ],
-            [ 'no pawns', [], { 0: false, 1: false, 2: false, 3: false } ],
-        ])('%s', (_, pawns, expected) => {
-            const actual = arePlayersAlive(pawns);
-            expect(actual).toEqual(expected);
+        [{
+            name: 'only red pawns', pawns: redPawns,
+            expected: { 0: true, 1: false, 2: false, 3: false }
+        }, {
+            name: 'only yellow pawns', pawns: yellowPawns,
+            expected: { 0: false, 1: false, 2: true, 3: false }
+        }, {
+            name: 'only blue pawns', pawns: bluePawns,
+            expected: { 0: false, 1: false, 2: false, 3: true }
+        }, {
+            name: 'red and green pawns', pawns: [...redPawns, ...greenPawns],
+            expected: { 0: true, 1: true, 2: false, 3: false }
+        }, {
+            name: 'red and yellow pawns', pawns: redYellowPawns,
+            expected: { 0: true, 1: false, 2: true, 3: false }
+        }, {
+            name: 'green and blue pawns', pawns: greenBluePawns,
+            expected: { 0: false, 1: true, 2: false, 3: true }
+        }, {
+            name: 'pawns of all', pawns: allPawns,
+            expected: { 0: true, 1: true, 2: true, 3: true }
+        }, {
+            name: 'no pawns', pawns: [],
+            expected: { 0: false, 1: false, 2: false, 3: false }
+        }].forEach(({ name, pawns, expected }) => {
+            it(name, () => {
+                const actual = arePlayersAlive(pawns);
+                assert.deepStrictEqual(actual, expected);
+            });
         });
     });
 
     describe(getNextPlayer.name, () => {
-        test.each([
-            [ 'all pawns, now red, then blue', allPawns, Player.red, Player.blue ],
-            [ 'all pawns, now green, then red', allPawns, Player.green, Player.red ],
-            [ 'all pawns, now yellow, then green', allPawns, Player.yellow, Player.green ],
-            [ 'all pawns, now blue, then yellow', allPawns, Player.blue, Player.yellow ],
-            [ 'red and yellow pawns, now red, then yellow', redYellowPawns, Player.red, Player.yellow ],
-            [ 'red and yellow pawns, now yellow, then red', redYellowPawns, Player.yellow, Player.red ],
-            [ 'red and yellow pawns, now green, then red', redYellowPawns, Player.green, Player.red ],
-            [ 'red and yellow pawns, now blue, then yellow', redYellowPawns, Player.blue, Player.yellow ],
-            [ 'green and blue pawns, now blue, then green', greenBluePawns, Player.blue, Player.green ],
-            [ 'green and blue pawns, now red, then blue', greenBluePawns, Player.red, Player.blue ],
-        ])('%s', (_, pawns, current, expected) => {
-            const actual = getNextPlayer(current, pawns);
-            expect(actual).toBe(expected);
+        [{
+            name: 'all pawns, now red, then blue', pawns: allPawns,
+            current: Player.red, expected: Player.blue
+        }, {
+            name: 'all pawns, now green, then red', pawns: allPawns,
+            current: Player.green, expected: Player.red
+        }, {
+            name: 'all pawns, now yellow, then green', pawns: allPawns,
+            current: Player.yellow, expected: Player.green
+        }, {
+            name: 'all pawns, now blue, then yellow', pawns: allPawns,
+            current: Player.blue, expected: Player.yellow
+        }, {
+            name: 'red and yellow pawns, now red, then yellow', pawns: redYellowPawns,
+            current: Player.red, expected: Player.yellow
+        }, {
+            name: 'red and yellow pawns, now yellow, then red', pawns: redYellowPawns,
+            current: Player.yellow, expected: Player.red
+        }, {
+            name: 'red and yellow pawns, now green, then red', pawns: redYellowPawns,
+            current: Player.green, expected: Player.red
+        }, {
+            name: 'red and yellow pawns, now blue, then yellow', pawns: redYellowPawns,
+            current: Player.blue, expected: Player.yellow
+        }, {
+            name: 'green and blue pawns, now blue, then green', pawns: greenBluePawns,
+            current: Player.blue, expected: Player.green
+        }, {
+            name: 'green and blue pawns, now red, then blue', pawns: greenBluePawns,
+            current: Player.red, expected: Player.blue
+        }].forEach(({ name, pawns, current, expected }) => {
+            it(name, () => {
+                const actual = getNextPlayer(current, pawns);
+                assert.strictEqual(actual, expected);
+            });
         });
     });
 });

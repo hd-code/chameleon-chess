@@ -1,1 +1,1 @@
-test.todo('add test suite');
+it('models/game – add test suite');

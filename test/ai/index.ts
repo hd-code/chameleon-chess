@@ -1,23 +1,34 @@
 import { Difficulty, makeComputerMove } from 'ai';
+import * as assert from 'assert';
 
 import { GameState, getNextGameStates, getStartGameState } from 'models/game-state';
 
 // -----------------------------------------------------------------------------
 
-describe(makeComputerMove.name, () => {
-    test('should return one of the next game states', () => {
+const timeout = 9000;
+
+describe('ai/' + makeComputerMove.name, () => {
+    it('should return one of the next game states', () => {
         const gs = getStartGameState(true, true, true, true) as GameState;
         const nextGSs = getNextGameStates(gs);
         const calcedGS = makeComputerMove(gs);
-        expect(nextGSs).toContainEqual(calcedGS);
-    });
 
-    test('difficulty hard should return other game state then easy (3 tries)', () => {
+        let numOfMatchingStates = 0;
+        for (let i = 0, ie = nextGSs.length; i < ie; i++) {
+            try {
+                assert.deepStrictEqual(calcedGS, nextGSs[i]);
+                numOfMatchingStates += 1;
+            } catch (e) {} // eslint-disable-line no-empty
+        }
+        assert.strictEqual(numOfMatchingStates, 1);
+    }).timeout(timeout);
+
+    it('difficulty hard should return other game state then easy (3 tries)', () => {
         const gs = getStartGameState(true, true, true, true) as GameState;
         const gsHard = makeComputerMove(gs, Difficulty.hard);
         const execTest = () => {
             const gsEasy = makeComputerMove(gs, Difficulty.easy);
-            expect(gsHard).not.toEqual(gsEasy);
+            assert.notDeepStrictEqual(gsEasy, gsHard);
         };
 
         try {
@@ -29,5 +40,5 @@ describe(makeComputerMove.name, () => {
                 execTest();
             }
         }
-    });
+    }).timeout(timeout);
 });

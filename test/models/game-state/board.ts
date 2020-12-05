@@ -1,71 +1,91 @@
 import { FieldColor, getBoard, getFieldColor, isInPositions, isSamePosition, sortPositions } from 'models/game-state/board';
+import * as assert from 'assert';
 
 // -----------------------------------------------------------------------------
 
 describe('models/game-state/board', () => {
     describe(getFieldColor.name, () => {
-        test.each([
-            [ 0, 0, FieldColor.blue ],
-            [ 3, 2, FieldColor.green ],
-            [ 7, 0, FieldColor.red ],
-            [ 7, 1, FieldColor.green ],
-            [ 7, 2, FieldColor.yellow ],
-            [ 7, 3, FieldColor.blue ],
-        ])('row: %i, col: %i, expect: %s', (row, col, expected) => {
-            expect(getFieldColor({row,col})).toBe(expected);
+        [
+            { position: { row: 0, col: 0 }, expected: FieldColor.blue },
+            { position: { row: 3, col: 2 }, expected: FieldColor.green },
+            { position: { row: 7, col: 0 }, expected: FieldColor.red },
+            { position: { row: 7, col: 1 }, expected: FieldColor.green },
+            { position: { row: 7, col: 2 }, expected: FieldColor.yellow },
+            { position: { row: 7, col: 3 }, expected: FieldColor.blue },
+        ].forEach(({ position, expected }) => {
+            it(`${JSON.stringify(position)} => ${FieldColor[expected]}`, () => {
+                const actual = getFieldColor(position);
+                assert.strictEqual(actual, expected);
+            });
         });
     });
 
     describe(getBoard.name, () => {
         const board = getBoard();
-        test('should have 8 rows', () => expect(board).toHaveLength(8));
-        test('should have 8 columns', () => board.forEach(row => expect(row).toHaveLength(8)));
-        test('should only contain integers from 0 to 7', () => {
-            board.forEach(row => row.forEach(val => expect(val+'').toMatch(/[0-7]/)));
+        it('should have 8 rows', () => assert.strictEqual(board.length, 8));
+        it('should have 8 columns', () => board.forEach(row => assert.strictEqual(row.length, 8)));
+        it('should only contain integers from 0 to 7', () => {
+            const regex = /[0-7]/;
+            board.forEach(row => row.forEach(val => assert.ok(regex.test(val+''))));
         });
     });
 
     describe(isInPositions.name, () => {
-        test.each([
-            [ {row:0,col:0}, [{row:0,col:0},{row:1,col:1}], true ],
-            [ {row:1,col:1}, [{row:0,col:0},{row:1,col:1}], true ],
-            [ {row:1,col:0}, [{row:0,col:0},{row:1,col:1}], false ],
-            [ {row:6,col:4}, [], false ],
-            [ {row:2,col:5}, [{row:2,col:5}], true ],
-            [ {row:2,col:5}, [{row:2,col:4}], false ],
-            [ {row:2,col:5}, [{row:3,col:5}], false ],
-        ])('%o in %j, expect: %j', (position, positions, expected) => {
-            const actual = isInPositions(position, positions);
-            expect(actual).toBe(expected);
+        [
+            { position: {row:0,col:0}, positions: [{row:0,col:0},{row:1,col:1}], expected: true },
+            { position: {row:1,col:1}, positions: [{row:0,col:0},{row:1,col:1}], expected: true },
+            { position: {row:1,col:0}, positions: [{row:0,col:0},{row:1,col:1}], expected: false },
+            { position: {row:6,col:4}, positions: [], expected: false },
+            { position: {row:2,col:5}, positions: [{row:2,col:5}], expected: true },
+            { position: {row:2,col:5}, positions: [{row:2,col:4}], expected: false },
+            { position: {row:2,col:5}, positions: [{row:3,col:5}], expected: false },
+        ].forEach(({ position, positions, expected }) => {
+            it(`${JSON.stringify(position)} in ${JSON.stringify(positions)} => ${expected}`, () => {
+                const actual = isInPositions(position, positions);
+                assert.strictEqual(actual, expected);
+            });
         });
     });
 
     describe(isSamePosition.name, () => {
-        test.each([
-            [ { row: 0, col: 0 }, { row: 0, col: 0 }, true ],
-            [ { row: 3, col: 3 }, { row: 3, col: 3 }, true ],
-            [ { row: 6, col: 3 }, { row: 6, col: 3 }, true ],
-            [ { row: 6, col: 3 }, { row: 1, col: 1 }, false ],
-            [ { row: 6, col: 6 }, { row: 1, col: 1 }, false ],
-            [ { row: 5, col: 5 }, { row: 2, col: 3 }, false ],
-            [ { row: 5, col: 5 }, { row: 5, col: 3 }, false ],
-            [ { row: 1, col: 3 }, { row: 5, col: 3 }, false ],
-        ])('%o and %o, expect: %j', (position, positions, expected) => {
-            const actual = isSamePosition(position, positions);
-            expect(actual).toBe(expected);
+        [
+            { pos1: { row: 0, col: 0 }, pos2: { row: 0, col: 0 }, expected: true },
+            { pos1: { row: 3, col: 3 }, pos2: { row: 3, col: 3 }, expected: true },
+            { pos1: { row: 6, col: 3 }, pos2: { row: 6, col: 3 }, expected: true },
+            { pos1: { row: 6, col: 3 }, pos2: { row: 1, col: 1 }, expected: false },
+            { pos1: { row: 6, col: 6 }, pos2: { row: 1, col: 1 }, expected: false },
+            { pos1: { row: 5, col: 5 }, pos2: { row: 2, col: 3 }, expected: false },
+            { pos1: { row: 5, col: 5 }, pos2: { row: 5, col: 3 }, expected: false },
+            { pos1: { row: 1, col: 3 }, pos2: { row: 5, col: 3 }, expected: false },
+        ].forEach(({ pos1, pos2, expected }) => {
+            it(`${JSON.stringify(pos1)} and ${JSON.stringify(pos2)} => ${expected}`, () => {
+                const actual = isSamePosition(pos1, pos2);
+                assert.strictEqual(actual, expected);
+            });
         });
     });
 
     describe(sortPositions.name, () => {
-        test.each([
-            [ 'just one position', [{row:3,col:5}], [{row:3,col:5}] ],
-            [ 'two positions, rows not sorted', [{row:7,col:5},{row:3,col:5}], [{row:3,col:5},{row:7,col:5}] ],
-            [ 'two positions, rows sorted already', [{row:3,col:5},{row:7,col:5}], [{row:3,col:5},{row:7,col:5}] ],
-            [ 'two positions, rows are equal, cols not sorted', [{row:2,col:5},{row:2,col:3}], [{row:2,col:3},{row:2,col:5}] ],
-            [ 'two positions, rows are equal, cols sorted', [{row:2,col:3},{row:2,col:5}], [{row:2,col:3},{row:2,col:5}] ],
-        ])('%s', (_, input, expected) => {
-            input.sort(sortPositions);
-            expect(input).toEqual(expected);
+        [{
+            name: 'just one position',
+            input: [{row:3,col:5}], expected: [{row:3,col:5}]
+        }, {
+            name: 'two positions, rows not sorted',
+            input: [{row:7,col:5},{row:3,col:5}], expected: [{row:3,col:5},{row:7,col:5}]
+        }, {
+            name: 'two positions, rows sorted already',
+            input: [{row:3,col:5},{row:7,col:5}], expected: [{row:3,col:5},{row:7,col:5}]
+        }, {
+            name: 'two positions, rows are equal, cols not sorted',
+            input: [{row:2,col:5},{row:2,col:3}], expected: [{row:2,col:3},{row:2,col:5}]
+        }, {
+            name: 'two positions, rows are equal, cols sorted',
+            input: [{row:2,col:3},{row:2,col:5}], expected: [{row:2,col:3},{row:2,col:5}]
+        }].forEach(({name, input, expected}) => {
+            it(name, () => {
+                input.sort(sortPositions);
+                assert.deepStrictEqual(input, expected);
+            });
         });
     });
 });

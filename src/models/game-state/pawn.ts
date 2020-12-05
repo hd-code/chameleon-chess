@@ -148,7 +148,7 @@ function moveGenerator(direction: Position, pawnI: number, pawns: Pawn[], limits
     const result: Position[] = [];
     const currentPos: Position = { ...startingPos };
 
-    while (true) { // eslint-disable-line
+    while (true) { // eslint-disable-line no-constant-condition
         currentPos.row += direction.row;
         currentPos.col += direction.col;
         const moveType = getMoveType(currentPos, pawnI, pawns, limits);
