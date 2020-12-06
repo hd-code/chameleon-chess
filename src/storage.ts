@@ -1,7 +1,5 @@
-/**
- * An interface for accessing some kind of persistent storage. Objects can be
- * saved and retrieved under a specific key.
- */
+/** An interface for accessing some kind of persistent storage. Objects can be
+ * saved and retrieved under a specific key. */
 export default interface Storage {
     /** Removes anything stored under `key` from storage. The promise will only
      * reject, when the storage is unaccessible. If there is no value stored

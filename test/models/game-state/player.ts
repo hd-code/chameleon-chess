@@ -1,4 +1,4 @@
-import { arePlayersAlive, getNextPlayer } from 'models/game-state/player';
+import { arePlayersAlive, getNextPlayer, isPlayer } from 'models/game-state/player';
 import * as assert from 'assert';
 
 import { FieldColor, Pawn, Player } from 'models/game-state';
@@ -27,6 +27,28 @@ const greenBluePawns = [ ...greenPawns, ...bluePawns ];
 const allPawns = [ ...redPawns, ...greenPawns, ...yellowPawns, ...bluePawns ];
 
 describe('models/game-state/player', () => {
+    describe(isPlayer.name, () => {
+        [
+            { input: 0, expected: true },
+            { input: 1, expected: true },
+            { input: 2, expected: true },
+            { input: 3, expected: true },
+            { input: -1, expected: false },
+            { input: 4, expected: false },
+            { input: 0.5, expected: false },
+            { input: 2.3, expected: false },
+            { input: '0', expected: false },
+            { input: null, expected: false },
+            { input: [], expected: false },
+            { input: {}, expected: false },
+        ].forEach(({input, expected}) => {
+            it(`${JSON.stringify(input)} => ${expected}`, () => {
+                const actual = isPlayer(input);
+                assert.strictEqual(actual, expected);
+            });
+        });
+    });
+
     describe(arePlayersAlive.name, () => {
         [{
             name: 'only red pawns', pawns: redPawns,

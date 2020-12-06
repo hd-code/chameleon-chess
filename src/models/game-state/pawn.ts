@@ -1,17 +1,64 @@
-import { FieldColor, Position, getFieldColor, isSamePosition } from './board';
+import { hasKey, isInteger } from 'helper/type-guards';
+import { FieldColor, Position, getFieldColor, isSamePosition, isFieldColor, isPosition } from './board';
 import { Limits, isWithinLimits } from './limits';
-import { Player } from './player';
+import { isPlayer, Player } from './player';
 
 // -----------------------------------------------------------------------------
 
+/**
+ * An enum, which represents the four chess roles a pawn could have.
+ * - `knight`: 0
+ * - `queen`:  1
+ * - `bishop`: 2
+ * - `rook`:   3
+ */
 export enum Role { knight, queen, bishop, rook }
 
+/** TypeGuard for `Role` */
+export function isRole(role: any): role is Role {
+    return isInteger(role) && Role[role] !== undefined;
+}
+
+/**
+ * This data structure represents a pawn. Each player has four of these initially.
+ * 
+ * A pawn has the following properties:
+ * - `knightColor`: the field color, where this pawn has the role `knight` (see {@link Role})
+ * - `player`: the player this pawn belongs to (see {@link Player})
+ * - `position`: the current position of the pawn on the game board (see {@link Position})
+ * 
+ * The pawns are stored in the game state (see {@link GameState}). However, only
+ * alive pawns are stored there. So, if a pawn is beaten, it will be removed
+ * from that array. Therefore, pawns do **not** have an `alive`-flag or
+ * something similar.
+ */
 export interface Pawn {
+    /** the field color, where this pawn has the role `knight` */
     knightColor: FieldColor;
+    /** the player this pawn belongs to */
     player: Player;
+    /** the current position of the pawn on the game board */
     position: Position;
 }
 
+/** TypeGuard for `Pawn` */
+export function isPawn(pawn: any): pawn is Pawn {
+    return hasKey(pawn, 'knightColor', isFieldColor)
+        && hasKey(pawn, 'player', isPlayer)
+        && hasKey(pawn, 'position', isPosition);
+}
+
+/**
+ * Returns all the moves a pawn could do. Moves are an array of {@link Position}'s,
+ * which represent the fields this pawn could reach currently.
+ * 
+ * If an invalid index is given, this function returns an empty array.
+ * 
+ * @param pawnI the index of the pawn in `pawns`
+ * @param pawns an array of {@link Pawn}s
+ * @param limits the current limits of the game
+ * @returns an array of positions that the pawn could go to
+ */
 export function getMoves(pawnI: number, pawns: Pawn[], limits: Limits): Position[] {
     switch (getRole(pawns[pawnI])) {
     case Role.knight:
@@ -39,15 +86,20 @@ export function getPawnIndexAtPosition(position: Position, pawns: Pawn[]): numbe
     return -1;
 }
 
+/** Returns the role the pawn has on it's current field. */
 export function getRole(pawn: Pawn): Role {
     const fieldColor = getFieldColor(pawn.position);
     return mapKnightColorRoles[pawn.knightColor][fieldColor];
 }
 
+/** Returns an object that maps the four field colors to a corresponding chess
+ * role. This mapping is dependent on a pawns knight role. There four different
+ * mappings that can occur. */
 export function getRoleMapping(pawn: Pawn): {[color in FieldColor]: Role} {
     return {...mapKnightColorRoles[pawn.knightColor]};
 }
 
+/** Returns the initial pawns for a given player. */
 export function getStartPawns(player: Player): Pawn[] {
     return createPawns(player);
 }

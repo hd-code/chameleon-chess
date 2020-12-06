@@ -1,9 +1,31 @@
-import { FieldColor, getBoard, getFieldColor, isInPositions, isSamePosition, sortPositions } from 'models/game-state/board';
+import { FieldColor, getBoard, getFieldColor, isFieldColor, isInPositions, isPosition, isSamePosition, sortPositions } from 'models/game-state/board';
 import * as assert from 'assert';
 
 // -----------------------------------------------------------------------------
 
 describe('models/game-state/board', () => {
+    describe(isFieldColor.name, () => {
+        [
+            { input: 0, expected: true },
+            { input: 1, expected: true },
+            { input: 2, expected: true },
+            { input: 3, expected: true },
+            { input: -1, expected: false },
+            { input: 4, expected: false },
+            { input: 0.5, expected: false },
+            { input: 2.3, expected: false },
+            { input: '0', expected: false },
+            { input: null, expected: false },
+            { input: [], expected: false },
+            { input: {}, expected: false },
+        ].forEach(({input, expected}) => {
+            it(`${JSON.stringify(input)} => ${expected}`, () => {
+                const actual = isFieldColor(input);
+                assert.strictEqual(actual, expected);
+            });
+        });
+    });
+
     describe(getFieldColor.name, () => {
         [
             { position: { row: 0, col: 0 }, expected: FieldColor.blue },
@@ -27,6 +49,36 @@ describe('models/game-state/board', () => {
         it('should only contain integers from 0 to 7', () => {
             const regex = /[0-7]/;
             board.forEach(row => row.forEach(val => assert.ok(regex.test(val+''))));
+        });
+    });
+
+    describe(isPosition.name, () => {
+        [
+            { input: {row:0,col:0}, expected: true },
+            { input: {row:2,col:1}, expected: true },
+            { input: {row:5,col:2}, expected: true },
+            { input: {row:7,col:7}, expected: true },
+            { input: {row:6,col:3}, expected: true },
+            { input: {row:8,col:3}, expected: false },
+            { input: {row:7,col:9}, expected: false },
+            { input: {row:-2,col:4}, expected: false },
+            { input: {row:2,col:2.4}, expected: false },
+            { input: {row:.2,col:.8}, expected: false },
+            { input: {row:5}, expected: false },
+            { input: {col:3}, expected: false },
+            { input: 4, expected: false },
+            { input: -1, expected: false },
+            { input: 0.5, expected: false },
+            { input: 2.3, expected: false },
+            { input: '0', expected: false },
+            { input: null, expected: false },
+            { input: [], expected: false },
+            { input: {}, expected: false },
+        ].forEach(({input, expected}) => {
+            it(`${JSON.stringify(input)} => ${expected}`, () => {
+                const actual = isPosition(input);
+                assert.strictEqual(actual, expected);
+            });
         });
     });
 

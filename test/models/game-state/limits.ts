@@ -1,9 +1,40 @@
-import { getStartLimits, isSmallestLimits, isWithinLimits, updateLimits } from 'models/game-state/limits';
+import { getStartLimits, isLimits, isSmallestLimits, isWithinLimits, updateLimits } from 'models/game-state/limits';
 import * as assert from 'assert';
 
 // -----------------------------------------------------------------------------
 
 describe('models/game-state/limits', () => {
+    describe(isLimits.name, () => {
+        [
+            { input: { minRow: 0, maxRow: 7, minCol: 0, maxCol: 7 }, expected: true },
+            { input: { minRow: 0, maxRow: 5, minCol: 3, maxCol: 7 }, expected: true },
+            { input: { minRow: 3, maxRow: 6, minCol: 2, maxCol: 5 }, expected: true },
+            { input: { minRow: 2, maxRow: 4, minCol: 3, maxCol: 5 }, expected: true },
+            { input: { minRow: 0, maxRow: 2, minCol: 5, maxCol: 7 }, expected: true },
+            { input: { minRow: 0, maxRow: '7', minCol: 0, maxCol: 7 }, expected: false },
+            { input: { minRow: 0, maxRow: 7, minCol: '0', maxCol: 7 }, expected: false },
+            { input: { minRow: 0, maxRow: .5, minCol: 0, maxCol: 7 }, expected: false },
+            { input: { minRow: 0, maxRow: 7, minCol: -2, maxCol: 7 }, expected: false },
+            { input: { minRow: 0, maxRow: 7, minCol: 0, maxCol: 8 }, expected: false },
+            { input: { minRow: 3, maxRow: 4, minCol: 0, maxCol: 7 }, expected: false },
+            { input: { minRow: 4, maxRow: 2, minCol: 0, maxCol: 7 }, expected: false },
+            { input: { minRow: 0, maxRow: 7, minCol: 6, maxCol: 4 }, expected: false },
+            { input: -1, expected: false },
+            { input: 4, expected: false },
+            { input: 0.5, expected: false },
+            { input: 2.3, expected: false },
+            { input: '0', expected: false },
+            { input: null, expected: false },
+            { input: [], expected: false },
+            { input: {}, expected: false },
+        ].forEach(({input, expected}) => {
+            it(`${JSON.stringify(input)} => ${expected}`, () => {
+                const actual = isLimits(input);
+                assert.strictEqual(actual, expected);
+            });
+        });
+    });
+
     it(getStartLimits.name, () => {
         const expected = { minRow: 0, maxRow: 7, minCol: 0, maxCol: 7 };
         const actual = getStartLimits();

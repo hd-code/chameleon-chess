@@ -19,7 +19,8 @@ This repository contains the board game Chameleon Chess in several forms:
   - [ ] Testing für Logic fertigstellen
   - [ ] Snapshot Testing für Components einrichten
   - [ ] Settings definieren => Sound, Music, Language
-  - [ ] Documentation for Logic (TypeDoc) migrieren
+  - [x] Documentation for Logic (TypeDoc) migrieren
+  - [x] zusätzliche Documentation for Logic (TypeDoc) hinzufügen
 - [ ] WebApp:
   - [ ] Views:
     - [ ] Home (Protrait)

@@ -1,7 +1,8 @@
-import { Position, isInPositions } from './board';
-import { Limits, getStartLimits, isSmallestLimits, updateLimits } from './limits';
-import { Pawn, Role, getMoves, getPawnIndexAtPosition, getRole, getStartPawns } from './pawn';
-import { Player, getNextPlayer } from './player';
+import { hasKey, isArray } from 'helper/type-guards';
+import { Position, isInPositions, sortPositions, isSamePosition } from './board';
+import { Limits, getStartLimits, isSmallestLimits, updateLimits, isLimits, isWithinLimits } from './limits';
+import { Pawn, Role, getMoves, getPawnIndexAtPosition, getRole, getStartPawns, isPawn } from './pawn';
+import { arePlayersAlive, Player, getNextPlayer, isPlayer } from './player';
 
 // -----------------------------------------------------------------------------
 
@@ -12,12 +13,53 @@ export { arePlayersAlive, Player } from './player';
 
 // -----------------------------------------------------------------------------
 
+/**
+ * This is the main data structure for playing a game of chameleon chess.
+ * It represents the current state of the game with all needed information.
+ * 
+ * It holds the following properties:
+ * - `limits`: specify the current size of the game board (see {@link Limits})
+ * - `pawns`:  an array with all the pawns that are still in play/alive (see {@link Pawn})
+ * - `player`: the player who is currently on turn (see {@link Player})
+ * 
+ * All other information about the current game, can be derived from this game
+ * state object.
+ * 
+ * _Important_: Only living pawns are stored in the pawns array. If a pawn is
+ * beaten, it gets removed from that array.
+ */
 export interface GameState {
+    /** Specify the current size of the game board. */
     limits: Limits;
+    /** An array with all the pawns that are still in play (alive). */
     pawns: Pawn[];
-    player: number;
+    /** The player who is currently on turn. */
+    player: Player;
 }
 
+/**
+ * Type guard for `GameState`.
+ * 
+ * It checks all the keys and types of the object. It will also perform further
+ * checks to confirm the validity of the game state, that go beyond simple type
+ * checking.
+ * 
+ * E.g. if there are several pawns on the same field (which is not possible
+ * according to the game rules), this function will return false, as well.
+ */
+export function isGameState(gs: any): gs is GameState {
+    return hasKey(gs, 'limits', isLimits)
+        && hasKey(gs, 'pawns') && isArray(gs.pawns, isPawn)
+        && hasKey(gs, 'player', isPlayer)
+        && noPawnsOutsideOfLimits(gs)
+        && noPawnsOnSameField(gs)
+        && arePlayersAlive(gs.pawns)[gs.player];
+}
+
+/** This is for the AI. It returns all possible game states that could succeed
+ * the current one. Ergo, it returns the resulting game states for all moves
+ * that can be made in the current game state. The AI now has to choose
+ * intelligently, which game state to select to continue. */
 export function getNextGameStates(gs: GameState): GameState[] {
     const result = [];
     for (let i = 0, ie = gs.pawns.length; i < ie; i++) {
@@ -29,6 +71,24 @@ export function getNextGameStates(gs: GameState): GameState[] {
     return result;
 }
 
+/**
+ * Starts a new game and returns the corresponding game state.
+ * 
+ * Up to four players can play in a game. Players are linked to a color. So
+ * there is a red, green, yellow and a blue player. For each player a boolean
+ * is passed as a parameter to indicate if this player takes part in the game or
+ * not. (true means the player takes part in the game)
+ * 
+ * A minimum of two players are required for a game. If too few players were
+ * provided in the params, this function will return null as no game can be
+ * played anyway.
+ * 
+ * @param red    If set to true, the red    player takes part in this game.
+ * @param green  If set to true, the green  player takes part in this game.
+ * @param yellow If set to true, the yellow player takes part in this game.
+ * @param blue   If set to true, the blue   player takes part in this game.
+ * @returns the game state of the newly started game or null if there were less than two players
+ */
 export function getStartGameState(red: boolean, green: boolean, yellow: boolean, blue: boolean): GameState | null {
     const pawns = [];
     red && pawns.push(...getStartPawns(0));
@@ -46,6 +106,7 @@ export function getStartGameState(red: boolean, green: boolean, yellow: boolean,
     return { limits, pawns, player };
 }
 
+/** Returns true if the given game is already over, false if not. */
 export function isGameOver(gs: GameState): boolean {
     const player = gs.pawns[0]?.player;
     for (let i = 1, ie = gs.pawns.length; i < ie; i++) {
@@ -56,6 +117,20 @@ export function isGameOver(gs: GameState): boolean {
     return true;
 }
 
+/**
+ * Advances the game by one turn. It moves the pawn to the destination and
+ * returns the updated game state. If anything is wrong, it returns `null`.
+ * 
+ * Possible errors:
+ * - the game is already over
+ * - the pawn does not exist or does not belong to the player whose turn it is
+ * - destination is not reachable by the pawn
+ * 
+ * @param gs the current game state
+ * @param pawnI the index of the pawn to be moved in the array
+ * @param destination the position where the pawn should be moved to
+ * @returns the updated game state or null if the move could not be made
+ */
 export function makeMove(gs: GameState, pawnI: number, destination: Position): GameState | null {
     const moves = getMoves(pawnI, gs.pawns, gs.limits);
     if (!moves.length || !isInPositions(destination, moves)) {
@@ -66,7 +141,28 @@ export function makeMove(gs: GameState, pawnI: number, destination: Position): G
 
 // -----------------------------------------------------------------------------
 
-/** Not validity check! Just makes the move */
+function noPawnsOutsideOfLimits({pawns, limits}: GameState): boolean {
+    for (let i = 0, ie = pawns.length; i < ie; i++) {
+        if (!isWithinLimits(pawns[i].position, limits)) {
+            return false;
+        }
+    }
+    return true;
+}
+
+function noPawnsOnSameField({pawns}: GameState): boolean {
+    const positions = pawns.map(pawn => pawn.position);
+    positions.sort(sortPositions);
+
+    for (let i = 1, ie = positions.length; i < ie; i++) {
+        if (isSamePosition(positions[i-1], positions[i])) {
+            return false;
+        }
+    }
+    return true;
+}
+
+/** Not validity check! Just makes the move. */
 function updateGameState(gs: GameState, pawnI: number, destination: Position): GameState {
     const beatenPawnI = getPawnIndexAtPosition(destination, gs.pawns);
     const pawns = gs.pawns.map(pawn => ({...pawn})); // TODO: deep clone

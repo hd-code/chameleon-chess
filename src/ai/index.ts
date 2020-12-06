@@ -5,8 +5,13 @@ import { GameState, Player, getNextGameStates } from 'models/game-state';
 
 // -----------------------------------------------------------------------------
 
+/** An enum which represents different levels of difficulty for the computer
+ * opponent. */
 export enum Difficulty { easy, normal, hard }
 
+/** This function will do a computer move. The calculation takes around one
+ * second. A difficulty can be passed to specify how intelligently the computer
+ * will play. */
 export function makeComputerMove(gs: GameState, difficulty = Difficulty.easy): GameState {
     const nextGSs = getNextGameStates(gs);
 

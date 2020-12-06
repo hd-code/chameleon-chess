@@ -10,7 +10,7 @@ export function getZeroScore(): Score {
     return { 0: 0, 1: 0, 2: 0, 3: 0 };
 }
 
-/** Do not use this on zero vectors or scores with negative values!  */
+/** Do not use this on zero vectors or scores with negative values! */
 export function normalizeScore(score: Score): Score {
     const sum = sumScore(score);
     return {
