@@ -24,7 +24,8 @@ async function read<T>(key: string): Promise<T> {
         try {
             const data = localStorage.getItem(key);
             if (!data) {
-                throw 'No data in storage under key: ' + key;
+                resolve(null);
+                return;
             }
 
             const result = JSON.parse(data);

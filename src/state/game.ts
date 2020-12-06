@@ -16,7 +16,7 @@ export function useGame(storage: Storage): GameState {
     const [game, setGame] = useState(startGame);
 
     storage.read<Game>(storageKey)
-        .then(data => setGame(data))
+        .then(data => !!data && setGame(data))
         .catch(console.info);
 
     const makeMove = (pawnIndex: number, destination: Position) => {

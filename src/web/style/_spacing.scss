@@ -1,16 +1,16 @@
 $base: .25em;
 
-.p { padding: .5em }
-.pt { padding-top: .5em }
-.pb { padding-bottom: .5em }
-.pl { padding-left: .5em }
-.pr { padding-right: .5em }
+.p { padding: 2 * $base }
+.pt { padding-top: 2 * $base }
+.pb { padding-bottom: 2 * $base }
+.pl { padding-left: 2 * $base }
+.pr { padding-right: 2 * $base }
 
-.m { margin: .5em }
-.mt { margin-top: .5em }
-.mb { margin-bottom: .5em }
-.ml { margin-left: .5em }
-.mr { margin-right: .5em }
+.m { margin: 2 * $base }
+.mt { margin-top: 2 * $base }
+.mb { margin-bottom: 2 * $base }
+.ml { margin-left: 2 * $base }
+.mr { margin-right: 2 * $base }
 
 @for $i from 1 through 12 {
     .p-#{$i} { padding: $i * $base }

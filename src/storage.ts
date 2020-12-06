@@ -3,12 +3,13 @@
  * saved and retrieved under a specific key.
  */
 export default interface Storage {
-    /** Removes anything stored and `key` from storage. The promise will only
+    /** Removes anything stored under `key` from storage. The promise will only
      * reject, when the storage is unaccessible. If there is no value stored
      * for the key, the promise will resolve regardless.*/
     delete: (key: string) => Promise<void>;
-    /** Will return a stored value from the storage. Promise rejects if there is
-     * no value stored under the key or if the storage is unaccessible. */
+    /** Will return a stored value from the storage. Promise rejects only if the
+     * storage is unaccessible. If there is no value stored for the key, null is
+     * returned. */
     read: <T>(key: string) => Promise<T>;
     /** Will store an object in the storage under the given key. The object can
      * be passed as is. The promise will reject, if the value could not be
