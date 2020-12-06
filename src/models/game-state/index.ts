@@ -1,8 +1,8 @@
 import { hasKey, isArray } from 'helper/type-guards';
-import { Position, isInPositions, sortPositions, isSamePosition } from './board';
-import { Limits, getStartLimits, isSmallestLimits, updateLimits, isLimits, isWithinLimits } from './limits';
+import { Position, isInPositions, isSamePosition, sortPositions } from './board';
+import { Limits, getStartLimits, isLimits, isSmallestLimits, isWithinLimits, updateLimits } from './limits';
 import { Pawn, Role, getMoves, getPawnIndexAtPosition, getRole, getStartPawns, isPawn } from './pawn';
-import { arePlayersAlive, Player, getNextPlayer, isPlayer } from './player';
+import { Player, arePlayersAlive, getNextPlayer, isPlayer } from './player';
 
 // -----------------------------------------------------------------------------
 
@@ -47,13 +47,13 @@ export interface GameState {
  * E.g. if there are several pawns on the same field (which is not possible
  * according to the game rules), this function will return false, as well.
  */
-export function isGameState(gs: any): gs is GameState {
+export function isGameState(gs: unknown): gs is GameState {
     return hasKey(gs, 'limits', isLimits)
-        && hasKey(gs, 'pawns') && isArray(gs.pawns, isPawn)
+        && hasKey(gs, 'pawns') && isArray((gs as GameState).pawns, isPawn)
         && hasKey(gs, 'player', isPlayer)
-        && noPawnsOutsideOfLimits(gs)
-        && noPawnsOnSameField(gs)
-        && arePlayersAlive(gs.pawns)[gs.player];
+        && noPawnsOutsideOfLimits(gs as GameState)
+        && noPawnsOnSameField(gs as GameState)
+        && arePlayersAlive((gs as GameState).pawns)[(gs as GameState).player];
 }
 
 /** This is for the AI. It returns all possible game states that could succeed

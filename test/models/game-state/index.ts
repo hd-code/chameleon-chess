@@ -1,5 +1,4 @@
 import { getNextGameStates, getStartGameState, isGameOver, isGameState, makeMove } from 'models/game-state';
-import * as assert from 'assert';
 
 // -----------------------------------------------------------------------------
 

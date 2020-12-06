@@ -11,7 +11,7 @@ import { GameState } from 'state/game';
 
 export type BoardProps = GameState
 
-export default function Board(props: BoardProps) {
+export default function Board(props: BoardProps): JSX.Element {
     const [selectedPawnI, setSelected] = useState(-1);
 
     const gs = getCurrentGameState(props.game);

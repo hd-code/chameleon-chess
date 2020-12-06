@@ -9,7 +9,7 @@ import { GameState } from 'state/game';
 
 type GameProps = GameState
 
-export default function Game(props: GameProps) {
+export default function Game(props: GameProps): JSX.Element {
     return <div className=''>
         <Logo />
         <div className='w-95v'>

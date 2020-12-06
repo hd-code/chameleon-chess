@@ -1,7 +1,7 @@
 import { hasKey, isInteger } from 'helper/type-guards';
-import { FieldColor, Position, getFieldColor, isSamePosition, isFieldColor, isPosition } from './board';
+import { FieldColor, Position, getFieldColor, isFieldColor, isPosition, isSamePosition } from './board';
 import { Limits, isWithinLimits } from './limits';
-import { isPlayer, Player } from './player';
+import { Player, isPlayer } from './player';
 
 // -----------------------------------------------------------------------------
 
@@ -15,7 +15,7 @@ import { isPlayer, Player } from './player';
 export enum Role { knight, queen, bishop, rook }
 
 /** TypeGuard for `Role` */
-export function isRole(role: any): role is Role {
+export function isRole(role: unknown): role is Role {
     return isInteger(role) && Role[role] !== undefined;
 }
 
@@ -42,7 +42,7 @@ export interface Pawn {
 }
 
 /** TypeGuard for `Pawn` */
-export function isPawn(pawn: any): pawn is Pawn {
+export function isPawn(pawn: unknown): pawn is Pawn {
     return hasKey(pawn, 'knightColor', isFieldColor)
         && hasKey(pawn, 'player', isPlayer)
         && hasKey(pawn, 'position', isPosition);

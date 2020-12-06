@@ -5,13 +5,13 @@ import Storage from 'storage';
 // -----------------------------------------------------------------------------
 
 export interface SettingsState {
-    settings: any;
+    settings: unknown;
 }
 
 export function useSettings(storage: Storage): SettingsState {
     const [settings, setSettings] = useState(null);
 
-    storage.read<any>(storageKey)
+    storage.read<unknown>(storageKey)
         .then(data => !!data && setSettings(data))
         .catch(console.info);
 

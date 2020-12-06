@@ -1,4 +1,4 @@
-import { Role, getMoves, getPawnIndexAtPosition, getRole, getRoleMapping, getStartPawns, isRole, isPawn } from 'models/game-state/pawn';
+import { Role, getMoves, getPawnIndexAtPosition, getRole, getRoleMapping, getStartPawns, isPawn, isRole } from 'models/game-state/pawn';
 import * as assert from 'assert';
 
 import { FieldColor, GameState, Player, Position, getStartGameState } from 'models/game-state';

@@ -12,7 +12,7 @@ import { hasKey, isInteger } from 'helper/type-guards';
 export enum FieldColor { red, green, yellow, blue }
 
 /** TypeGuard for `FieldColor` */
-export function isFieldColor(color: any): color is FieldColor {
+export function isFieldColor(color: unknown): color is FieldColor {
     return isInteger(color) && FieldColor[color] !== undefined;
 }
 
@@ -55,7 +55,7 @@ export interface Position {
 }
 
 /** TypeGuard for `Position` */
-export function isPosition(position: any): position is Position {
+export function isPosition(position: any): position is Position { // eslint-disable no-explicit-any
     return hasKey(position, 'row', isInteger) && 0 <= position.row && position.row <= 7
         && hasKey(position, 'col', isInteger) && 0 <= position.col && position.col <= 7;
 }

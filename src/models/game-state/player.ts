@@ -13,7 +13,7 @@ import type { Pawn } from './pawn';
 export enum Player { red, green, yellow, blue }
 
 /** TypeGuard for `Player` */
-export function isPlayer(player: any): player is Player {
+export function isPlayer(player: unknown): player is Player {
     return isInteger(player) && Player[player] !== undefined;
 }
 

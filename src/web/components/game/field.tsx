@@ -11,7 +11,7 @@ export interface FieldProps {
     state: FieldState;
 }
 
-export default function Field(props: FieldProps) {
+export default function Field(props: FieldProps): JSX.Element {
     const colorClass = mapColorClass[props.color];
     const stateClass = mapStateClass[props.state];
     return <div className={'hw-12 border' + ' ' + colorClass + ' ' + stateClass}></div>;
