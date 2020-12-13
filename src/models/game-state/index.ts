@@ -63,6 +63,9 @@ export function isGameState(gs: unknown): gs is GameState {
 export function getNextGameStates(gs: GameState): GameState[] {
     const result = [];
     for (let i = 0, ie = gs.pawns.length; i < ie; i++) {
+        if (gs.pawns[i].player !== gs.player) {
+            continue;
+        }
         const moves = getMoves(i, gs.pawns, gs.limits);
         for (let j = 0, je = moves.length; j < je; j++) {
             result.push(updateGameState(gs, i, moves[j]));
