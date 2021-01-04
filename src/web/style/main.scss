@@ -3,6 +3,8 @@
 
 @import 'colors';
 @import 'flex';
-@import 'size';
 @import 'spacing';
 @import 'text';
+
+.absolute { position: absolute }
+.transition { transition: .5s }

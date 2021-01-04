@@ -25,3 +25,36 @@ $base: .25em;
     .mr-#{$i} { margin-right: $i * $base }
     .mt-#{$i} { margin-top: $i * $base }
 }
+
+.hw {
+    &-100 { height: 100%; width: 100% }
+    &-90 { height: 90%; width: 90% }
+    &-80 { height: 80%; width: 80% }
+    &-50 { height: 50%; width: 50% }
+    &-12 { height: 12.5%; width: 12.5% }
+}
+
+.w {
+    &-100 { width: 100% }
+    &-95v { width: 95vw }
+}
+
+@media (orientation: landscape) {
+    .w-95v { width: 95vh }
+}
+
+.mxw {
+    &-100vh { max-width: 100vh }
+    &\-20em { max-width: 20em }
+}
+
+.square {
+    height: 0;
+    overflow: hidden;
+    padding-bottom: 100%;
+    width: 100%;
+}
+
+.border { border: 1px solid currentColor }
+
+.rounded { border-radius: 10% }

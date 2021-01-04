@@ -3,7 +3,6 @@
     "jsx": "react-native",
     "noEmit": true
   },
-  "exclude": ["src/cli","src/web"],
   "extends": "./tsconfig.json",
-  "include": ["src"]
+  "include": ["src/app","src/core"]
 }

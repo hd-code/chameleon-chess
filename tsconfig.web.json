@@ -1,5 +1,4 @@
 {
-  "exclude": ["src/app","src/cli"],
   "extends": "./tsconfig.json",
-  "include": ["src"]
+  "include": ["src/core","src/web"]
 }
