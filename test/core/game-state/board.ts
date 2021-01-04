@@ -1,9 +1,9 @@
-import { FieldColor, getBoard, getFieldColor, isFieldColor, isInPositions, isPosition, isSamePosition, sortPositions } from 'models/game-state/board';
+import { FieldColor, getBoard, getFieldColor, isFieldColor, isInPositions, isPosition, isSamePosition, sortPositions } from 'core/game-state/board';
 import * as assert from 'assert';
 
 // -----------------------------------------------------------------------------
 
-describe('models/game-state/board', () => {
+describe('core/game-state/board', () => {
     describe(isFieldColor.name, () => {
         [
             { input: 0, expected: true },

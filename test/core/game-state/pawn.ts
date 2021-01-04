@@ -1,8 +1,8 @@
-import { Role, getMoves, getPawnIndexAtPosition, getRole, getRoleMapping, getStartPawns, isPawn, isRole } from 'models/game-state/pawn';
+import { Role, getMoves, getPawnIndexAtPosition, getRole, getRoleMapping, getStartPawns, isPawn, isRole } from 'core/game-state/pawn';
 import * as assert from 'assert';
 
-import { FieldColor, GameState, Player, Position, getStartGameState } from 'models/game-state';
-import { isSamePosition, sortPositions } from 'models/game-state/board';
+import { FieldColor, GameState, Player, Position, getStartGameState } from 'core/game-state';
+import { isSamePosition, sortPositions } from 'core/game-state/board';
 
 // -----------------------------------------------------------------------------
 
@@ -121,7 +121,7 @@ const queenMoves = <Position[]>[
     // { row: 0, col: 5 }, // outside of limits
 ];
 
-describe('models/game-state/pawn', () => {
+describe('core/game-state/pawn', () => {
     describe(isRole.name, () => {
         [
             { input: 0, expected: true },

@@ -1,7 +1,7 @@
-import { arePlayersAlive, getNextPlayer, isPlayer } from 'models/game-state/player';
+import { arePlayersAlive, getNextPlayer, isPlayer } from 'core/game-state/player';
 import * as assert from 'assert';
 
-import { FieldColor, Pawn, Player } from 'models/game-state';
+import { FieldColor, Pawn, Player } from 'core/game-state';
 
 // -----------------------------------------------------------------------------
 
@@ -26,7 +26,7 @@ const redYellowPawns = [ ...redPawns, ...yellowPawns ];
 const greenBluePawns = [ ...greenPawns, ...bluePawns ];
 const allPawns = [ ...redPawns, ...greenPawns, ...yellowPawns, ...bluePawns ];
 
-describe('models/game-state/player', () => {
+describe('core/game-state/player', () => {
     describe(isPlayer.name, () => {
         [
             { input: 0, expected: true },

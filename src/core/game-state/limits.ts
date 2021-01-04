@@ -1,4 +1,4 @@
-import { hasKey, isInteger } from 'helper/type-guards';
+import { hasKey, isInteger } from 'core/type-guards';
 import type { Position } from './board';
 import type { Pawn } from './pawn';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { FieldColor } from 'models/game-state';
+import { FieldColor } from 'core/game-state';
 
 // -----------------------------------------------------------------------------
 

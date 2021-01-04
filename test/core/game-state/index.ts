@@ -1,4 +1,4 @@
-import { GameState, getNextGameStates, getStartGameState, isGameOver, isGameState, makeMove, Player, Position } from 'models/game-state';
+import { GameState, getNextGameStates, getStartGameState, isGameOver, isGameState, makeMove, Player, Position } from 'core/game-state';
 import * as assert from 'assert';
 
 // -----------------------------------------------------------------------------
@@ -284,7 +284,7 @@ const testMoves: { [name: string]: Move } = {
 
 // -----------------------------------------------------------------------------
 
-describe('models/game-state', () => {
+describe('core/game-state', () => {
     it(isGameState.name);
 
     describe(getNextGameStates.name, () => {

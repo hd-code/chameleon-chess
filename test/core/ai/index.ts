@@ -1,13 +1,13 @@
-import { Difficulty, makeComputerMove } from 'ai';
+import { Difficulty, makeComputerMove } from 'core/ai';
 import * as assert from 'assert';
 
-import { GameState, getNextGameStates, getStartGameState } from 'models/game-state';
+import { GameState, getNextGameStates, getStartGameState } from 'core/game-state';
 
 // -----------------------------------------------------------------------------
 
 const timeout = 9000;
 
-describe('ai/' + makeComputerMove.name, () => {
+describe('core/ai/' + makeComputerMove.name, () => {
     it('should return one of the next game states', () => {
         const gs = getStartGameState(true, true, true, true) as GameState;
         const nextGSs = getNextGameStates(gs);

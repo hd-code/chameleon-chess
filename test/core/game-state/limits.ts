@@ -1,9 +1,9 @@
-import { getStartLimits, isLimits, isSmallestLimits, isWithinLimits, updateLimits } from 'models/game-state/limits';
+import { getStartLimits, isLimits, isSmallestLimits, isWithinLimits, updateLimits } from 'core/game-state/limits';
 import * as assert from 'assert';
 
 // -----------------------------------------------------------------------------
 
-describe('models/game-state/limits', () => {
+describe('core/game-state/limits', () => {
     describe(isLimits.name, () => {
         [
             { input: { minRow: 0, maxRow: 7, minCol: 0, maxCol: 7 }, expected: true },

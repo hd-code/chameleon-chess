@@ -2,9 +2,8 @@ import React from 'react';
 
 import Logo from '../shared/logo';
 
-import { isGameOver } from 'models/game';
-import { GameState } from 'state/game';
-import { View, ViewState } from 'state/view';
+import { GameState, isGameOver } from 'core/game';
+import { View, ViewState } from 'core/view';
 
 // -----------------------------------------------------------------------------
 

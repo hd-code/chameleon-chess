@@ -1,11 +1,11 @@
-import { maxNIS } from 'ai/max-n-is';
+import { maxNIS } from 'core/ai/max-n-is';
 import * as assert from 'assert';
 
-import { GameState, getStartGameState } from 'models/game-state';
+import { GameState, getStartGameState } from 'core/game-state';
 
 // -----------------------------------------------------------------------------
 
-describe(maxNIS.name, () => {
+describe('core/ai/' + maxNIS.name, () => {
     it('should return equal score for all players on start game state', () => {
         const expected = { 0:.25, 1:.25, 2:.25, 3:.25 };
         const gs = getStartGameState(true, true, true, true) as GameState;

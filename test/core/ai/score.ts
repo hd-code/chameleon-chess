@@ -1,9 +1,9 @@
-import { getZeroScore, normalizeScore } from 'ai/score';
+import { getZeroScore, normalizeScore } from 'core/ai/score';
 import * as assert from 'assert';
 
 // -----------------------------------------------------------------------------
 
-describe('ai/score', () => {
+describe('core/ai/score', () => {
     it(getZeroScore.name, () => {
         const expected = { 0:0, 1:0, 2:0, 3:0 };
         const actual = getZeroScore();

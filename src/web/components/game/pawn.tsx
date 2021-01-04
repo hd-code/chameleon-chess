@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { FieldColor, Pawn, Role, getRoleMapping } from 'models/game-state';
+import { FieldColor, Pawn, Role, getRoleMapping } from 'core/game-state';
 import { imgDir } from 'web/constants';
 
 // -----------------------------------------------------------------------------

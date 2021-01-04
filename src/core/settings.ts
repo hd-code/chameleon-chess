@@ -1,11 +1,17 @@
 import { useState } from 'react';
 
-import Storage from 'storage';
+import Storage from './storage';
+
+// -----------------------------------------------------------------------------
+
+export interface Settings {
+
+}
 
 // -----------------------------------------------------------------------------
 
 export interface SettingsState {
-    settings: unknown;
+    settings: Settings;
 }
 
 export function useSettings(storage: Storage): SettingsState {

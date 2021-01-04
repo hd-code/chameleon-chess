@@ -1,7 +1,7 @@
 import { maxNIS } from './max-n-is';
 import { Score, maxScore } from './score';
 
-import { GameState, Player, getNextGameStates } from 'models/game-state';
+import { GameState, Player, getNextGameStates } from 'core/game-state';
 
 // -----------------------------------------------------------------------------
 

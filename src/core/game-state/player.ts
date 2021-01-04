@@ -1,4 +1,4 @@
-import { isInteger } from 'helper/type-guards';
+import { isInteger } from 'core/type-guards';
 import type { Pawn } from './pawn';
 
 // -----------------------------------------------------------------------------

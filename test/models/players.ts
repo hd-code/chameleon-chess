@@ -1,1 +1,0 @@
-it('models/player – add test suite');

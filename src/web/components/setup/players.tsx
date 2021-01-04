@@ -2,8 +2,8 @@ import React from 'react';
 
 import Player from './player';
 
-import { Player as PlayerModel } from 'models/game-state';
-import { Players as PlayersModel } from 'models/players';
+import { Player as PlayerModel } from 'core/game-state';
+import { Players as PlayersModel } from 'core/players';
 
 // -----------------------------------------------------------------------------
 

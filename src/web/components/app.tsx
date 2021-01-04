@@ -6,10 +6,11 @@ import Home from './home';
 import Setup from './setup';
 import Settings from './settings';
 
-import { useGame } from 'state/game';
-import { useSettings } from 'state/settings';
-import { View, useView } from 'state/view';
 import WebStorage from 'web/storage';
+
+import { useGame } from 'core/game';
+import { useSettings } from 'core/settings';
+import { View, useView } from 'core/view';
 
 // -----------------------------------------------------------------------------
 
@@ -17,6 +18,8 @@ export default function App(): JSX.Element {
     const gameState = useGame(WebStorage);
     const settingsState = useSettings(WebStorage);
     const viewState = useView();
+
+    const states = { ...gameState, ...viewState };
 
     return <div className='hw-100 flex center middle'>{loadView()}</div>;
 
@@ -26,10 +29,10 @@ export default function App(): JSX.Element {
             return <About />;
 
         case View.game:
-            return <Game {...gameState} />;
+            return <Game {...states} />;
 
         case View.home:
-            return <Home {...{...gameState, ...viewState}} />;
+            return <Home {...states} />;
 
         case View.setup:
             return <Setup game={gameState.game} />;

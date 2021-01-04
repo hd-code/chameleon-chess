@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { Player as PlayerColor } from 'models/game-state';
-import { PlayerType } from 'models/players';
+import { Player as PlayerColor } from 'core/game-state';
+import { PlayerType } from 'core/players';
 import { imgDir } from 'web/constants';
 
 // -----------------------------------------------------------------------------

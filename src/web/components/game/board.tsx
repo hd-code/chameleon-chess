@@ -3,9 +3,8 @@ import React, { useState } from 'react';
 import Field, { FieldProps, FieldState } from './field';
 import Pawn from './pawn';
 
-import * as GS from 'models/game-state';
-import { getCurrentGameState } from 'models/game';
-import { GameState } from 'state/game';
+import * as GS from 'core/game-state';
+import { GameState, getCurrentGameState } from 'core/game';
 
 // -----------------------------------------------------------------------------
 

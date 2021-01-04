@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 
 import Players from './players';
 
-import { Game } from 'models/game';
-import { nextPlayersType } from 'models/players';
-import { Player } from 'models/game-state';
+import { Game } from 'core/game';
+import { Player } from 'core/game-state';
+import { nextPlayersType } from 'core/players';
 
 // -----------------------------------------------------------------------------
 
