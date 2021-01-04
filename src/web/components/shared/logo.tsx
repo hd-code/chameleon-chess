@@ -1,8 +1,10 @@
-import React, { HTMLAttributes } from 'react';
+import React from 'react';
 
 // -----------------------------------------------------------------------------
 
-export type LogoProps = HTMLAttributes<unknown>
+type DivAttributes = React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
+
+interface LogoProps extends DivAttributes {}
 
 export default function Logo(props: LogoProps): JSX.Element {
     const {className, ...rest} = props;

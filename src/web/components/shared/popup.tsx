@@ -2,7 +2,7 @@ import React from 'react';
 
 // -----------------------------------------------------------------------------
 
-export interface PopupProps {
+interface PopupProps {
     children?: JSX.Element;
     onClose?: () => void;
 }

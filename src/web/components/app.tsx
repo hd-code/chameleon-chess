@@ -6,6 +6,8 @@ import Home from './home';
 import Setup from './setup';
 import Settings from './settings';
 
+import ARBox from './shared/aspect-ratio-box';
+
 import WebStorage from 'web/storage';
 
 import { useGame } from 'core/game';
@@ -21,7 +23,12 @@ export default function App(): JSX.Element {
 
     const states = { ...gameState, ...viewState };
 
-    return <div className='hw-100 flex center middle'>{loadView()}</div>;
+    return <div className='hw-100 flex center middle'>
+        <ARBox aspectRatio={1}>
+            <p>geht!</p>
+        </ARBox>
+        {/* {loadView()} */}
+    </div>;
 
     function loadView() {
         switch (viewState.view) {

@@ -5,7 +5,7 @@ import { imgDir } from 'web/constants';
 
 // -----------------------------------------------------------------------------
 
-export interface PawnProps extends Pawn {
+interface PawnProps extends Pawn {
     key?: string;
     selected: boolean;
 }

@@ -135,10 +135,15 @@ export function isGameOver(gs: GameState): boolean {
  * @returns the updated game state or null if the move could not be made
  */
 export function makeMove(gs: GameState, pawnI: number, destination: Position): GameState | null {
+    if (gs.player !== gs.pawns[pawnI]?.player) {
+        return null;
+    }
+
     const moves = getMoves(pawnI, gs.pawns, gs.limits);
     if (!moves.length || !isInPositions(destination, moves)) {
         return null;
     }
+
     return updateGameState(gs, pawnI, destination);
 }
 

@@ -8,7 +8,7 @@ import { GameState, getCurrentGameState } from 'core/game';
 
 // -----------------------------------------------------------------------------
 
-export type BoardProps = GameState
+interface BoardProps extends GameState {}
 
 export default function Board(props: BoardProps): JSX.Element {
     const [selectedPawnI, setSelected] = useState(-1);
@@ -21,8 +21,16 @@ export default function Board(props: BoardProps): JSX.Element {
     const onClick = (event: React.MouseEvent) => {
         const clickPos = getClickPosition(event);
         const clickedPawnI = GS.getPawnIndexAtPosition(clickPos, gs.pawns);
-        clickedPawnI !== -1 && setSelected(clickedPawnI);
-        selectedPawnI !== -1 && props.makeMove(selectedPawnI, clickPos) && setSelected(-1);
+        
+        if (selectedPawnI !== -1) {
+            const madeMove = props.makeMove(selectedPawnI, clickPos);
+            if (madeMove) {
+                setSelected(-1);
+                return;
+            }
+        }
+
+        setSelected(clickedPawnI);
     };
 
     props.onNextTurn();
