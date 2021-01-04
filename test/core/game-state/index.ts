@@ -1,4 +1,4 @@
-import { GameState, getNextGameStates, getStartGameState, isGameOver, isGameState, makeMove, Player, Position } from 'core/game-state';
+import { GameState, Player, Position, getNextGameStates, getStartGameState, isGameOver, isGameState, makeMove } from 'core/game-state';
 import * as assert from 'assert';
 
 // -----------------------------------------------------------------------------
@@ -322,7 +322,7 @@ describe('core/game-state', () => {
             gs: {
                 ...testMoves.normalMove.gameState,
                 pawns: testMoves.normalMove.gameState.pawns.filter(pawn => pawn.player === Player.blue),
-            }, 
+            },
         }, {
             name: 'no pawns', expected: true,
             gs: { ...testMoves.normalMove.gameState, pawns: [] },

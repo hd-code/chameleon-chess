@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import * as GS from './game-state';
-import { Players, PlayerType } from './players';
+import { PlayerType, Players } from './players';
 import Storage from './storage';
 
 // -----------------------------------------------------------------------------
