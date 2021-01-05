@@ -23,7 +23,7 @@ describe('core/ai/' + makeComputerMove.name, () => {
         assert.strictEqual(numOfMatchingStates, 1);
     }).timeout(timeout);
 
-    it('difficulty hard should return other game state then easy (3 tries)', () => {
+    it('difficulty hard should not return the same game state as easy (3 tries)', () => {
         const gs = getStartGameState(true, true, true, true) as GameState;
         const gsHard = makeComputerMove(gs, Difficulty.hard);
         const execTest = () => {

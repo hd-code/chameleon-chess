@@ -59,23 +59,12 @@ function updateScores(nextGSs: GameState[], scores: Score[], player: Player): vo
 
 // -----------------------------------------------------------------------------
 
-interface IndexScore {
-    index: number;
-    score: number; // players score
-}
-
-function sortIndexScore(a: IndexScore, b: IndexScore): number {
-    return b.score - a.score;
-}
-
-// -----------------------------------------------------------------------------
-
-/** If the random number is below the chance, the current score (which is the
- * better one) will be taken. If random number is above, the next (worse) score
- * will be considered. */
-const mapDifficultyChanceForLowerMove = {
-    [Difficulty.easy]: 0.8,
-    [Difficulty.normal]: 0.5,
+/** The move is chosen randomly from a list of the best moves. The range
+ * specifies how, many entries will be in the list. The longer the list is, the
+ * more of the worse moves will be in the list. */
+const mapDifficultyToRangeOfMoves = {
+    [Difficulty.easy]: 0.5,
+    [Difficulty.normal]: 0.25,
     [Difficulty.hard]: 0,
 };
 
@@ -83,14 +72,19 @@ function selectMove(player: Player, scores: Score[], difficulty: Difficulty): nu
     const indexScores = scores.map((score, index) => ({index, score: score[player]}));
     indexScores.sort(sortIndexScore);
 
-    const chanceToTakeLowerScore = mapDifficultyChanceForLowerMove[difficulty];
+    const rangeOfMoves = mapDifficultyToRangeOfMoves[difficulty] * scores.length;
+    const selectedI = Math.floor(Math.random() * rangeOfMoves);
 
-    let selectedI = 0;
-    while (chanceToTakeLowerScore > Math.random()) {
-        selectedI++;
-        if (selectedI >= indexScores.length) {
-            selectedI = 0;
-        }
-    }
     return indexScores[selectedI].index;
+}
+
+// -----------------------------------------------------------------------------
+
+interface IndexScore {
+    index: number;
+    score: number; // players score
+}
+
+function sortIndexScore(a: IndexScore, b: IndexScore): number {
+    return b.score - a.score;
 }
