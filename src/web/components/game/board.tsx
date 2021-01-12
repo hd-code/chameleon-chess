@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 
 import Field, { FieldProps, FieldState } from './field';
 import Pawn from './pawn';
@@ -10,7 +10,7 @@ import { GameState, getCurrentGameState } from 'core/game';
 
 interface BoardProps extends GameState {}
 
-export default function Board(props: BoardProps): JSX.Element {
+const component: FC<BoardProps> = (props) => {
     const [selectedPawnI, setSelected] = useState(-1);
 
     const gs = getCurrentGameState(props.game);
@@ -21,7 +21,7 @@ export default function Board(props: BoardProps): JSX.Element {
     const onClick = (event: React.MouseEvent) => {
         const clickPos = getClickPosition(event);
         const clickedPawnI = GS.getPawnIndexAtPosition(clickPos, gs.pawns);
-        
+
         if (selectedPawnI !== -1) {
             const madeMove = props.makeMove(selectedPawnI, clickPos);
             if (madeMove) {
@@ -42,10 +42,13 @@ export default function Board(props: BoardProps): JSX.Element {
         </div>
         <div className='overlay' onClick={onClick}></div>
     </div>;
-}
+};
+
+export default component;
 
 // -----------------------------------------------------------------------------
 
+/* eslint-disable */
 const fieldColors = GS.getBoard();
 
 function makeFields(gs: GS.GameState, pawnIndex: number): FieldProps[] {
@@ -54,7 +57,8 @@ function makeFields(gs: GS.GameState, pawnIndex: number): FieldProps[] {
         for (let j = 0, je = fieldColors[i].length; j < je; j++) {
             result.push({
                 color: fieldColors[i][j],
-                state: GS.isWithinLimits({row: i, col: j}, gs.limits) ? FieldState.normal : FieldState.disabled
+                state: GS.isWithinLimits({row: i, col: j}, gs.limits)
+                    ? FieldState.normal : FieldState.disabled,
             });
         }
     }
@@ -66,6 +70,7 @@ function makeFields(gs: GS.GameState, pawnIndex: number): FieldProps[] {
 
     return result;
 }
+/* eslint-enable */
 
 // -----------------------------------------------------------------------------
 
@@ -85,5 +90,5 @@ function calcRelativeClickPosition(event: React.MouseEvent): { x: number, y: num
 // -----------------------------------------------------------------------------
 
 function getPawnKey({player, knightColor}: GS.Pawn): string {
-    return player + '' + knightColor;
+    return `${player}${knightColor}`;
 }

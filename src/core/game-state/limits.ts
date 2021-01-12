@@ -31,7 +31,7 @@ export interface Limits {
 }
 
 /** TypeGuard for `Limits` */
-export function isLimits(limits: any): limits is Limits {
+export function isLimits(limits: unknown): limits is Limits {
     return hasKey(limits, 'minRow', isInteger) && 0 <= limits.minRow && limits.minRow <= 7
         && hasKey(limits, 'maxRow', isInteger) && 0 <= limits.maxRow && limits.maxRow <= 7
         && limits.maxRow - limits.minRow >= MIN_DIFF_BETWEEN_MIN_MAX

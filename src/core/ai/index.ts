@@ -7,7 +7,9 @@ import { GameState, Player, getNextGameStates } from 'core/game-state';
 
 /** An enum which represents different levels of difficulty for the computer
  * opponent. */
-export enum Difficulty { easy, normal, hard }
+export enum Difficulty {
+    easy, normal, hard,
+}
 
 /** This function will do a computer move. The calculation takes around one
  * second. A difficulty can be passed to specify how intelligently the computer

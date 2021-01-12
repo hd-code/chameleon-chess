@@ -10,7 +10,9 @@ import type { Pawn } from './pawn';
  * - `yellow`: 2
  * - `blue`:   3
  */
-export enum Player { red, green, yellow, blue }
+export enum Player {
+    red, green, yellow, blue,
+}
 
 /** TypeGuard for `Player` */
 export function isPlayer(player: unknown): player is Player {

@@ -1,21 +1,25 @@
-import React from 'react';
+import React, { FC }from 'react';
 
 import { FieldColor } from 'core/game-state';
 
 // -----------------------------------------------------------------------------
 
-export enum FieldState { normal, disabled, marked }
+export enum FieldState {
+    normal, disabled, marked,
+}
 
 export interface FieldProps {
     color: FieldColor;
     state: FieldState;
 }
 
-export default function Field(props: FieldProps): JSX.Element {
+const component: FC<FieldProps> = (props) => {
     const colorClass = mapColorClass[props.color];
     const stateClass = mapStateClass[props.state];
     return <div className={'hw-12 border' + ' ' + colorClass + ' ' + stateClass}></div>;
-}
+};
+
+export default component;
 
 // -----------------------------------------------------------------------------
 

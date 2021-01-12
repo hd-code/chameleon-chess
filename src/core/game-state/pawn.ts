@@ -12,7 +12,9 @@ import { Player, isPlayer } from './player';
  * - `bishop`: 2
  * - `rook`:   3
  */
-export enum Role { knight, queen, bishop, rook }
+export enum Role {
+    knight, queen, bishop, rook,
+}
 
 /** TypeGuard for `Role` */
 export function isRole(role: unknown): role is Role {
@@ -61,18 +63,18 @@ export function isPawn(pawn: unknown): pawn is Pawn {
  */
 export function getMoves(pawnI: number, pawns: Pawn[], limits: Limits): Position[] {
     switch (getRole(pawns[pawnI])) {
-    case Role.knight:
-        return getKnightMoves(pawnI, pawns, limits);
+        case Role.knight:
+            return getKnightMoves(pawnI, pawns, limits);
 
-    case Role.queen:
-        return getBishopMoves(pawnI, pawns, limits)
-            .concat(getRookMoves(pawnI, pawns, limits));
+        case Role.queen:
+            return getBishopMoves(pawnI, pawns, limits)
+                .concat(getRookMoves(pawnI, pawns, limits));
 
-    case Role.bishop:
-        return getBishopMoves(pawnI, pawns, limits);
+        case Role.bishop:
+            return getBishopMoves(pawnI, pawns, limits);
 
-    case Role.rook:
-        return getRookMoves(pawnI, pawns, limits);
+        case Role.rook:
+            return getRookMoves(pawnI, pawns, limits);
     }
 }
 
@@ -117,30 +119,30 @@ const mapKnightColorRoles = {
 
 function createPawns(player: Player): Pawn[] {
     switch (player) {
-    case Player.red: return [
-        createPawn(player, 7, 0, FieldColor.red),
-        createPawn(player, 7, 1, FieldColor.green),
-        createPawn(player, 7, 2, FieldColor.yellow),
-        createPawn(player, 7, 3, FieldColor.blue),
-    ];
-    case Player.green: return [
-        createPawn(player, 7, 7, FieldColor.green),
-        createPawn(player, 6, 7, FieldColor.yellow),
-        createPawn(player, 5, 7, FieldColor.blue),
-        createPawn(player, 4, 7, FieldColor.red),
-    ];
-    case Player.yellow: return [
-        createPawn(player, 0, 7, FieldColor.yellow),
-        createPawn(player, 0, 6, FieldColor.blue),
-        createPawn(player, 0, 5, FieldColor.red),
-        createPawn(player, 0, 4, FieldColor.green),
-    ];
-    case Player.blue: return [
-        createPawn(player, 0, 0, FieldColor.blue),
-        createPawn(player, 1, 0, FieldColor.red),
-        createPawn(player, 2, 0, FieldColor.green),
-        createPawn(player, 3, 0, FieldColor.yellow),
-    ];
+        case Player.red: return [
+            createPawn(player, 7, 0, FieldColor.red),
+            createPawn(player, 7, 1, FieldColor.green),
+            createPawn(player, 7, 2, FieldColor.yellow),
+            createPawn(player, 7, 3, FieldColor.blue),
+        ];
+        case Player.green: return [
+            createPawn(player, 7, 7, FieldColor.green),
+            createPawn(player, 6, 7, FieldColor.yellow),
+            createPawn(player, 5, 7, FieldColor.blue),
+            createPawn(player, 4, 7, FieldColor.red),
+        ];
+        case Player.yellow: return [
+            createPawn(player, 0, 7, FieldColor.yellow),
+            createPawn(player, 0, 6, FieldColor.blue),
+            createPawn(player, 0, 5, FieldColor.red),
+            createPawn(player, 0, 4, FieldColor.green),
+        ];
+        case Player.blue: return [
+            createPawn(player, 0, 0, FieldColor.blue),
+            createPawn(player, 1, 0, FieldColor.red),
+            createPawn(player, 2, 0, FieldColor.green),
+            createPawn(player, 3, 0, FieldColor.yellow),
+        ];
     }
 }
 
@@ -162,7 +164,7 @@ function getKnightMoves(pawnI: number, pawns: Pawn[], limits: Limits): Position[
 
     const result = offsets.map(offset => ({
         row: currentPos.row + offset.row,
-        col: currentPos.col + offset.col
+        col: currentPos.col + offset.col,
     }));
 
     // only return move if it is not INVALID
@@ -206,12 +208,12 @@ function moveGenerator(direction: Position, pawnI: number, pawns: Pawn[], limits
         const moveType = getMoveType(currentPos, pawnI, pawns, limits);
 
         // don't add move if it's invalid
-        if (moveType !== MoveType.INVALID) {
+        if (moveType !== MoveType.invalid) {
             result.push({...currentPos});
         }
 
         // stop generator if invalid or beating was encountered
-        if (moveType !== MoveType.NORMAL) {
+        if (moveType !== MoveType.normal) {
             break;
         }
     }
@@ -221,23 +223,25 @@ function moveGenerator(direction: Position, pawnI: number, pawns: Pawn[], limits
 
 // -----------------------------------------------------------------------------
 
-enum MoveType { INVALID, NORMAL, BEATING }
+enum MoveType {
+    invalid, normal, beating,
+}
 
 function getMoveType(destination: Position, pawnI: number, pawns: Pawn[], limits: Limits): MoveType {
     const pawnToMove = pawns[pawnI];
     const pawnOnField = pawns[getPawnIndexAtPosition(destination, pawns)];
 
     if (!isWithinLimits(destination, limits)) {
-        return MoveType.INVALID;
+        return MoveType.invalid;
     }
 
     if (!pawnOnField) {
-        return MoveType.NORMAL;
+        return MoveType.normal;
     }
 
     if (pawnOnField.player !== pawnToMove.player) { // pawns from two different players
-        return MoveType.BEATING;
+        return MoveType.beating;
     }
 
-    return MoveType.INVALID;
+    return MoveType.invalid;
 }

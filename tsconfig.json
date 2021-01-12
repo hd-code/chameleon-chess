@@ -1,12 +1,10 @@
 {
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
-    "alwaysStrict": true,
     "baseUrl": "./src",
-    "jsx": "react",
     "moduleResolution": "node",
-    "outDir": "build",
     "skipLibCheck": true,
+    "strict": true,
     "target": "es6"
   }
 }

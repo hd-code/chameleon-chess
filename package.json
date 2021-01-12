@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "build:web": "webpack",
-    "lint": "eslint --fix src test",
+    "lint": "eslint src test",
+    "lint-fix": "npm run lint -- --fix",
     "test": "mocha -r ts-node/register -r tsconfig-paths/register --parallel 'test/**/*.ts'"
   },
   "dependencies": {

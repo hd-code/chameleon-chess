@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 
 import Board from './board';
 import Logo from '../shared/logo';
@@ -10,11 +10,13 @@ import { ViewState } from 'core/view';
 
 interface GameProps extends GameState, ViewState {}
 
-export default function Game(props: GameProps): JSX.Element {
+const component: FC<GameProps> = (props) => {
     return <div className=''>
         <Logo />
         <div className='w-95v'>
             <Board {...props} />
         </div>
     </div>;
-}
+};
+
+export default component;

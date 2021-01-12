@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 
 import Player from './player';
 
@@ -11,11 +11,11 @@ interface PlayersProps extends PlayersModel {
     onClick: (player: PlayerModel) => void;
 }
 
-export default function Players(props: PlayersProps): JSX.Element {
+const component: FC<PlayersProps> = (props) => {
     const getProps = (player: PlayerModel) => ({
         color: player,
         type: props[player],
-        onClick: () => props.onClick(player)
+        onClick: () => props.onClick(player),
     });
     return <div className='flex stretch'>
         <Player {...getProps(PlayerModel.red)} />
@@ -23,4 +23,6 @@ export default function Players(props: PlayersProps): JSX.Element {
         <Player {...getProps(PlayerModel.yellow)} />
         <Player {...getProps(PlayerModel.blue)} />
     </div>;
-}
+};
+
+export default component;

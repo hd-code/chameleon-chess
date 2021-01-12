@@ -61,7 +61,7 @@ export function isGameState(gs: unknown): gs is GameState {
  * that can be made in the current game state. The AI now has to choose
  * intelligently, which game state to select to continue. */
 export function getNextGameStates(gs: GameState): GameState[] {
-    const result = [];
+    const result: GameState[] = [];
     for (let i = 0, ie = gs.pawns.length; i < ie; i++) {
         if (gs.pawns[i].player !== gs.player) {
             continue;

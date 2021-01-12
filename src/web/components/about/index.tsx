@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { FC } from 'react';
 
 // -----------------------------------------------------------------------------
 
-interface AboutProps {}
-
-export default function About(props: AboutProps): JSX.Element {
+const component: FC<unknown> = () => {
     return <div>About works!</div>;
-}
+};
+
+export default component;

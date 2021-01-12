@@ -1,3 +1,4 @@
+// eslint-disable-next-line max-len
 import { Role, getMoves, getPawnIndexAtPosition, getRole, getRoleMapping, getStartPawns, isPawn, isRole } from 'core/game-state/pawn';
 import * as assert from 'assert';
 
@@ -276,7 +277,7 @@ describe('core/game-state/pawn', () => {
                 assert.strictEqual(pawns.length, 4, 'There should be 4 pawns');
 
                 pawns.forEach(
-                    pawn => assert.strictEqual(pawn.player, player, 'All pawns should be from the same player')
+                    pawn => assert.strictEqual(pawn.player, player, 'All pawns should be from the same player'),
                 );
 
                 const knightColors = pawns.map(pawn => pawn.knightColor);

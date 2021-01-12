@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 
 import Players from './players';
 
@@ -8,12 +8,8 @@ import { nextPlayersType } from 'core/players';
 
 // -----------------------------------------------------------------------------
 
-interface SetupProps {
-    game: Game | null;
-}
-
-export default function Setup(props: SetupProps): JSX.Element {
-    const initPlayers = props.game?.players || {0:1, 1:0, 2:2, 3:0};
+const component: FC<{game: Game | null}> = ({game}) => {
+    const initPlayers = game?.players || {0:1, 1:0, 2:2, 3:0};
     const [players, setPlayers] = useState(initPlayers);
     const onClick = (player: Player) => setPlayers(nextPlayersType(players, player));
     return <div className='text-center'>
@@ -27,4 +23,6 @@ export default function Setup(props: SetupProps): JSX.Element {
             <option value="2">hard</option>
         </select>
     </div>;
-}
+};
+
+export default component;

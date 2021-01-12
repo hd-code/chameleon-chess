@@ -9,7 +9,9 @@ import { hasKey, isInteger } from 'core/type-guards';
  * - `yellow`: 2
  * - `blue`: 3
  */
-export enum FieldColor { red, green, yellow, blue }
+export enum FieldColor {
+    red, green, yellow, blue,
+}
 
 /** TypeGuard for `FieldColor` */
 export function isFieldColor(color: unknown): color is FieldColor {
@@ -55,7 +57,7 @@ export interface Position {
 }
 
 /** TypeGuard for `Position` */
-export function isPosition(position: any): position is Position { // eslint-disable no-explicit-any
+export function isPosition(position: unknown): position is Position { // eslint-disable no-explicit-any
     return hasKey(position, 'row', isInteger) && 0 <= position.row && position.row <= 7
         && hasKey(position, 'col', isInteger) && 0 <= position.col && position.col <= 7;
 }
@@ -93,5 +95,5 @@ const BOARD = [
     [B, R, Y, B, R, B, G, R],
     [R, G, G, Y, B, Y, R, B],
     [G, Y, B, R, G, Y, B, Y],
-    [R, G, Y, B, R, G, Y, G]
+    [R, G, Y, B, R, G, Y, G],
 ];

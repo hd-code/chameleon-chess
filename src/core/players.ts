@@ -2,9 +2,11 @@ import { Player } from './game-state';
 
 // -----------------------------------------------------------------------------
 
-export enum PlayerType { none, human, computer }
+export enum PlayerType {
+    none, human, computer,
+}
 
-export type Players = {[player in Player]: PlayerType}
+export type Players = {[player in Player]: PlayerType};
 
 export function nextPlayersType(players: Players, playerToAdv: Player): Players {
     const result = {...players};

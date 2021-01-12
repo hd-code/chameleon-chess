@@ -7,31 +7,41 @@
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
-    "plugin:@typescript-eslint/recommended"
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "ecmaFeatures": {
-      "jsx": true
-    },
-    "ecmaVersion": 12
+    "project": "tsconfig.json"
   },
   "plugins": [
-    "react",
-    "@typescript-eslint"
+    "@typescript-eslint",
+    "react"
   ],
   "rules": {
-    "indent": ["error", 4],
-    "linebreak-style": ["error", "unix"],
-    "quotes": ["error", "single"],
-    "semi": ["error", "always"],
-
-    "brace-style": ["warn"],
     "curly": ["warn", "all"],
+    "eol-last": ["warn", "always"],
+    "linebreak-style": ["warn", "unix"],
+    "max-len": ["warn",120],
     "no-else-return": ["warn"],
     "no-multi-spaces": ["warn"],
     "no-multiple-empty-lines": ["warn", {"max": 1}],
     "no-trailing-spaces": ["warn", {"ignoreComments": true}],
-    "sort-imports": ["warn", {"ignoreDeclarationSort": true}]
+    "sort-imports": ["warn", {"ignoreDeclarationSort": true}],
+    
+    "@typescript-eslint/brace-style": ["warn"],
+    "@typescript-eslint/comma-dangle": ["warn","always-multiline"],
+    "@typescript-eslint/indent": ["warn", 4],
+    "@typescript-eslint/naming-convention": ["warn"],
+    "@typescript-eslint/quotes": ["warn", "single"],
+    "@typescript-eslint/semi": ["warn", "always"],
+
+    "@typescript-eslint/no-empty-interface": ["error", {"allowSingleExtends": true}],
+    "@typescript-eslint/restrict-template-expressions": "off"
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
   }
 }

@@ -2,7 +2,9 @@ import { useState } from 'react';
 
 // -----------------------------------------------------------------------------
 
-export enum View { home, setup, game, settings, about }
+export enum View {
+    home, setup, game, settings, about,
+}
 
 export interface ViewState {
     view: View;

@@ -1,19 +1,18 @@
-import React from 'react';
+import React, { FC } from 'react';
 
 // -----------------------------------------------------------------------------
 
 type DivAttributes = React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
 
-interface LogoProps extends DivAttributes {}
-
-export default function Logo(props: LogoProps): JSX.Element {
-    const {className, ...rest} = props;
+const component: FC<DivAttributes> = ({className, ...rest}) => {
     return <div className={(className ?? '') + ' text-center bold text-border'} {...rest}>
         {text.split('').map((char, i) => char === '\n'
-            ? <br /> : <span className={colors[i % colors.length]}>{char}</span>
+            ? <br /> : <span className={colors[i % colors.length]}>{char}</span>,
         )}
     </div>;
-}
+};
+
+export default component;
 
 // -----------------------------------------------------------------------------
 

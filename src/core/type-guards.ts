@@ -1,4 +1,4 @@
-/*! type-guards v0.0.2 | MIT | © Hannes Dröse https://github.com/hd-code/js-snippets */
+/*! type-guards v0.0.3 | MIT | © Hannes Dröse https://github.com/hd-code/js-snippets */
 
 // -----------------------------------------------------------------------------
 
@@ -52,7 +52,7 @@ export function isObject<T>(obj: unknown): obj is T {
     return typeof obj === 'object' && obj !== null && !(obj instanceof Array);
 }
 
-export function hasKey<T>(obj: unknown, key: keyof T, typeGuard?: (el: unknown) => el is T[keyof T]): key is keyof T {
-    return typeof obj === 'object' && obj !== null && (key in obj)
+export function hasKey<T>(obj: unknown, key: keyof T, typeGuard?: (el: unknown) => el is T[keyof T]): obj is T {
+    return typeof obj === 'object' && obj !== null && key in obj
         && (!typeGuard || typeGuard((obj as any)[key])); // eslint-disable-line
 }

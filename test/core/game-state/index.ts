@@ -1,3 +1,4 @@
+// eslint-disable-next-line max-len
 import { GameState, Player, Position, getNextGameStates, getStartGameState, isGameOver, isGameState, makeMove } from 'core/game-state';
 import * as assert from 'assert';
 
@@ -72,7 +73,7 @@ const testMoves: { [name: string]: Move } = {
                 { player: 2, position: { row: 6, col: 6 }, knightColor: 0 },
                 { player: 3, position: { row: 1, col: 6 }, knightColor: 2 },
             ],
-            player: 0
+            player: 0,
         },
         pawnIndex: 0,
         destination: { row: 4, col: 7 },
@@ -85,7 +86,7 @@ const testMoves: { [name: string]: Move } = {
                 { player: 2, position: { row: 6, col: 6 }, knightColor: 0 },
                 { player: 3, position: { row: 1, col: 6 }, knightColor: 2 },
             ],
-            player: 3
+            player: 3,
         },
     },
     shrinkAndBeatingMove: {
@@ -99,7 +100,7 @@ const testMoves: { [name: string]: Move } = {
                 { player: 2, position: { row: 6, col: 6 }, knightColor: 0 }, // is beaten
                 { player: 3, position: { row: 1, col: 6 }, knightColor: 1 }, // moves
             ],
-            player: 3
+            player: 3,
         },
         pawnIndex: 5,
         destination: { row: 6, col: 6 },
@@ -112,7 +113,7 @@ const testMoves: { [name: string]: Move } = {
                 { player: 2, position: { row: 4, col: 7 }, knightColor: 2 },
                 { player: 3, position: { row: 6, col: 6 }, knightColor: 1 }, // moves
             ],
-            player: 2
+            player: 2,
         },
     },
     shrinkToSmallestMove: {
@@ -123,7 +124,7 @@ const testMoves: { [name: string]: Move } = {
                 { player: 2, position: { row: 3, col: 4 }, knightColor: 2 },
                 { player: 3, position: { row: 6, col: 1 }, knightColor: 0 }, // moves
             ],
-            player: 3
+            player: 3,
         },
         pawnIndex: 2,
         destination: { row: 4, col: 3 },
@@ -134,7 +135,7 @@ const testMoves: { [name: string]: Move } = {
                 { player: 2, position: { row: 3, col: 4 }, knightColor: 2 },
                 { player: 3, position: { row: 4, col: 3 }, knightColor: 0 }, // moves
             ],
-            player: 2
+            player: 2,
         },
     },
     shrinkToSmallestAndBeatingMove: {
@@ -145,7 +146,7 @@ const testMoves: { [name: string]: Move } = {
                 { player: 2, position: { row: 5, col: 7 }, knightColor: 0 }, // moves
                 { player: 3, position: { row: 5, col: 3 }, knightColor: 0 }, // is beaten
             ],
-            player: 2
+            player: 2,
         },
         pawnIndex: 1,
         destination: { row: 5, col: 3 },
@@ -155,7 +156,7 @@ const testMoves: { [name: string]: Move } = {
                 { player: 0, position: { row: 4, col: 3 }, knightColor: 1 },
                 { player: 2, position: { row: 5, col: 3 }, knightColor: 0 }, // moves
             ],
-            player: 0
+            player: 0,
         },
     },
     normalMoveOnSmallestBoard: {
@@ -165,7 +166,7 @@ const testMoves: { [name: string]: Move } = {
                 { player: 0, position: { row: 5, col: 2 }, knightColor: 0 },
                 { player: 2, position: { row: 6, col: 1 }, knightColor: 2 }, // moves
             ],
-            player: 2
+            player: 2,
         },
         pawnIndex: 1,
         destination: { row: 7, col: 3 },
@@ -175,7 +176,7 @@ const testMoves: { [name: string]: Move } = {
                 { player: 0, position: { row: 5, col: 2 }, knightColor: 0 },
                 { player: 2, position: { row: 7, col: 3 }, knightColor: 2 }, // moves
             ],
-            player: 0
+            player: 0,
         },
     },
     beatingMoveOnSmallestBoard: {
@@ -185,7 +186,7 @@ const testMoves: { [name: string]: Move } = {
                 { player: 0, position: { row: 5, col: 2 }, knightColor: 0 }, // moves
                 { player: 2, position: { row: 6, col: 1 }, knightColor: 2 }, // is beaten
             ],
-            player: 0
+            player: 0,
         },
         pawnIndex: 0,
         destination: { row: 6, col: 1 },
@@ -194,7 +195,7 @@ const testMoves: { [name: string]: Move } = {
             pawns: [
                 { player: 0, position: { row: 6, col: 1 }, knightColor: 0 }, // moves
             ],
-            player: 0
+            player: 0,
         },
     },
     deadlockMoveOnSmallestBoard: {
@@ -204,7 +205,7 @@ const testMoves: { [name: string]: Move } = {
                 { player: 0, position: { row: 3, col: 5 }, knightColor: 1 },
                 { player: 1, position: { row: 3, col: 3 }, knightColor: 0 }, // moves, becomes knight
             ],
-            player: 1
+            player: 1,
         },
         pawnIndex: 1,
         destination: { row: 4, col: 4 },
@@ -213,7 +214,7 @@ const testMoves: { [name: string]: Move } = {
             pawns: [
                 { player: 0, position: { row: 3, col: 5 }, knightColor: 1 },
             ],
-            player: 0
+            player: 0,
         },
     },
     shrinkingToDeadlockMove: {
@@ -225,7 +226,7 @@ const testMoves: { [name: string]: Move } = {
                 { player: 2, position: { row: 2, col: 5 }, knightColor: 3 }, // Knight
                 { player: 2, position: { row: 3, col: 0 }, knightColor: 1 }, // Queen, becomes Knight and is removed too
             ],
-            player: 2
+            player: 2,
         },
         pawnIndex: 3,
         destination: { row: 3, col: 4 },
@@ -235,7 +236,7 @@ const testMoves: { [name: string]: Move } = {
                 { player: 1, position: { row: 4, col: 3 }, knightColor: 2 }, // Queen
                 { player: 2, position: { row: 2, col: 5 }, knightColor: 3 }, // Knight
             ],
-            player: 1
+            player: 1,
         },
     },
     trapOpponentInDeadlockMove: {
@@ -247,7 +248,7 @@ const testMoves: { [name: string]: Move } = {
                 { player: 2, position: { row: 2, col: 5 }, knightColor: 3 }, // Knight
                 { player: 2, position: { row: 3, col: 0 }, knightColor: 1 }, // Queen, moves
             ],
-            player: 2
+            player: 2,
         },
         pawnIndex: 3,
         destination: { row: 3, col: 3 },
@@ -258,8 +259,8 @@ const testMoves: { [name: string]: Move } = {
                 { player: 2, position: { row: 2, col: 5 }, knightColor: 3 }, // Knight
                 { player: 2, position: { row: 3, col: 3 }, knightColor: 1 }, // Queen, moves
             ],
-            player: 0
-        }
+            player: 0,
+        },
     },
     deadlockMoveButWinning: {
         gameState: {
@@ -268,7 +269,7 @@ const testMoves: { [name: string]: Move } = {
                 { player: 0, position: { row: 4, col: 4 }, knightColor: 2 }, // Bishop, becomes knight !
                 { player: 3, position: { row: 3, col: 5 }, knightColor: 1 }, // Queen, is beaten
             ],
-            player: 0
+            player: 0,
         },
         pawnIndex: 0,
         destination: { row: 3, col: 5 },
@@ -277,9 +278,9 @@ const testMoves: { [name: string]: Move } = {
             pawns: [
                 { player: 0, position: { row: 3, col: 5 }, knightColor: 2 }, // Bishop, becomes knight !
             ],
-            player: 0
+            player: 0,
         },
-    }
+    },
 };
 
 // -----------------------------------------------------------------------------
@@ -288,7 +289,7 @@ describe('core/game-state', () => {
     it(isGameState.name);
 
     describe(getNextGameStates.name, () => {
-        const gs = getStartGameState(true, true, true, true);
+        const gs = getStartGameState(true, true, true, true) as GameState;
         const nextGSs = getNextGameStates(gs);
 
         it('should return 13 game states for start game state', () => {
@@ -316,7 +317,7 @@ describe('core/game-state', () => {
             gs: testMoves.normalMove.gameState,
         }, {
             name: 'start game state', expected: false,
-            gs: getStartGameState(true, true, true, true),
+            gs: getStartGameState(true, true, true, true) as GameState,
         }, {
             name: 'only blue pawns', expected: true,
             gs: {

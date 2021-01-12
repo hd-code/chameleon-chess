@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 
 import Logo from '../shared/logo';
 
@@ -9,7 +9,7 @@ import { View, ViewState } from 'core/view';
 
 interface HomeProps extends GameState, ViewState {}
 
-export default function Home(props: HomeProps): JSX.Element {
+const component: FC<HomeProps> = (props) => {
     return <div className='flex col center mxw-20em'>
         <Logo className='mb fz-300' />
 
@@ -30,4 +30,6 @@ export default function Home(props: HomeProps): JSX.Element {
             Tutorial
         </button>
     </div>;
-}
+};
+
+export default component;

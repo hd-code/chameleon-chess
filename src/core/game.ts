@@ -64,12 +64,14 @@ export function useGame(storage: Storage): GameState {
         if (!newGame) {
             return false;
         }
-        storage.write<Game>(storageKey, newGame);
+        void storage.write<Game>(storageKey, newGame);
         setGame(newGame);
         return true;
     };
 
-    const onNextTurn = () => {};
+    const onNextTurn = () => {
+        // call ai if necessary
+    };
 
     return { game, makeMove: makeMoveOnCurrent, onNextTurn };
 }

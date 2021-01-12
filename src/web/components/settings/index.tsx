@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { FC } from 'react';
 
 // -----------------------------------------------------------------------------
 
-interface SettingsProps {}
-
-export default function Settings(props: SettingsProps): JSX.Element {
+const component: FC<unknown> = () => {
     return <div>Settings works!</div>;
-}
+};
+
+export default component;

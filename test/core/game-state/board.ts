@@ -1,3 +1,4 @@
+// eslint-disable-next-line max-len
 import { FieldColor, getBoard, getFieldColor, isFieldColor, isInPositions, isPosition, isSamePosition, sortPositions } from 'core/game-state/board';
 import * as assert from 'assert';
 
@@ -48,7 +49,7 @@ describe('core/game-state/board', () => {
         it('should have 8 columns', () => board.forEach(row => assert.strictEqual(row.length, 8)));
         it('should only contain integers from 0 to 7', () => {
             const regex = /[0-7]/;
-            board.forEach(row => row.forEach(val => assert.ok(regex.test(val+''))));
+            board.forEach(row => row.forEach(val => assert.ok(regex.test(val.toString()))));
         });
     });
 
@@ -120,19 +121,19 @@ describe('core/game-state/board', () => {
     describe(sortPositions.name, () => {
         [{
             name: 'just one position',
-            input: [{row:3,col:5}], expected: [{row:3,col:5}]
+            input: [{row:3,col:5}], expected: [{row:3,col:5}],
         }, {
             name: 'two positions, rows not sorted',
-            input: [{row:7,col:5},{row:3,col:5}], expected: [{row:3,col:5},{row:7,col:5}]
+            input: [{row:7,col:5},{row:3,col:5}], expected: [{row:3,col:5},{row:7,col:5}],
         }, {
             name: 'two positions, rows sorted already',
-            input: [{row:3,col:5},{row:7,col:5}], expected: [{row:3,col:5},{row:7,col:5}]
+            input: [{row:3,col:5},{row:7,col:5}], expected: [{row:3,col:5},{row:7,col:5}],
         }, {
             name: 'two positions, rows are equal, cols not sorted',
-            input: [{row:2,col:5},{row:2,col:3}], expected: [{row:2,col:3},{row:2,col:5}]
+            input: [{row:2,col:5},{row:2,col:3}], expected: [{row:2,col:3},{row:2,col:5}],
         }, {
             name: 'two positions, rows are equal, cols sorted',
-            input: [{row:2,col:3},{row:2,col:5}], expected: [{row:2,col:3},{row:2,col:5}]
+            input: [{row:2,col:3},{row:2,col:5}], expected: [{row:2,col:3},{row:2,col:5}],
         }].forEach(({name, input, expected}) => {
             it(name, () => {
                 input.sort(sortPositions);

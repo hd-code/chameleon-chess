@@ -1,10 +1,6 @@
 import Storage from 'core/storage';
 
-// -----------------------------------------------------------------------------
-
-const WebStorage: Storage = { delete: del, read, write };
-
-export default WebStorage;
+export default <Storage>{ delete: del, read, write };
 
 // -----------------------------------------------------------------------------
 
@@ -28,7 +24,7 @@ async function read<T>(key: string): Promise<T> {
                 return;
             }
 
-            const result = JSON.parse(data);
+            const result = JSON.parse(data); // eslint-disable-line @typescript-eslint/no-unsafe-assignment
             resolve(result);
         } catch (err) {
             reject(err);
