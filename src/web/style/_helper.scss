@@ -1,0 +1,249 @@
+/******************************************************************************* 
+Atomic helper classes for responsive layout, spacing, text and other utilities.
+*******************************************************************************/
+
+/* Flexbox ------------------------------------------------------------------ */
+
+.flex { display: flex }
+
+.flex.col { flex-direction: column }
+.flex.col-reverse { flex-direction: column-reverse }
+.flex.row { flex-direction: row }
+.flex.row-reverse { flex-direction: row-reverse }
+
+.flex.no-wrap { flex-wrap: nowrap }
+.flex.wrap { flex-wrap: wrap }
+
+.flex.left { justify-content: flex-start }
+.flex.center { justify-content: center }
+.flex.right { justify-content: flex-end }
+.flex.justify { justify-content: space-between }
+
+.flex.top { align-items: flex-start }
+.flex.middle { align-items: center }
+.flex.bottom { align-items: flex-end }
+.flex.stretch { align-items: stretch }
+
+.flex > .top { align-self: flex-start }
+.flex > .middle { align-self: center }
+.flex > .bottom { align-self: flex-end }
+.flex > .stretch { align-self: stretch }
+
+.flex > .no-grow,
+.flex > .grow-0 { flex: 0 }
+.flex > .grow,
+.flex > .grow-1 { flex: 1 }
+.flex > .grow-2 { flex: 2 }
+.flex > .grow-3 { flex: 3 }
+.flex > .grow-4 { flex: 4 }
+
+.flex > .no-shrink
+.flex > .shrink-0 { flex-shrink: 0 }
+.flex > .shrink,
+.flex > .shrink-1 { flex-shrink: 1 }
+.flex > .shrink-2 { flex-shrink: 2 }
+.flex > .shrink-3 { flex-shrink: 3 }
+.flex > .shrink-4 { flex-shrink: 4 }
+
+.flex > .order-0 { order: 0 }
+.flex > .order-1 { order: 1 }
+.flex > .order-2 { order: 2 }
+.flex > .order-3 { order: 3 }
+.flex > .order-4 { order: 4 }
+
+/* Layout ------------------------------------------------------------------- */
+
+.h-100 { height: 100% }
+.h-75 { height: 75% }
+.h-66 { height: 66.67% }
+.h-50 { height: 50% }
+.h-33 { height: 33.33% }
+.h-25 { height: 25% }
+
+.w-100 { width: 100% }
+.w-75 { width: 75% }
+.w-66 { width: 66.67% }
+.w-50 { width: 50% }
+.w-33 { width: 33.33% }
+.w-25 { width: 25% }
+
+/* Responsive --------------------------------------------------------------- */
+
+.container {
+    padding-left: 1em;
+    padding-right: 1em;
+}
+
+.hide { display: none }
+
+@media (min-width: 760px) {
+    .container {
+        padding-left:  calc((100% - 750px) / 2);
+        padding-right: calc((100% - 750px) / 2);
+    }
+
+    .hide-m { display: none }
+
+    .flex > .order-0-m { order: 0 }
+    .flex > .order-1-m { order: 1 }
+    .flex > .order-2-m { order: 2 }
+    .flex > .order-3-m { order: 3 }
+    .flex > .order-4-m { order: 4 }
+
+    .h-100-m { height: 100% }
+    .h-75-m { height: 75% }
+    .h-66-m { height: 66.67% }
+    .h-50-m { height: 50% }
+    .h-33-m { height: 33.33% }
+    .h-25-m { height: 25% }
+
+    .w-100-m { width: 100% }
+    .w-75-m { width: 75% }
+    .w-66-m { width: 66.67% }
+    .w-50-m { width: 50% }
+    .w-33-m { width: 33.33% }
+    .w-25-m { width: 25% }
+}
+@media (max-width: 761px) {
+    .show-m { display: none }
+}
+
+@media (min-width: 1200px) {
+    .container {
+        padding-left:  calc((100% - 1180px) / 2);
+        padding-right: calc((100% - 1180px) / 2);
+    }
+
+    .hide-l { display: none }
+
+    .flex > .order-0-l { order: 0 }
+    .flex > .order-1-l { order: 1 }
+    .flex > .order-2-l { order: 2 }
+    .flex > .order-3-l { order: 3 }
+    .flex > .order-4-l { order: 4 }
+
+    .h-100-l { height: 100% }
+    .h-75-l { height: 75% }
+    .h-66-l { height: 66.67% }
+    .h-50-l { height: 50% }
+    .h-33-l { height: 33.33% }
+    .h-25-l { height: 25% }
+
+    .w-100-l { width: 100% }
+    .w-75-l { width: 75% }
+    .w-66-l { width: 66.67% }
+    .w-50-l { width: 50% }
+    .w-33-l { width: 33.33% }
+    .w-25-l { width: 25% }
+}
+@media (max-width: 1201px) {
+    .show-l { display: none }
+}
+
+/* Spacing ------------------------------------------------------------------ */
+
+.p-0, .px-0, .pl-0 { padding-left: 0 }
+.p-0, .px-0, .pr-0 { padding-right: 0 }
+.p-0, .py-0, .pt-0 { padding-top: 0 }
+.p-0, .py-0, .pb-0 { padding-bottom: 0 }
+
+.p-05, .px-05, .pl-05 { padding-left: .25em }
+.p-05, .px-05, .pr-05 { padding-right: .25em }
+.p-05, .py-05, .pt-05 { padding-top: .25em }
+.p-05, .py-05, .pb-05 { padding-bottom: .25em }
+
+.p-1, .px-1, .pl-1 { padding-left: .5em }
+.p-1, .px-1, .pr-1 { padding-right: .5em }
+.p-1, .py-1, .pt-1 { padding-top: .5em }
+.p-1, .py-1, .pb-1 { padding-bottom: .5em }
+
+.p-2, .px-2, .pl-2 { padding-left: 1em }
+.p-2, .px-2, .pr-2 { padding-right: 1em }
+.p-2, .py-2, .pt-2 { padding-top: 1em }
+.p-2, .py-2, .pb-2 { padding-bottom: 1em }
+
+.p-3, .px-3, .pl-3 { padding-left: 1.5em }
+.p-3, .px-3, .pr-3 { padding-right: 1.5em }
+.p-3, .py-3, .pt-3 { padding-top: 1.5em }
+.p-3, .py-3, .pb-3 { padding-bottom: 1.5em }
+
+.p-4, .px-4, .pl-4 { padding-left: 2em }
+.p-4, .px-4, .pr-4 { padding-right: 2em }
+.p-4, .py-4, .pt-4 { padding-top: 2em }
+.p-4, .py-4, .pb-4 { padding-bottom: 2em }
+
+.m-0, .mx-0, .ml-0 { margin-left: 0 }
+.m-0, .mx-0, .mr-0 { margin-right: 0 }
+.m-0, .my-0, .mt-0 { margin-top: 0 }
+.m-0, .my-0, .mb-0 { margin-bottom: 0 }
+
+.m-05, .mx-05, .ml-05 { margin-left: .25em }
+.m-05, .mx-05, .mr-05 { margin-right: .25em }
+.m-05, .my-05, .mt-05 { margin-top: .25em }
+.m-05, .my-05, .mb-05 { margin-bottom: .25em }
+
+.m-1, .mx-1, .ml-1 { margin-left: .5em }
+.m-1, .mx-1, .mr-1 { margin-right: .5em }
+.m-1, .my-1, .mt-1 { margin-top: .5em }
+.m-1, .my-1, .mb-1 { margin-bottom: .5em }
+
+.m-2, .mx-2, .ml-2 { margin-left: 1em }
+.m-2, .mx-2, .mr-2 { margin-right: 1em }
+.m-2, .my-2, .mt-2 { margin-top: 1em }
+.m-2, .my-2, .mb-2 { margin-bottom: 1em }
+
+.m-3, .mx-3, .ml-3 { margin-left: 1.5em }
+.m-3, .mx-3, .mr-3 { margin-right: 1.5em }
+.m-3, .my-3, .mt-3 { margin-top: 1.5em }
+.m-3, .my-3, .mb-3 { margin-bottom: 1.5em }
+
+.m-4, .mx-4, .ml-4 { margin-left: 2em }
+.m-4, .mx-4, .mr-4 { margin-right: 2em }
+.m-4, .my-4, .mt-4 { margin-top: 2em }
+.m-4, .my-4, .mb-4 { margin-bottom: 2em }
+
+/* Text --------------------------------------------------------------------- */
+
+.fz-300 { font-size: 3em }
+.fz-250 { font-size: 2.5em }
+.fz-200 { font-size: 2em }
+.fz-150 { font-size: 1.5em }
+.fz-140 { font-size: 1.4em }
+.fz-130 { font-size: 1.3em }
+.fz-120 { font-size: 1.2em }
+.fz-110 { font-size: 1.1em }
+.fz-100 { font-size: 1em }
+.fz-90 { font-size: .9em }
+.fz-80 { font-size: .8em }
+.fz-70 { font-size: .7em }
+.fz-60 { font-size: .6em }
+.fz-50 { font-size: .5em }
+
+.bold { font-weight: bold }
+.italic { font-style: italic }
+.underline { text-decoration: underline }
+.strike { text-decoration: line-through }
+
+.text-left { text-align: left }
+.text-center { text-align: center }
+.text-right { text-align: right }
+.text-justify { text-align: justify }
+
+.one-line { text-overflow: ellipsis }
+
+.capitalize { text-transform: capitalize }
+.lowercase { text-transform: lowercase }
+.uppercase { text-transform: uppercase }
+
+/* Util --------------------------------------------------------------------- */
+
+.block { display: block }
+.inline { display: inline }
+
+.no-overflow, .no-overflow-x { overflow-x: hidden }
+.no-overflow, .no-overflow-y { overflow-y: hidden }
+
+.scroll, .scroll-x { overflow-x: auto }
+.scroll, .scroll-y { overflow-y: auto }
+
+.pointer { cursor: pointer }

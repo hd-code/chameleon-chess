@@ -1,71 +1,23 @@
-html,body,#app {
-    height: 100%;
-    width: 100%;
-    overflow-x: hidden;
+/******************************************************************************* 
+Base CSS Settings
+- should be the very first file to be loaded
+- strips all base styles to have a clean slate to start with
+- sets some practical defaults for easier styling
+*******************************************************************************/
+
+/* reset */
+* {
+    box-sizing: inherit;
+    font-size: 1em;
+    margin: 0;
+    padding: 0;
 }
+ol,ul { list-style: none }
+small,sub,sup { font-size: .75em }
 
-body {
-    background: url(assets/img/background-image.png) center/cover;
-    font-family: Helvetica, Arial, sans-serif;
-    line-height: 1.2;
-}
-
-// --- Headings ----------------------------------------------------------------
-
-h1 { font-size: 2em }
-h2 { font-size: 1.8em }
-h3 { font-size: 1.6em }
-h4 { font-size: 1.4em }
-h5 { font-size: 1.2em }
-h6 { font-size: 1em }
-
-// --- Horizontal Rulers -------------------------------------------------------
-
-hr { border: 0; border-top: 1px solid currentColor }
-
-// --- Button ------------------------------------------------------------------
-
-button,[type=button],[type=reset],[type=submit] {
-    background: transparent;
-    border: 1px solid;
-    border-radius: .5em;
-    color: inherit;
-    cursor: pointer;
-    display: block;
-    padding: .5em;
-}
-
-// --- Forms -------------------------------------------------------------------
-
-fieldset { padding: .5em }
-input:not([type=color]):not([type=checkbox]):not([type=radio]):not([type=button]):not([type=reset]):not([type=submit]),
-select,textarea {
-    border: 1px solid;
-    border-radius: .1em;
-    padding: .1em;
-    width: 100%;
-}
-
-// --- Code --------------------------------------------------------------------
-
-code,kbd,pre,samp {
-    background: #0001;
-    border: 1px solid;
-    border-radius: .1em;
-    padding: .1em;
-}
-
-pre { overflow-x: auto }
-
-// --- Table -------------------------------------------------------------------
-
-table {
-    display: block;
-    overflow-x: auto;
-}
-
-td,th {
-    border: 1px solid;
-    padding: .2em;
-    white-space: nowrap;
+/* base config */
+img {
+    height: auto;
+    max-width: 100%;
+    vertical-align: bottom;
 }

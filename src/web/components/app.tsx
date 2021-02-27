@@ -1,4 +1,8 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
+
+import { useAppState } from 'core/state';
+import { View } from 'core/state/view';
+import WebStorage from 'web/storage';
 
 import About from './about';
 import Game from './game';
@@ -6,44 +10,42 @@ import Home from './home';
 import Setup from './setup';
 import Settings from './settings';
 
-import WebStorage from 'web/storage';
-
-import { useGame } from 'core/game';
-import { useSettings } from 'core/settings';
-import { View, useView } from 'core/view';
-
 // -----------------------------------------------------------------------------
 
-const component: FC<unknown> = () => {
-    const gameState = useGame(WebStorage);
-    // const settingsState = useSettings(WebStorage);
-    useSettings(WebStorage);
-    const viewState = useView();
+const component: FC<{}> = () => { // eslint-disable-line @typescript-eslint/ban-types
+    const appState = useAppState(WebStorage);
 
-    const states = { ...gameState, ...viewState };
+    const ref = useRef(null);
+    const [{height, width}, setDimensions] = useState({ height: 0, width: 0 });
+    useEffect(() => {
+        const newHeight = ref.current.clientHeight ?? 0;
+        const newWidth = ref.current.clientWidth ?? 0;
+        if (newHeight !== height || newWidth !== width) {
+            setDimensions({ height: newHeight, width: newWidth });
+        }
+    });
 
-    return <div className='hw-100 flex center middle'>
-        {loadView()}
-    </div>;
-
-    function loadView() {
-        switch (viewState.view) {
+    const loadView = () => {
+        switch (appState.view) {
             case View.about:
-                return <About />;
+                return <About {...appState} />;
 
             case View.game:
-                return <Game {...states} />;
+                return <Game {...appState} height={height} width={width} />;
 
             case View.home:
-                return <Home {...states} />;
+                return <Home {...appState} />;
 
             case View.setup:
-                return <Setup game={gameState.game} />;
+                return <Setup {...appState} />;
 
             case View.settings:
-                return <Settings />;
+                return <Settings {...appState} />;
         }
-    }
-};
+    };
 
+    return <div className='h-100 w-100 flex center middle' ref={ref}>
+        {loadView()}
+    </div>;
+};
 export default component;

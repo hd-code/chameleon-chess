@@ -6,14 +6,14 @@ import { imgDir } from 'web/constants';
 // -----------------------------------------------------------------------------
 
 interface PawnProps extends Pawn {
-    key?: string;
     selected: boolean;
 }
 
 const component: FC<PawnProps> = (props) => {
     const offset = { left: props.position.col * 12.5 + '%', top: props.position.row * 12.5 + '%' };
     const roleMap = getRoleMapping(props);
-    return <div key={props.key} className='hw-12 flex center middle absolute' style={offset}>
+
+    return <div className='hw-12 flex center middle absolute' style={offset}>
         <div className={'hw-80 rounded shadow flex center middle ' + mapColorClass[props.player]
                       + (props.selected ? ' overlay-bright' : '')}
         >
@@ -25,7 +25,6 @@ const component: FC<PawnProps> = (props) => {
         </div>
     </div>;
 };
-
 export default component;
 
 // -----------------------------------------------------------------------------

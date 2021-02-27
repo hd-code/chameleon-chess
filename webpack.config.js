@@ -25,7 +25,7 @@ module.exports = {
     modules: ['node_modules','src'],
   },
   output: {
-    filename: 'web.js',
+    filename: 'chameleon-chess.js',
     path: path.resolve(__dirname, 'build'),
   },
 };

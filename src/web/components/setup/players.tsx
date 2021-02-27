@@ -24,5 +24,4 @@ const component: FC<PlayersProps> = (props) => {
         <Player {...getProps(PlayerModel.blue)} />
     </div>;
 };
-
 export default component;

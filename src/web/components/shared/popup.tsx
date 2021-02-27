@@ -10,5 +10,4 @@ const component: FC<{onClose?: () => void}> = (props) => {
         </div>
     </div>;
 };
-
 export default component;

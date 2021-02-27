@@ -1,10 +1,12 @@
-@import 'reset';
-@import 'base';
+.chameleon-chess {
+    background: url('assets/img/background-image.png') center/cover no-repeat;
+    box-sizing: border-box;
+    font-size: 1rem;
+    height: 100%;
+    width: 100%;
 
-@import 'colors';
-@import 'flex';
-@import 'spacing';
-@import 'text';
-
-.absolute { position: absolute }
-.transition { transition: .5s }
+    @import 'base';
+    @import 'helper';
+    @import 'theme';
+    @import 'shame';
+}

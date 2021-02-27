@@ -19,7 +19,6 @@ const component: FC<PlayerProps> = (props) => {
         <p>{PlayerType[props.type]}</p>
     </div>;
 };
-
 export default component;
 
 // -----------------------------------------------------------------------------

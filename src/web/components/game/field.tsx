@@ -18,7 +18,6 @@ const component: FC<FieldProps> = (props) => {
     const stateClass = mapStateClass[props.state];
     return <div className={'hw-12 border' + ' ' + colorClass + ' ' + stateClass}></div>;
 };
-
 export default component;
 
 // -----------------------------------------------------------------------------

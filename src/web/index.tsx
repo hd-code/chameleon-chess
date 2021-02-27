@@ -1,10 +1,12 @@
+import './style/main.scss';
+
 import React from 'react';
 import { render } from 'react-dom';
 
-import './style/main.scss';
-
-import App from './components/app';
+import App from 'web/components/app';
 
 // -----------------------------------------------------------------------------
 
-render(<App />, document.getElementById('app'));
+document.querySelectorAll('.chameleon-chess').forEach(container => {
+    render(<App />, container);
+});

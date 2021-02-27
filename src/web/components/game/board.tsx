@@ -1,14 +1,17 @@
 import React, { FC, useState } from 'react';
 
+import { getCurrentGameState } from 'core/game';
+import * as GS from 'core/game-state';
+import { AppState } from 'core/state';
+
 import Field, { FieldProps, FieldState } from './field';
 import Pawn from './pawn';
 
-import * as GS from 'core/game-state';
-import { GameState, getCurrentGameState } from 'core/game';
-
 // -----------------------------------------------------------------------------
 
-interface BoardProps extends GameState {}
+interface BoardProps extends AppState {
+    width: number;
+}
 
 const component: FC<BoardProps> = (props) => {
     const [selectedPawnI, setSelected] = useState(-1);
@@ -35,15 +38,16 @@ const component: FC<BoardProps> = (props) => {
 
     props.onNextTurn();
 
-    return <div className='square overlay-parent'>
-        <div className='overlay flex wrap'>
-            {fields.map((field, i) => <Field key={i} {...field} />)}
-            {pawns.map(pawn => <Pawn key={getPawnKey(pawn)} {...pawn} />)}
+    return <div style={{width: props.width}}>
+        <div className='square overlay-parent'>
+            <div className='overlay flex wrap'>
+                {fields.map((field, i) => <Field key={i} {...field} />)}
+                {pawns.map(pawn => <Pawn key={getPawnKey(pawn)} {...pawn} />)}
+            </div>
+            <div className='overlay' onClick={onClick}></div>
         </div>
-        <div className='overlay' onClick={onClick}></div>
     </div>;
 };
-
 export default component;
 
 // -----------------------------------------------------------------------------

@@ -5,13 +5,15 @@ import React, { FC } from 'react';
 type DivAttributes = React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
 
 const component: FC<DivAttributes> = ({className, ...rest}) => {
+    const letters = text.split('').map((char, i) => char === '\n'
+        ? <br key={i} />
+        : <span key={i} className={colors[i % colors.length]}>{char}</span>,
+    );
+
     return <div className={(className ?? '') + ' text-center bold text-border'} {...rest}>
-        {text.split('').map((char, i) => char === '\n'
-            ? <br /> : <span className={colors[i % colors.length]}>{char}</span>,
-        )}
+        {letters}
     </div>;
 };
-
 export default component;
 
 // -----------------------------------------------------------------------------

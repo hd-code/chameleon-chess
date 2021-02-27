@@ -1,35 +1,35 @@
 import React, { FC } from 'react';
 
-import Logo from '../shared/logo';
+import { isGameOver } from 'core/game';
+import { AppState } from 'core/state';
 
-import { GameState, isGameOver } from 'core/game';
-import { View, ViewState } from 'core/view';
+import Logo from '../shared/logo';
 
 // -----------------------------------------------------------------------------
 
-interface HomeProps extends GameState, ViewState {}
+const component: FC<AppState> = (props) => {
+    const buttonClasses = ' c-contrast p-1 mb-1 rounded';
+    return <div className='flex col center'>
+        <Logo className='mb-1 fz-250' />
 
-const component: FC<HomeProps> = (props) => {
-    return <div className='flex col center mxw-20em'>
-        <Logo className='mb fz-300' />
-
-        <button className='mb bgc-red'
+        <button className={'bgc-red pointer' + buttonClasses}
             disabled={isGameOver(props.game)}
-            onClick={() => props.goTo(View.game)}
-        >Fortsetzen</button>
+            onClick={() => props.goTo.game()}
+        >
+            Fortsetzen
+        </button>
 
-        <button className='mb bgc-green' onClick={() => props.goTo(View.setup)}>
+        <button className={'bgc-green pointer' + buttonClasses} onClick={() => props.goTo.setup()}>
             Neues Spiel
         </button>
 
-        <button className='mb bgc-yellow' onClick={() => props.goTo(View.settings)}>
+        <button className={'bgc-yellow pointer' + buttonClasses} onClick={() => props.goTo.settings()}>
             Einstellungen
         </button>
 
-        <button className="bgc-blue" disabled>
+        <button className={'bgc-blue overlay-dark' + buttonClasses} disabled>
             Tutorial
         </button>
     </div>;
 };
-
 export default component;

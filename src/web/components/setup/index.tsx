@@ -1,14 +1,14 @@
 import React, { FC, useState } from 'react';
 
-import Players from './players';
-
-import { Game } from 'core/game';
 import { Player } from 'core/game-state';
 import { nextPlayersType } from 'core/players';
+import { AppState } from 'core/state';
+
+import Players from './players';
 
 // -----------------------------------------------------------------------------
 
-const component: FC<{game: Game | null}> = ({game}) => {
+const component: FC<AppState> = ({game}) => {
     const initPlayers = game?.players || {0:1, 1:0, 2:2, 3:0};
     const [players, setPlayers] = useState(initPlayers);
     const onClick = (player: Player) => setPlayers(nextPlayersType(players, player));
@@ -24,5 +24,4 @@ const component: FC<{game: Game | null}> = ({game}) => {
         </select>
     </div>;
 };
-
 export default component;

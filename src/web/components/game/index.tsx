@@ -1,22 +1,22 @@
 import React, { FC } from 'react';
 
+import { AppState } from 'core/state';
+
 import Board from './board';
 import Logo from '../shared/logo';
 
-import { GameState } from 'core/game';
-import { ViewState } from 'core/view';
-
 // -----------------------------------------------------------------------------
 
-interface GameProps extends GameState, ViewState {}
+interface GameProps extends AppState {
+    height: number;
+    width: number;
+}
 
 const component: FC<GameProps> = (props) => {
-    return <div className=''>
+    const boardWidth = Math.min(props.height, props.width);
+    return <div className='h-100 w-100 flex wrap justify'>
         <Logo />
-        <div className='w-95v'>
-            <Board {...props} />
-        </div>
+        <Board {...props} width={boardWidth} />
     </div>;
 };
-
 export default component;

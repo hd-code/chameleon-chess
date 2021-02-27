@@ -1,6 +1,6 @@
 import { Score, getZeroScore, maxScore, normalizeScore } from './score';
 
-import { GameState, Role, getNextGameStates, getRole, isGameOver, Pawn } from 'core/game-state';
+import { GameState, Pawn, Role, getNextGameStates, getRole, isGameOver } from 'core/game-state';
 
 // -----------------------------------------------------------------------------
 
