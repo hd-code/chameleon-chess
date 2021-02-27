@@ -48,7 +48,6 @@ export default component;
 
 // -----------------------------------------------------------------------------
 
-/* eslint-disable */
 const fieldColors = GS.getBoard();
 
 function makeFields(gs: GS.GameState, pawnIndex: number): FieldProps[] {
@@ -70,7 +69,6 @@ function makeFields(gs: GS.GameState, pawnIndex: number): FieldProps[] {
 
     return result;
 }
-/* eslint-enable */
 
 // -----------------------------------------------------------------------------
 

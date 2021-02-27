@@ -20,7 +20,7 @@ export function isFieldColor(color: unknown): color is FieldColor {
 
 /** Returns the color of the field on the game board at a given position. */
 export function getFieldColor(position: Position): FieldColor {
-    return BOARD[position.row][position.col];
+    return BOARD[position.row]?.[position.col] as FieldColor;
 }
 
 // -----------------------------------------------------------------------------
@@ -57,7 +57,7 @@ export interface Position {
 }
 
 /** TypeGuard for `Position` */
-export function isPosition(position: unknown): position is Position { // eslint-disable no-explicit-any
+export function isPosition(position: unknown): position is Position {
     return hasKey(position, 'row', isInteger) && 0 <= position.row && position.row <= 7
         && hasKey(position, 'col', isInteger) && 0 <= position.col && position.col <= 7;
 }
@@ -66,7 +66,7 @@ export function isPosition(position: unknown): position is Position { // eslint-
  * positions in the given array. */
 export function isInPositions(position: Position, positions: Position[]): boolean {
     for (let i = 0, ie = positions.length; i < ie; i++) {
-        if (isSamePosition(position, positions[i])) {
+        if (isSamePosition(position, positions[i] as Position)) {
             return true;
         }
     }

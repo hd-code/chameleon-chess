@@ -19,17 +19,18 @@ export function makeComputerMove(gs: GameState, difficulty = Difficulty.easy): G
 
     const scores = [];
     for (let i = 0, ie = nextGSs.length; i < ie; i++) {
-        const score = maxNIS(nextGSs[i]);
+        const nextGS = nextGSs[i] as GameState;
+        const score = maxNIS(nextGS);
         // winning moves are performed immediately
         if (score[gs.player] === maxScore) {
-            return nextGSs[i];
+            return nextGS;
         }
         scores.push(score);
     }
     updateScores(nextGSs, scores, gs.player);
 
     const i = selectMove(gs.player, scores, difficulty);
-    return nextGSs[i];
+    return nextGSs[i] as GameState;
 }
 
 // -----------------------------------------------------------------------------
@@ -45,9 +46,11 @@ function updateScores(nextGSs: GameState[], scores: Score[], player: Player): vo
 
     const begin = Date.now();
     while (Date.now() - begin < calcTime) {
-        scores[i] = maxNIS(nextGSs[i], depth, bestScore);
-        if (bestScore < scores[i][player]) {
-            bestScore = scores[i][player];
+        scores[i] = maxNIS(nextGSs[i] as GameState, depth, bestScore);
+
+        const score = scores[i] as Score;
+        if (bestScore < score[player]) {
+            bestScore = score[player];
         }
 
         i += 1;
@@ -77,7 +80,7 @@ function selectMove(player: Player, scores: Score[], difficulty: Difficulty): nu
     const rangeOfMoves = mapDifficultyToRangeOfMoves[difficulty] * scores.length;
     const selectedI = Math.floor(Math.random() * rangeOfMoves);
 
-    return indexScores[selectedI].index;
+    return (indexScores[selectedI] as IndexScore).index;
 }
 
 // -----------------------------------------------------------------------------

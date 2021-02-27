@@ -35,7 +35,8 @@ export function arePlayersAlive(pawns: Pawn[]): {[player in Player]: boolean} {
         [Player.blue]: false,
     };
     for (let i = 0, ie = pawns.length; i < ie; i++) {
-        result[pawns[i].player] = true;
+        const pawn = pawns[i] as Pawn;
+        result[pawn.player] = true;
     }
     return result;
 }

@@ -286,7 +286,7 @@ const testMoves: { [name: string]: Move } = {
 // -----------------------------------------------------------------------------
 
 describe('core/game-state', () => {
-    it(isGameState.name);
+    it.todo(isGameState.name);
 
     describe(getNextGameStates.name, () => {
         const gs = getStartGameState(true, true, true, true) as GameState;
@@ -309,7 +309,7 @@ describe('core/game-state', () => {
         });
     });
 
-    it(getStartGameState.name);
+    it.todo(getStartGameState.name);
 
     describe(isGameOver.name, () => {
         [{

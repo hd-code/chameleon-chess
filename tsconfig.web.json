@@ -1,5 +1,6 @@
 {
   "extends": "./tsconfig.json",
+  // "files": ["src/web/index.tsx"],
   "compilerOptions": {
     "jsx": "react",
     "outDir": "build",

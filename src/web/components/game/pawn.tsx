@@ -11,7 +11,6 @@ interface PawnProps extends Pawn {
 }
 
 const component: FC<PawnProps> = (props) => {
-    // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
     const offset = { left: props.position.col * 12.5 + '%', top: props.position.row * 12.5 + '%' };
     const roleMap = getRoleMapping(props);
     return <div key={props.key} className='hw-12 flex center middle absolute' style={offset}>

@@ -24,7 +24,7 @@ async function read<T>(key: string): Promise<T> {
                 return;
             }
 
-            const result = JSON.parse(data); // eslint-disable-line @typescript-eslint/no-unsafe-assignment
+            const result = JSON.parse(data);
             resolve(result);
         } catch (err) {
             reject(err);

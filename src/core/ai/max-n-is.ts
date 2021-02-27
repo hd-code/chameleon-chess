@@ -1,6 +1,6 @@
 import { Score, getZeroScore, maxScore, normalizeScore } from './score';
 
-import { GameState, Role, getNextGameStates, getRole, isGameOver } from 'core/game-state';
+import { GameState, Role, getNextGameStates, getRole, isGameOver, Pawn } from 'core/game-state';
 
 // -----------------------------------------------------------------------------
 
@@ -13,14 +13,14 @@ export function maxNIS(gs: GameState, depth = 0, parentsBestScore = 0): Score {
     const nextGSs = getNextGameStates(gs);
     const pruningLimit = maxScore - parentsBestScore; // immediate & shallow pruning
 
-    let bestScore = maxNIS(nextGSs[0], depth - 1);
+    let bestScore = maxNIS(nextGSs[0] as GameState, depth - 1);
 
     for (let i = 1, ie = nextGSs.length; i < ie; i++) {
         if (bestScore[player] >= pruningLimit) { // immediate & shallow pruning
             break;
         }
 
-        const nextScore = maxNIS(nextGSs[i], depth - 1, bestScore[player]);
+        const nextScore = maxNIS(nextGSs[i] as GameState, depth - 1, bestScore[player]);
         if (bestScore[player] < nextScore[player]) {
             bestScore = nextScore;
         }
@@ -41,8 +41,8 @@ const mapRoleScore = {
 function evalGS(gs: GameState): Score {
     const result = getZeroScore();
     for (let i = 0, ie = gs.pawns.length; i < ie; i++) {
-        const pawn = gs.pawns[i];
-        const role = getRole(gs.pawns[i]);
+        const pawn = gs.pawns[i] as Pawn;
+        const role = getRole(pawn);
         result[pawn.player] += mapRoleScore[role];
     }
     return normalizeScore(result);

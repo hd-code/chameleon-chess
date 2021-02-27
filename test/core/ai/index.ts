@@ -5,8 +5,6 @@ import { GameState, getNextGameStates, getStartGameState } from 'core/game-state
 
 // -----------------------------------------------------------------------------
 
-const timeout = 9000;
-
 describe('core/ai/' + makeComputerMove.name, () => {
     it('should return one of the next game states', () => {
         const gs = getStartGameState(true, true, true, true) as GameState;
@@ -21,7 +19,7 @@ describe('core/ai/' + makeComputerMove.name, () => {
             } catch (e) {} // eslint-disable-line no-empty
         }
         assert.strictEqual(numOfMatchingStates, 1);
-    }).timeout(timeout);
+    });
 
     it('difficulty hard should not return the same game state as easy (3 tries)', () => {
         const gs = getStartGameState(true, true, true, true) as GameState;
@@ -40,5 +38,5 @@ describe('core/ai/' + makeComputerMove.name, () => {
                 execTest();
             }
         }
-    }).timeout(timeout);
+    });
 });

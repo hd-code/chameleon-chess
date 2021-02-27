@@ -75,23 +75,25 @@ export function updateLimits(pawns: Pawn[], oldLimits: Limits): Limits {
 const MIN_DIFF_BETWEEN_MIN_MAX = 2;
 
 function calcLimits(pawns: Pawn[]): Limits {
+    const firstPawn = pawns[0] as Pawn;
     const result = {
-        minRow: pawns[0].position.row, maxRow: pawns[0].position.row,
-        minCol: pawns[0].position.col, maxCol: pawns[0].position.col,
+        minRow: firstPawn.position.row, maxRow: firstPawn.position.row,
+        minCol: firstPawn.position.col, maxCol: firstPawn.position.col,
     };
 
     for (let i = 1, ie = pawns.length; i < ie; i++) {
-        if (result.minRow > pawns[i].position.row) {
-            result.minRow = pawns[i].position.row;
+        const pawn = pawns[i] as Pawn;
+        if (result.minRow > pawn.position.row) {
+            result.minRow = pawn.position.row;
         }
-        if (result.maxRow < pawns[i].position.row) {
-            result.maxRow = pawns[i].position.row;
+        if (result.maxRow < pawn.position.row) {
+            result.maxRow = pawn.position.row;
         }
-        if (result.minCol > pawns[i].position.col) {
-            result.minCol = pawns[i].position.col;
+        if (result.minCol > pawn.position.col) {
+            result.minCol = pawn.position.col;
         }
-        if (result.maxCol < pawns[i].position.col) {
-            result.maxCol = pawns[i].position.col;
+        if (result.maxCol < pawn.position.col) {
+            result.maxCol = pawn.position.col;
         }
     }
 

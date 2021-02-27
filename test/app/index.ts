@@ -1,1 +1,1 @@
-it('Snapshot tests for the app');
+it.todo('Snapshot tests for the app');

@@ -63,12 +63,14 @@ export function isGameState(gs: unknown): gs is GameState {
 export function getNextGameStates(gs: GameState): GameState[] {
     const result: GameState[] = [];
     for (let i = 0, ie = gs.pawns.length; i < ie; i++) {
-        if (gs.pawns[i].player !== gs.player) {
+        const pawn = gs.pawns[i] as Pawn;
+        if (pawn.player !== gs.player) {
             continue;
         }
         const moves = getMoves(i, gs.pawns, gs.limits);
         for (let j = 0, je = moves.length; j < je; j++) {
-            result.push(updateGameState(gs, i, moves[j]));
+            const move = moves[j] as Position;
+            result.push(updateGameState(gs, i, move));
         }
     }
     return result;
@@ -113,7 +115,8 @@ export function getStartGameState(red: boolean, green: boolean, yellow: boolean,
 export function isGameOver(gs: GameState): boolean {
     const player = gs.pawns[0]?.player;
     for (let i = 1, ie = gs.pawns.length; i < ie; i++) {
-        if (player !== gs.pawns[i].player) {
+        const pawn = gs.pawns[i] as Pawn;
+        if (player !== pawn.player) {
             return false;
         }
     }
@@ -151,7 +154,8 @@ export function makeMove(gs: GameState, pawnI: number, destination: Position): G
 
 function noPawnsOutsideOfLimits({pawns, limits}: GameState): boolean {
     for (let i = 0, ie = pawns.length; i < ie; i++) {
-        if (!isWithinLimits(pawns[i].position, limits)) {
+        const pawn = pawns[i] as Pawn;
+        if (!isWithinLimits(pawn.position, limits)) {
             return false;
         }
     }
@@ -163,7 +167,7 @@ function noPawnsOnSameField({pawns}: GameState): boolean {
     positions.sort(sortPositions);
 
     for (let i = 1, ie = positions.length; i < ie; i++) {
-        if (isSamePosition(positions[i-1], positions[i])) {
+        if (isSamePosition(positions[i-1] as Position, positions[i] as Position)) {
             return false;
         }
     }
@@ -174,7 +178,7 @@ function noPawnsOnSameField({pawns}: GameState): boolean {
 function updateGameState(gs: GameState, pawnI: number, destination: Position): GameState {
     const beatenPawnI = getPawnIndexAtPosition(destination, gs.pawns);
     const pawns = gs.pawns.map(pawn => ({...pawn})); // TODO: deep clone
-    pawns[pawnI].position = destination;
+    (pawns[pawnI] as Pawn).position = destination;
     if (beatenPawnI >= 0) {
         pawns.splice(beatenPawnI, 1);
     }
@@ -184,7 +188,7 @@ function updateGameState(gs: GameState, pawnI: number, destination: Position): G
         const centerPos = { row: limits.minRow + 1, col: limits.minCol + 1 };
         const centerPawnI = getPawnIndexAtPosition(centerPos, pawns);
         if (centerPawnI >= 0) {
-            const role = getRole(pawns[centerPawnI]);
+            const role = getRole(pawns[centerPawnI] as Pawn);
             if (role === Role.knight && !isGameOver({limits, pawns, player: gs.player})) {
                 pawns.splice(centerPawnI, 1);
             }

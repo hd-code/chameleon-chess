@@ -12,7 +12,7 @@ export interface Game {
 }
 
 export function getCurrentGameState(game: Game): GS.GameState {
-    return game.gameStates[game.gameStates.length - 1];
+    return game.gameStates[game.gameStates.length - 1] as GS.GameState;
 }
 
 export function initGame(players: Players): Game | null {
@@ -80,4 +80,4 @@ export function useGame(storage: Storage): GameState {
 
 const storageKey = 'game';
 
-const startGame = initGame({ 0:1, 1:0, 2:1, 3:0 });
+const startGame = initGame({ 0:1, 1:0, 2:1, 3:0 }) as Game;
