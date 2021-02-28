@@ -7,6 +7,4 @@ import App from 'web/components/app';
 
 // -----------------------------------------------------------------------------
 
-document.querySelectorAll('.chameleon-chess').forEach(container => {
-    render(<App />, container);
-});
+render(<App />, document.getElementById('chameleon-chess'));
