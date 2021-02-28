@@ -7,14 +7,6 @@
     "skipLibCheck": true,
     "target": "es6",
 
-    // linter checks
-    "noFallthroughCasesInSwitch": true,
-    "noImplicitReturns": true,
-    // "noPropertyAccessFromIndexSignature": true,
-    "noUncheckedIndexedAccess": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    
     // strict checks
     "noImplicitAny": true,
     "noImplicitThis": true,

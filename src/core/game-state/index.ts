@@ -49,13 +49,13 @@ export interface GameState {
  */
 export function isGameState(gs: unknown): gs is GameState {
     return (
-        hasKey(gs, 'limits', isLimits) &&
-        hasKey(gs, 'pawns') &&
-        isArray((gs as GameState).pawns, isPawn) &&
-        hasKey(gs, 'player', isPlayer) &&
-        noPawnsOutsideOfLimits(gs as GameState) &&
-        noPawnsOnSameField(gs as GameState) &&
-        arePlayersAlive((gs as GameState).pawns)[(gs as GameState).player]
+        hasKey<GameState>(gs, 'limits', isLimits) &&
+        hasKey<GameState>(gs, 'pawns') &&
+        hasKey<GameState>(gs, 'player', isPlayer) &&
+        isArray(gs.pawns, isPawn) &&
+        noPawnsOutsideOfLimits(gs) &&
+        noPawnsOnSameField(gs) &&
+        arePlayersAlive(gs.pawns)[gs.player]
     );
 }
 
@@ -66,14 +66,12 @@ export function isGameState(gs: unknown): gs is GameState {
 export function getNextGameStates(gs: GameState): GameState[] {
     const result: GameState[] = [];
     for (let i = 0, ie = gs.pawns.length; i < ie; i++) {
-        const pawn = gs.pawns[i] as Pawn;
-        if (pawn.player !== gs.player) {
+        if (gs.pawns[i].player !== gs.player) {
             continue;
         }
         const moves = getMoves(i, gs.pawns, gs.limits);
         for (let j = 0, je = moves.length; j < je; j++) {
-            const move = moves[j] as Position;
-            result.push(updateGameState(gs, i, move));
+            result.push(updateGameState(gs, i, moves[j]));
         }
     }
     return result;
@@ -118,8 +116,7 @@ export function getStartGameState(red: boolean, green: boolean, yellow: boolean,
 export function isGameOver(gs: GameState): boolean {
     const player = gs.pawns[0]?.player;
     for (let i = 1, ie = gs.pawns.length; i < ie; i++) {
-        const pawn = gs.pawns[i] as Pawn;
-        if (player !== pawn.player) {
+        if (player !== gs.pawns[i].player) {
             return false;
         }
     }
@@ -157,8 +154,7 @@ export function makeMove(gs: GameState, pawnI: number, destination: Position): G
 
 function noPawnsOutsideOfLimits({ pawns, limits }: GameState): boolean {
     for (let i = 0, ie = pawns.length; i < ie; i++) {
-        const pawn = pawns[i] as Pawn;
-        if (!isWithinLimits(pawn.position, limits)) {
+        if (!isWithinLimits(pawns[i].position, limits)) {
             return false;
         }
     }
@@ -170,7 +166,7 @@ function noPawnsOnSameField({ pawns }: GameState): boolean {
     positions.sort(sortPositions);
 
     for (let i = 1, ie = positions.length; i < ie; i++) {
-        if (isSamePosition(positions[i - 1] as Position, positions[i] as Position)) {
+        if (isSamePosition(positions[i - 1], positions[i])) {
             return false;
         }
     }
@@ -181,7 +177,7 @@ function noPawnsOnSameField({ pawns }: GameState): boolean {
 function updateGameState(gs: GameState, pawnI: number, destination: Position): GameState {
     const beatenPawnI = getPawnIndexAtPosition(destination, gs.pawns);
     const pawns = gs.pawns.map(pawn => ({ ...pawn })); // TODO: deep clone
-    (pawns[pawnI] as Pawn).position = destination;
+    pawns[pawnI].position = destination;
     if (beatenPawnI >= 0) {
         pawns.splice(beatenPawnI, 1);
     }
@@ -191,7 +187,7 @@ function updateGameState(gs: GameState, pawnI: number, destination: Position): G
         const centerPos = { row: limits.minRow + 1, col: limits.minCol + 1 };
         const centerPawnI = getPawnIndexAtPosition(centerPos, pawns);
         if (centerPawnI >= 0) {
-            const role = getRole(pawns[centerPawnI] as Pawn);
+            const role = getRole(pawns[centerPawnI]);
             if (role === Role.knight && !isGameOver({ limits, pawns, player: gs.player })) {
                 pawns.splice(centerPawnI, 1);
             }

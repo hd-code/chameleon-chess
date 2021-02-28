@@ -67,7 +67,7 @@ export function isPawn(pawn: unknown): pawn is Pawn {
  * @returns an array of positions that the pawn could go to
  */
 export function getMoves(pawnI: number, pawns: Pawn[], limits: Limits): Position[] {
-    switch (getRole(pawns[pawnI] as Pawn)) {
+    switch (getRole(pawns[pawnI])) {
         case Role.knight:
             return getKnightMoves(pawnI, pawns, limits);
 
@@ -85,8 +85,7 @@ export function getMoves(pawnI: number, pawns: Pawn[], limits: Limits): Position
 /** Returns -1 if no pawn is at that position. */
 export function getPawnIndexAtPosition(position: Position, pawns: Pawn[]): number {
     for (let i = 0, ie = pawns.length; i < ie; i++) {
-        const pawn = pawns[i] as Pawn;
-        if (isSamePosition(position, pawn.position)) {
+        if (isSamePosition(position, pawns[i].position)) {
             return i;
         }
     }
@@ -162,7 +161,7 @@ function createPawn(player: Player, row: number, col: number, knightColor: Field
 // -----------------------------------------------------------------------------
 
 function getKnightMoves(pawnI: number, pawns: Pawn[], limits: Limits): Position[] {
-    const currentPos: Position = (pawns[pawnI] as Pawn).position;
+    const currentPos: Position = pawns[pawnI].position;
 
     const offsets: Position[] = [
         { row: 2, col: 1 },
@@ -210,7 +209,7 @@ function getRookMoves(pawnI: number, pawns: Pawn[], limits: Limits): Position[] 
  * @param direction Direction in row and col per step
  */
 function moveGenerator(direction: Position, pawnI: number, pawns: Pawn[], limits: Limits): Position[] {
-    const startingPos = (pawns[pawnI] as Pawn).position;
+    const startingPos = pawns[pawnI].position;
 
     const result: Position[] = [];
     const currentPos: Position = { ...startingPos };
@@ -244,7 +243,7 @@ enum MoveType {
 }
 
 function getMoveType(destination: Position, pawnI: number, pawns: Pawn[], limits: Limits): MoveType {
-    const pawnToMove = pawns[pawnI] as Pawn;
+    const pawnToMove = pawns[pawnI];
     const pawnOnField = pawns[getPawnIndexAtPosition(destination, pawns)];
 
     if (!isWithinLimits(destination, limits)) {

@@ -360,7 +360,7 @@ describe('core/game-state', () => {
 
     describe(makeMove.name, () => {
         for (const name in testMoves) {
-            const { gameState, pawnIndex, destination, expected } = testMoves[name] as Move;
+            const { gameState, pawnIndex, destination, expected } = testMoves[name];
             it(name, () => {
                 const actual = makeMove(gameState, pawnIndex, destination);
                 assert.deepStrictEqual(actual, expected);

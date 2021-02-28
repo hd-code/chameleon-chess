@@ -1,9 +1,8 @@
 import React, { FC } from 'react';
 
-import Player from './player';
+import { Player as PlayerModel, Players as PlayersModel } from 'core/players';
 
-import { Player as PlayerModel } from 'core/game-state';
-import { Players as PlayersModel } from 'core/players';
+import Player from './player';
 
 // -----------------------------------------------------------------------------
 

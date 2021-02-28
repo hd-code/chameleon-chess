@@ -9,7 +9,7 @@ export interface Game {
 }
 
 export function getCurrentGameState(game: Game): GS.GameState {
-    return game.gameStates[game.gameStates.length - 1] as GS.GameState;
+    return game.gameStates[game.gameStates.length - 1];
 }
 
 export function initGame(players: Players): Game | null {

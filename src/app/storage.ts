@@ -9,6 +9,7 @@ async function del(key: string): Promise<void> {
         setTimeout(() => {
             try {
                 // TODO
+                console.log(key);
                 resolve();
             } catch (err) {
                 reject(err);
@@ -21,9 +22,10 @@ async function read<T>(key: string): Promise<T> {
     return new Promise<T>((resolve, reject) =>
         setTimeout(() => {
             try {
+                console.log(key);
                 const data = '{}'; // TODO
                 if (!data) {
-                    resolve(null);
+                    resolve((null as unknown) as T);
                     return;
                 }
 
@@ -41,6 +43,7 @@ async function write<T>(key: string, data: T): Promise<void> {
         setTimeout(() => {
             try {
                 const storableData = JSON.stringify(data);
+                console.log(key, storableData);
                 // TODO
                 resolve();
             } catch (err) {

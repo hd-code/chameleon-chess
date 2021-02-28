@@ -23,7 +23,7 @@ export function isFieldColor(color: unknown): color is FieldColor {
 
 /** Returns the color of the field on the game board at a given position. */
 export function getFieldColor(position: Position): FieldColor {
-    return BOARD[position.row]?.[position.col] as FieldColor;
+    return BOARD[position.row][position.col];
 }
 
 // -----------------------------------------------------------------------------
@@ -73,7 +73,7 @@ export function isPosition(position: unknown): position is Position {
  * positions in the given array. */
 export function isInPositions(position: Position, positions: Position[]): boolean {
     for (let i = 0, ie = positions.length; i < ie; i++) {
-        if (isSamePosition(position, positions[i] as Position)) {
+        if (isSamePosition(position, positions[i])) {
             return true;
         }
     }
