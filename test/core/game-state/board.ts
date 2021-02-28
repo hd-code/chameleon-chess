@@ -1,5 +1,13 @@
-// eslint-disable-next-line max-len
-import { FieldColor, getBoard, getFieldColor, isFieldColor, isInPositions, isPosition, isSamePosition, sortPositions } from 'core/game-state/board';
+import {
+    FieldColor,
+    getBoard,
+    getFieldColor,
+    isFieldColor,
+    isInPositions,
+    isPosition,
+    isSamePosition,
+    sortPositions,
+} from 'core/game-state/board';
 import * as assert from 'assert';
 
 // -----------------------------------------------------------------------------
@@ -19,7 +27,7 @@ describe('core/game-state/board', () => {
             { input: null, expected: false },
             { input: [], expected: false },
             { input: {}, expected: false },
-        ].forEach(({input, expected}) => {
+        ].forEach(({ input, expected }) => {
             it(`${JSON.stringify(input)} => ${expected}`, () => {
                 const actual = isFieldColor(input);
                 assert.strictEqual(actual, expected);
@@ -55,18 +63,18 @@ describe('core/game-state/board', () => {
 
     describe(isPosition.name, () => {
         [
-            { input: {row:0,col:0}, expected: true },
-            { input: {row:2,col:1}, expected: true },
-            { input: {row:5,col:2}, expected: true },
-            { input: {row:7,col:7}, expected: true },
-            { input: {row:6,col:3}, expected: true },
-            { input: {row:8,col:3}, expected: false },
-            { input: {row:7,col:9}, expected: false },
-            { input: {row:-2,col:4}, expected: false },
-            { input: {row:2,col:2.4}, expected: false },
-            { input: {row:.2,col:.8}, expected: false },
-            { input: {row:5}, expected: false },
-            { input: {col:3}, expected: false },
+            { input: { row: 0, col: 0 }, expected: true },
+            { input: { row: 2, col: 1 }, expected: true },
+            { input: { row: 5, col: 2 }, expected: true },
+            { input: { row: 7, col: 7 }, expected: true },
+            { input: { row: 6, col: 3 }, expected: true },
+            { input: { row: 8, col: 3 }, expected: false },
+            { input: { row: 7, col: 9 }, expected: false },
+            { input: { row: -2, col: 4 }, expected: false },
+            { input: { row: 2, col: 2.4 }, expected: false },
+            { input: { row: 0.2, col: 0.8 }, expected: false },
+            { input: { row: 5 }, expected: false },
+            { input: { col: 3 }, expected: false },
             { input: 4, expected: false },
             { input: -1, expected: false },
             { input: 0.5, expected: false },
@@ -75,7 +83,7 @@ describe('core/game-state/board', () => {
             { input: null, expected: false },
             { input: [], expected: false },
             { input: {}, expected: false },
-        ].forEach(({input, expected}) => {
+        ].forEach(({ input, expected }) => {
             it(`${JSON.stringify(input)} => ${expected}`, () => {
                 const actual = isPosition(input);
                 assert.strictEqual(actual, expected);
@@ -85,13 +93,34 @@ describe('core/game-state/board', () => {
 
     describe(isInPositions.name, () => {
         [
-            { position: {row:0,col:0}, positions: [{row:0,col:0},{row:1,col:1}], expected: true },
-            { position: {row:1,col:1}, positions: [{row:0,col:0},{row:1,col:1}], expected: true },
-            { position: {row:1,col:0}, positions: [{row:0,col:0},{row:1,col:1}], expected: false },
-            { position: {row:6,col:4}, positions: [], expected: false },
-            { position: {row:2,col:5}, positions: [{row:2,col:5}], expected: true },
-            { position: {row:2,col:5}, positions: [{row:2,col:4}], expected: false },
-            { position: {row:2,col:5}, positions: [{row:3,col:5}], expected: false },
+            {
+                position: { row: 0, col: 0 },
+                positions: [
+                    { row: 0, col: 0 },
+                    { row: 1, col: 1 },
+                ],
+                expected: true,
+            },
+            {
+                position: { row: 1, col: 1 },
+                positions: [
+                    { row: 0, col: 0 },
+                    { row: 1, col: 1 },
+                ],
+                expected: true,
+            },
+            {
+                position: { row: 1, col: 0 },
+                positions: [
+                    { row: 0, col: 0 },
+                    { row: 1, col: 1 },
+                ],
+                expected: false,
+            },
+            { position: { row: 6, col: 4 }, positions: [], expected: false },
+            { position: { row: 2, col: 5 }, positions: [{ row: 2, col: 5 }], expected: true },
+            { position: { row: 2, col: 5 }, positions: [{ row: 2, col: 4 }], expected: false },
+            { position: { row: 2, col: 5 }, positions: [{ row: 3, col: 5 }], expected: false },
         ].forEach(({ position, positions, expected }) => {
             it(`${JSON.stringify(position)} in ${JSON.stringify(positions)} => ${expected}`, () => {
                 const actual = isInPositions(position, positions);
@@ -119,22 +148,57 @@ describe('core/game-state/board', () => {
     });
 
     describe(sortPositions.name, () => {
-        [{
-            name: 'just one position',
-            input: [{row:3,col:5}], expected: [{row:3,col:5}],
-        }, {
-            name: 'two positions, rows not sorted',
-            input: [{row:7,col:5},{row:3,col:5}], expected: [{row:3,col:5},{row:7,col:5}],
-        }, {
-            name: 'two positions, rows sorted already',
-            input: [{row:3,col:5},{row:7,col:5}], expected: [{row:3,col:5},{row:7,col:5}],
-        }, {
-            name: 'two positions, rows are equal, cols not sorted',
-            input: [{row:2,col:5},{row:2,col:3}], expected: [{row:2,col:3},{row:2,col:5}],
-        }, {
-            name: 'two positions, rows are equal, cols sorted',
-            input: [{row:2,col:3},{row:2,col:5}], expected: [{row:2,col:3},{row:2,col:5}],
-        }].forEach(({name, input, expected}) => {
+        [
+            {
+                name: 'just one position',
+                input: [{ row: 3, col: 5 }],
+                expected: [{ row: 3, col: 5 }],
+            },
+            {
+                name: 'two positions, rows not sorted',
+                input: [
+                    { row: 7, col: 5 },
+                    { row: 3, col: 5 },
+                ],
+                expected: [
+                    { row: 3, col: 5 },
+                    { row: 7, col: 5 },
+                ],
+            },
+            {
+                name: 'two positions, rows sorted already',
+                input: [
+                    { row: 3, col: 5 },
+                    { row: 7, col: 5 },
+                ],
+                expected: [
+                    { row: 3, col: 5 },
+                    { row: 7, col: 5 },
+                ],
+            },
+            {
+                name: 'two positions, rows are equal, cols not sorted',
+                input: [
+                    { row: 2, col: 5 },
+                    { row: 2, col: 3 },
+                ],
+                expected: [
+                    { row: 2, col: 3 },
+                    { row: 2, col: 5 },
+                ],
+            },
+            {
+                name: 'two positions, rows are equal, cols sorted',
+                input: [
+                    { row: 2, col: 3 },
+                    { row: 2, col: 5 },
+                ],
+                expected: [
+                    { row: 2, col: 3 },
+                    { row: 2, col: 5 },
+                ],
+            },
+        ].forEach(({ name, input, expected }) => {
             it(name, () => {
                 input.sort(sortPositions);
                 assert.deepStrictEqual(input, expected);

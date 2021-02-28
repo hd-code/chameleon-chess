@@ -12,14 +12,14 @@ import Settings from './settings';
 
 // -----------------------------------------------------------------------------
 
-const component: FC<{}> = () => { // eslint-disable-line @typescript-eslint/ban-types
+const component: FC<Record<string, never>> = () => {
     const appState = useAppState(WebStorage);
 
     const ref = useRef(null);
-    const [{height, width}, setDimensions] = useState({ height: 0, width: 0 });
+    const [{ height, width }, setDimensions] = useState({ height: 0, width: 0 });
     useEffect(() => {
-        const newHeight = ref.current.clientHeight ?? 0;
-        const newWidth = ref.current.clientWidth ?? 0;
+        const newHeight = ref?.current?.clientHeight ?? 0;
+        const newWidth = ref?.current?.clientWidth ?? 0;
         if (newHeight !== height || newWidth !== width) {
             setDimensions({ height: newHeight, width: newWidth });
         }
@@ -44,8 +44,10 @@ const component: FC<{}> = () => { // eslint-disable-line @typescript-eslint/ban-
         }
     };
 
-    return <div className='h-100 w-100 flex center middle' ref={ref}>
-        {loadView()}
-    </div>;
+    return (
+        <div className='h-100 w-100 flex center middle' ref={ref}>
+            {loadView()}
+        </div>
+    );
 };
 export default component;

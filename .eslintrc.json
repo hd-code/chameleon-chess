@@ -7,33 +7,19 @@
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
-    "plugin:@typescript-eslint/recommended"
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended",
+    "prettier"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "project": "tsconfig.json"
   },
-  "plugins": [
-    "@typescript-eslint",
-    "react"
-  ],
   "rules": {
-    "curly": ["warn", "all"],
-    "eol-last": ["warn", "always"],
-    "linebreak-style": ["warn", "unix"],
-    "max-len": ["warn", 120],
-    "no-else-return": "warn",
-    "no-multi-spaces": "warn",
-    "no-multiple-empty-lines": ["warn", {"max": 1}],
-    "no-trailing-spaces": ["warn", {"ignoreComments": true}],
+    "curly": ["error", "all"],
+    "no-else-return": "error",
     "sort-imports": ["warn", {"ignoreDeclarationSort": true}],
-    
-    "@typescript-eslint/brace-style": "warn",
-    "@typescript-eslint/comma-dangle": ["warn","always-multiline"],
-    "@typescript-eslint/indent": ["warn", 4],
-    "@typescript-eslint/naming-convention": "warn",
-    "@typescript-eslint/quotes": ["warn", "single"],
-    "@typescript-eslint/semi": ["warn", "always"]
+    "@typescript-eslint/naming-convention": "error"
   },
   "settings": {
     "react": {

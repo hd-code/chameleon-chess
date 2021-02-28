@@ -3,13 +3,15 @@ import { Player } from './game-state';
 // -----------------------------------------------------------------------------
 
 export enum PlayerType {
-    none, human, computer,
+    none,
+    human,
+    computer,
 }
 
-export type Players = {[player in Player]: PlayerType};
+export type Players = { [player in Player]: PlayerType };
 
 export function nextPlayersType(players: Players, playerToAdv: Player): Players {
-    const result = {...players};
+    const result = { ...players };
     result[playerToAdv] = mapTypeToNext[players[playerToAdv]];
     return result;
 }

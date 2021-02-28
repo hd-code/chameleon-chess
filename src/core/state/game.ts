@@ -15,7 +15,8 @@ export interface GameState {
 export function useGame(storage: Storage): GameState {
     const [game, setGame] = useState(startGame);
 
-    storage.read<Game>(storageKey)
+    storage
+        .read<Game>(storageKey)
         .then(data => !!data && setGame(data))
         .catch(console.info);
 
@@ -40,4 +41,4 @@ export function useGame(storage: Storage): GameState {
 
 const storageKey = 'game';
 
-const startGame = initGame({ 0:1, 1:0, 2:1, 3:0 }) as Game;
+const startGame = initGame({ 0: 1, 1: 0, 2: 1, 3: 0 }) as Game;

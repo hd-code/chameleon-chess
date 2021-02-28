@@ -7,7 +7,7 @@ import { GameState, getStartGameState } from 'core/game-state';
 
 describe('core/ai/' + maxNIS.name, () => {
     it('should return equal score for all players on start game state', () => {
-        const expected = { 0:.25, 1:.25, 2:.25, 3:.25 };
+        const expected = { 0: 0.25, 1: 0.25, 2: 0.25, 3: 0.25 };
         const gs = getStartGameState(true, true, true, true) as GameState;
         const score = maxNIS(gs, 0);
         assert.deepStrictEqual(score, expected);

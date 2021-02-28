@@ -16,7 +16,8 @@ export function maxNIS(gs: GameState, depth = 0, parentsBestScore = 0): Score {
     let bestScore = maxNIS(nextGSs[0] as GameState, depth - 1);
 
     for (let i = 1, ie = nextGSs.length; i < ie; i++) {
-        if (bestScore[player] >= pruningLimit) { // immediate & shallow pruning
+        if (bestScore[player] >= pruningLimit) {
+            // immediate & shallow pruning
             break;
         }
 
@@ -34,8 +35,8 @@ export function maxNIS(gs: GameState, depth = 0, parentsBestScore = 0): Score {
 const mapRoleScore = {
     [Role.knight]: 101,
     [Role.bishop]: 102,
-    [Role.rook]:   103,
-    [Role.queen]:  105,
+    [Role.rook]: 103,
+    [Role.queen]: 105,
 };
 
 function evalGS(gs: GameState): Score {

@@ -1,5 +1,13 @@
-// eslint-disable-next-line max-len
-import { Role, getMoves, getPawnIndexAtPosition, getRole, getRoleMapping, getStartPawns, isPawn, isRole } from 'core/game-state/pawn';
+import {
+    Role,
+    getMoves,
+    getPawnIndexAtPosition,
+    getRole,
+    getRoleMapping,
+    getStartPawns,
+    isPawn,
+    isRole,
+} from 'core/game-state/pawn';
 import * as assert from 'assert';
 
 import { FieldColor, GameState, Player, Position, getStartGameState } from 'core/game-state';
@@ -137,7 +145,7 @@ describe('core/game-state/pawn', () => {
             { input: null, expected: false },
             { input: [], expected: false },
             { input: {}, expected: false },
-        ].forEach(({input, expected}) => {
+        ].forEach(({ input, expected }) => {
             it(`${JSON.stringify(input)} => ${expected}`, () => {
                 const actual = isRole(input);
                 assert.strictEqual(actual, expected);
@@ -147,22 +155,22 @@ describe('core/game-state/pawn', () => {
 
     describe(isPawn.name, () => {
         [
-            { input: {player: 0, position: {row:5,col:3}, knightColor: 0}, expected: true },
-            { input: {player: 3, position: {row:5,col:1}, knightColor: 0}, expected: true },
-            { input: {player: 0, position: {row:1,col:3}, knightColor: 3}, expected: true },
-            { input: {player: 1, position: {row:5,col:4}, knightColor: 0}, expected: true },
-            { input: {player: 2, position: {row:2,col:3}, knightColor: 2}, expected: true },
-            { input: {player: 2, position: {row:3,col:7}, knightColor: 0}, expected: true },
-            { input: {player: 2, position: {row:3,col:7}, knightColor: 8}, expected: false },
-            { input: {player: 6, position: {row:3,col:7}, knightColor: 0}, expected: false },
-            { input: {player: 2, position: {row:.5,col:7}, knightColor: 0}, expected: false },
-            { input: {player: 2, position: {row:3,col:-2}, knightColor: 0}, expected: false },
-            { input: { position: {row:3,col:7}, knightColor: 0}, expected: false },
-            { input: {player: 2, knightColor: 0}, expected: false },
-            { input: {player: 2, position: {row:3,col:7}}, expected: false },
-            { input: {player: 2, position: {row:3}, knightColor: 0}, expected: false },
-            { input: {player: 2, position: {col:7}, knightColor: 0}, expected: false },
-            { input: {col:3}, expected: false },
+            { input: { player: 0, position: { row: 5, col: 3 }, knightColor: 0 }, expected: true },
+            { input: { player: 3, position: { row: 5, col: 1 }, knightColor: 0 }, expected: true },
+            { input: { player: 0, position: { row: 1, col: 3 }, knightColor: 3 }, expected: true },
+            { input: { player: 1, position: { row: 5, col: 4 }, knightColor: 0 }, expected: true },
+            { input: { player: 2, position: { row: 2, col: 3 }, knightColor: 2 }, expected: true },
+            { input: { player: 2, position: { row: 3, col: 7 }, knightColor: 0 }, expected: true },
+            { input: { player: 2, position: { row: 3, col: 7 }, knightColor: 8 }, expected: false },
+            { input: { player: 6, position: { row: 3, col: 7 }, knightColor: 0 }, expected: false },
+            { input: { player: 2, position: { row: 0.5, col: 7 }, knightColor: 0 }, expected: false },
+            { input: { player: 2, position: { row: 3, col: -2 }, knightColor: 0 }, expected: false },
+            { input: { position: { row: 3, col: 7 }, knightColor: 0 }, expected: false },
+            { input: { player: 2, knightColor: 0 }, expected: false },
+            { input: { player: 2, position: { row: 3, col: 7 } }, expected: false },
+            { input: { player: 2, position: { row: 3 }, knightColor: 0 }, expected: false },
+            { input: { player: 2, position: { col: 7 }, knightColor: 0 }, expected: false },
+            { input: { col: 3 }, expected: false },
             { input: 4, expected: false },
             { input: -1, expected: false },
             { input: 0.5, expected: false },
@@ -171,7 +179,7 @@ describe('core/game-state/pawn', () => {
             { input: null, expected: false },
             { input: [], expected: false },
             { input: {}, expected: false },
-        ].forEach(({input, expected}) => {
+        ].forEach(({ input, expected }) => {
             it(`${JSON.stringify(input)} => ${expected}`, () => {
                 const actual = isPawn(input);
                 assert.strictEqual(actual, expected);
@@ -185,7 +193,7 @@ describe('core/game-state/pawn', () => {
             { name: 'should return the correct moves for a queen', pawnI: queenIndex, expected: queenMoves },
             { name: 'should return the correct moves for a bishop', pawnI: bishopIndex, expected: bishopMoves },
             { name: 'should return the correct moves for a rook', pawnI: rookIndex, expected: rookMoves },
-        ].forEach(({name, pawnI, expected}) => {
+        ].forEach(({ name, pawnI, expected }) => {
             it(name, () => {
                 const actual = getMoves(pawnI, gs.pawns, gs.limits);
                 actual.sort(sortPositions);
@@ -209,26 +217,26 @@ describe('core/game-state/pawn', () => {
 
     describe(getPawnIndexAtPosition.name, () => {
         const pawns = [
-            { player: Player.red, position: {row:5,col:3}, knightColor: FieldColor.yellow },
-            { player: Player.red, position: {row:4,col:1}, knightColor: FieldColor.green },
-            { player: Player.red, position: {row:2,col:1}, knightColor: FieldColor.red },
-            { player: Player.yellow, position: {row:2,col:3}, knightColor: FieldColor.blue },
-            { player: Player.yellow, position: {row:4,col:5}, knightColor: FieldColor.yellow },
-            { player: Player.yellow, position: {row:1,col:0}, knightColor: FieldColor.green },
-            { player: Player.yellow, position: {row:1,col:6}, knightColor: FieldColor.red },
+            { player: Player.red, position: { row: 5, col: 3 }, knightColor: FieldColor.yellow },
+            { player: Player.red, position: { row: 4, col: 1 }, knightColor: FieldColor.green },
+            { player: Player.red, position: { row: 2, col: 1 }, knightColor: FieldColor.red },
+            { player: Player.yellow, position: { row: 2, col: 3 }, knightColor: FieldColor.blue },
+            { player: Player.yellow, position: { row: 4, col: 5 }, knightColor: FieldColor.yellow },
+            { player: Player.yellow, position: { row: 1, col: 0 }, knightColor: FieldColor.green },
+            { player: Player.yellow, position: { row: 1, col: 6 }, knightColor: FieldColor.red },
         ];
 
         [
-            { position: {row:5,col:3}, expected: 0 },
-            { position: {row:4,col:1}, expected: 1 },
-            { position: {row:2,col:3}, expected: 3 },
-            { position: {row:4,col:5}, expected: 4 },
-            { position: {row:1,col:6}, expected: 6 },
-            { position: {row:0,col:0}, expected: -1 },
-            { position: {row:0,col:1}, expected: -1 },
-            { position: {row:0,col:2}, expected: -1 },
-            { position: {row:7,col:5}, expected: -1 },
-        ].forEach(({position,expected}) => {
+            { position: { row: 5, col: 3 }, expected: 0 },
+            { position: { row: 4, col: 1 }, expected: 1 },
+            { position: { row: 2, col: 3 }, expected: 3 },
+            { position: { row: 4, col: 5 }, expected: 4 },
+            { position: { row: 1, col: 6 }, expected: 6 },
+            { position: { row: 0, col: 0 }, expected: -1 },
+            { position: { row: 0, col: 1 }, expected: -1 },
+            { position: { row: 0, col: 2 }, expected: -1 },
+            { position: { row: 7, col: 5 }, expected: -1 },
+        ].forEach(({ position, expected }) => {
             const nthPawn = expected === -1 ? 'no' : `the ${expected}.`;
             it(`At ${JSON.stringify(position)} there is ${nthPawn} pawn`, () => {
                 const actual = getPawnIndexAtPosition(position, pawns);
@@ -239,12 +247,15 @@ describe('core/game-state/pawn', () => {
 
     describe(getRole.name, () => {
         [
-            { pawn: {player: 0, position: {row:5,col:3}, knightColor: FieldColor.yellow}, expected: Role.knight },
-            { pawn: {player: 1, position: {row:4,col:1}, knightColor: FieldColor.green }, expected: Role.rook },
-            { pawn: {player: 2, position: {row:2,col:3}, knightColor: FieldColor.blue }, expected: Role.bishop },
-            { pawn: {player: 3, position: {row:4,col:5}, knightColor: FieldColor.yellow}, expected: Role.queen },
-            { pawn: {player: 3, position: {row:4,col:5}, knightColor: FieldColor.red }, expected: Role.rook },
-        ].forEach(({pawn, expected}) => {
+            {
+                pawn: { player: 0, position: { row: 5, col: 3 }, knightColor: FieldColor.yellow },
+                expected: Role.knight,
+            },
+            { pawn: { player: 1, position: { row: 4, col: 1 }, knightColor: FieldColor.green }, expected: Role.rook },
+            { pawn: { player: 2, position: { row: 2, col: 3 }, knightColor: FieldColor.blue }, expected: Role.bishop },
+            { pawn: { player: 3, position: { row: 4, col: 5 }, knightColor: FieldColor.yellow }, expected: Role.queen },
+            { pawn: { player: 3, position: { row: 4, col: 5 }, knightColor: FieldColor.red }, expected: Role.rook },
+        ].forEach(({ pawn, expected }) => {
             const posString = JSON.stringify(pawn.position);
             it(`pawn at ${posString} with knight color ${FieldColor[pawn.knightColor]} => ${Role[expected]}`, () => {
                 const actual = getRole(pawn);
@@ -254,15 +265,15 @@ describe('core/game-state/pawn', () => {
     });
 
     describe(getRoleMapping.name, () => {
-        const basePawn = { player: 0, position: {row:0,col:0}, knightColor: 0 };
+        const basePawn = { player: 0, position: { row: 0, col: 0 }, knightColor: 0 };
         [
-            { knightColor: FieldColor.red, expected: {0:0, 1:1, 2:2, 3:3} },
-            { knightColor: FieldColor.green, expected: {0:3, 1:0, 2:1, 3:2} },
-            { knightColor: FieldColor.yellow, expected: {0:2, 1:3, 2:0, 3:1} },
-            { knightColor: FieldColor.blue, expected: {0:1, 1:2, 2:3, 3:0} },
-        ].forEach(({knightColor, expected}) => {
+            { knightColor: FieldColor.red, expected: { 0: 0, 1: 1, 2: 2, 3: 3 } },
+            { knightColor: FieldColor.green, expected: { 0: 3, 1: 0, 2: 1, 3: 2 } },
+            { knightColor: FieldColor.yellow, expected: { 0: 2, 1: 3, 2: 0, 3: 1 } },
+            { knightColor: FieldColor.blue, expected: { 0: 1, 1: 2, 2: 3, 3: 0 } },
+        ].forEach(({ knightColor, expected }) => {
             it(`${FieldColor[knightColor]} => ${JSON.stringify(expected)}`, () => {
-                const pawn = { ...basePawn, knightColor};
+                const pawn = { ...basePawn, knightColor };
                 const actual = getRoleMapping(pawn);
                 assert.deepStrictEqual(actual, expected);
             });
@@ -270,14 +281,14 @@ describe('core/game-state/pawn', () => {
     });
 
     describe(getStartPawns.name, () => {
-        [ Player.red, Player.green, Player.yellow, Player.blue ].forEach(player => {
+        [Player.red, Player.green, Player.yellow, Player.blue].forEach(player => {
             it(Player[player], () => {
                 const pawns = getStartPawns(player);
 
                 assert.strictEqual(pawns.length, 4, 'There should be 4 pawns');
 
-                pawns.forEach(
-                    pawn => assert.strictEqual(pawn.player, player, 'All pawns should be from the same player'),
+                pawns.forEach(pawn =>
+                    assert.strictEqual(pawn.player, player, 'All pawns should be from the same player'),
                 );
 
                 const knightColors = pawns.map(pawn => pawn.knightColor);

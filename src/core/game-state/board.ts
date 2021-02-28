@@ -10,7 +10,10 @@ import { hasKey, isInteger } from 'core/type-guards';
  * - `blue`: 3
  */
 export enum FieldColor {
-    red, green, yellow, blue,
+    red,
+    green,
+    yellow,
+    blue,
 }
 
 /** TypeGuard for `FieldColor` */
@@ -27,7 +30,7 @@ export function getFieldColor(position: Position): FieldColor {
 
 /**
  * Returns the game board, which is a two-dimensional array of {@link FieldColor}'s.
- * 
+ *
  * The board layout never changes. So, it is sufficient to call this function
  * once on application startup and store the board in a constant.
  * @returns the game board constant
@@ -41,11 +44,11 @@ export function getBoard(): FieldColor[][] {
 /**
  * Specifies a field on the game board. A field is located at a certain row and
  * at a certain column.
- * 
+ *
  * Therefore, a `Position` has two properties:
  * - `row`: the row    of the field on the game board
  * - `col`: the column of the field on the game board
- * 
+ *
  * There are 8 rows and 8 columns, they are indexed by positive whole numbers
  * (0 to 7). So, they are zero-based.
  */
@@ -58,8 +61,12 @@ export interface Position {
 
 /** TypeGuard for `Position` */
 export function isPosition(position: unknown): position is Position {
-    return hasKey(position, 'row', isInteger) && 0 <= position.row && position.row <= 7
-        && hasKey(position, 'col', isInteger) && 0 <= position.col && position.col <= 7;
+    return (
+        hasKey(position, 'row', isInteger) &&
+        hasKey(position, 'col', isInteger) &&
+        Math.min(position.row, position.col) >= 0 &&
+        Math.max(position.row, position.col) <= 7
+    );
 }
 
 /** Returns true if the given position points to the same field as one of the

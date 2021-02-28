@@ -23,11 +23,14 @@ export interface ViewState {
 
 export function useView(): ViewState {
     const [view, setView] = useState(View.home);
-    return { view, goTo: {
-        about: () => setView(View.about),
-        game: () => setView(View.game),
-        home: () => setView(View.home),
-        settings: () => setView(View.settings),
-        setup: () => setView(View.setup),
-    } };
+    return {
+        view,
+        goTo: {
+            about: () => setView(View.about),
+            game: () => setView(View.game),
+            home: () => setView(View.home),
+            settings: () => setView(View.settings),
+            setup: () => setView(View.setup),
+        },
+    };
 }

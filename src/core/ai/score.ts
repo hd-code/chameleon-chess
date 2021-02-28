@@ -4,7 +4,7 @@ import { Player } from 'core/game-state';
 
 export const maxScore = 1;
 
-export type Score = {[player in Player]: number};
+export type Score = { [player in Player]: number };
 
 export function getZeroScore(): Score {
     return { 0: 0, 1: 0, 2: 0, 3: 0 };

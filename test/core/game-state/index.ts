@@ -1,5 +1,13 @@
-// eslint-disable-next-line max-len
-import { GameState, Player, Position, getNextGameStates, getStartGameState, isGameOver, isGameState, makeMove } from 'core/game-state';
+import {
+    GameState,
+    Player,
+    Position,
+    getNextGameStates,
+    getStartGameState,
+    isGameOver,
+    isGameState,
+    makeMove,
+} from 'core/game-state';
 import * as assert from 'assert';
 
 // -----------------------------------------------------------------------------
@@ -211,9 +219,7 @@ const testMoves: { [name: string]: Move } = {
         destination: { row: 4, col: 4 },
         expected: {
             limits: { minRow: 3, maxRow: 5, minCol: 3, maxCol: 5 },
-            pawns: [
-                { player: 0, position: { row: 3, col: 5 }, knightColor: 1 },
-            ],
+            pawns: [{ player: 0, position: { row: 3, col: 5 }, knightColor: 1 }],
             player: 0,
         },
     },
@@ -312,28 +318,39 @@ describe('core/game-state', () => {
     it.todo(getStartGameState.name);
 
     describe(isGameOver.name, () => {
-        [{
-            name: 'normal game state', expected: false,
-            gs: testMoves.normalMove.gameState,
-        }, {
-            name: 'start game state', expected: false,
-            gs: getStartGameState(true, true, true, true) as GameState,
-        }, {
-            name: 'only blue pawns', expected: true,
-            gs: {
-                ...testMoves.normalMove.gameState,
-                pawns: testMoves.normalMove.gameState.pawns.filter(pawn => pawn.player === Player.blue),
+        [
+            {
+                name: 'normal game state',
+                expected: false,
+                gs: testMoves.normalMove.gameState,
             },
-        }, {
-            name: 'no pawns', expected: true,
-            gs: { ...testMoves.normalMove.gameState, pawns: [] },
-        }, {
-            name: 'just one pawn', expected: true,
-            gs: {
-                ...testMoves.normalMove.gameState,
-                pawns: [testMoves.normalMove.gameState.pawns[0]],
+            {
+                name: 'start game state',
+                expected: false,
+                gs: getStartGameState(true, true, true, true) as GameState,
             },
-        }].forEach(({ name, gs, expected}) => {
+            {
+                name: 'only blue pawns',
+                expected: true,
+                gs: {
+                    ...testMoves.normalMove.gameState,
+                    pawns: testMoves.normalMove.gameState.pawns.filter(pawn => pawn.player === Player.blue),
+                },
+            },
+            {
+                name: 'no pawns',
+                expected: true,
+                gs: { ...testMoves.normalMove.gameState, pawns: [] },
+            },
+            {
+                name: 'just one pawn',
+                expected: true,
+                gs: {
+                    ...testMoves.normalMove.gameState,
+                    pawns: [testMoves.normalMove.gameState.pawns[0]],
+                },
+            },
+        ].forEach(({ name, gs, expected }) => {
             it(`${name} => ${expected}`, () => {
                 const actual = isGameOver(gs);
                 assert.strictEqual(actual, expected);
@@ -343,7 +360,7 @@ describe('core/game-state', () => {
 
     describe(makeMove.name, () => {
         for (const name in testMoves) {
-            const { gameState, pawnIndex, destination, expected } = testMoves[name];
+            const { gameState, pawnIndex, destination, expected } = testMoves[name] as Move;
             it(name, () => {
                 const actual = makeMove(gameState, pawnIndex, destination);
                 assert.deepStrictEqual(actual, expected);

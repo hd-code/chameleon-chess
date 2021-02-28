@@ -13,7 +13,7 @@ interface BoardProps extends AppState {
     width: number;
 }
 
-const component: FC<BoardProps> = (props) => {
+const component: FC<BoardProps> = props => {
     const [selectedPawnI, setSelected] = useState(-1);
 
     const gs = getCurrentGameState(props.game);
@@ -38,15 +38,21 @@ const component: FC<BoardProps> = (props) => {
 
     props.onNextTurn();
 
-    return <div style={{width: props.width}}>
-        <div className='square overlay-parent'>
-            <div className='overlay flex wrap'>
-                {fields.map((field, i) => <Field key={i} {...field} />)}
-                {pawns.map(pawn => <Pawn key={getPawnKey(pawn)} {...pawn} />)}
+    return (
+        <div style={{ width: props.width }}>
+            <div className='square overlay-parent'>
+                <div className='overlay flex wrap'>
+                    {fields.map((field, i) => (
+                        <Field key={i} {...field} />
+                    ))}
+                    {pawns.map(pawn => (
+                        <Pawn key={getPawnKey(pawn)} {...pawn} />
+                    ))}
+                </div>
+                <div className='overlay' onClick={onClick}></div>
             </div>
-            <div className='overlay' onClick={onClick}></div>
         </div>
-    </div>;
+    );
 };
 export default component;
 
@@ -60,15 +66,14 @@ function makeFields(gs: GS.GameState, pawnIndex: number): FieldProps[] {
         for (let j = 0, je = fieldColors[i].length; j < je; j++) {
             result.push({
                 color: fieldColors[i][j],
-                state: GS.isWithinLimits({row: i, col: j}, gs.limits)
-                    ? FieldState.normal : FieldState.disabled,
+                state: GS.isWithinLimits({ row: i, col: j }, gs.limits) ? FieldState.normal : FieldState.disabled,
             });
         }
     }
 
     if (pawnIndex !== -1) {
         const marked = GS.getMoves(pawnIndex, gs.pawns, gs.limits);
-        marked.forEach(({row, col}) => result[row * 8 + col].state = FieldState.marked);
+        marked.forEach(({ row, col }) => (result[row * 8 + col].state = FieldState.marked));
     }
 
     return result;
@@ -81,7 +86,7 @@ function getClickPosition(event: React.MouseEvent): GS.Position {
     return { row: Math.floor(y * 8), col: Math.floor(x * 8) };
 }
 
-function calcRelativeClickPosition(event: React.MouseEvent): { x: number, y: number } {
+function calcRelativeClickPosition(event: React.MouseEvent): { x: number; y: number } {
     const rect = (event.target as Element).getBoundingClientRect();
     return {
         x: event.nativeEvent.offsetX / rect.width,
@@ -91,6 +96,6 @@ function calcRelativeClickPosition(event: React.MouseEvent): { x: number, y: num
 
 // -----------------------------------------------------------------------------
 
-function getPawnKey({player, knightColor}: GS.Pawn): string {
+function getPawnKey({ player, knightColor }: GS.Pawn): string {
     return `${player}${knightColor}`;
 }

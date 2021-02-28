@@ -13,7 +13,7 @@ async function del(key: string): Promise<void> {
             } catch (err) {
                 reject(err);
             }
-        }, 1)
+        }, 1),
     );
 }
 
@@ -23,7 +23,7 @@ async function read<T>(key: string): Promise<T> {
             try {
                 const data = localStorage.getItem(storagePrefix + key);
                 if (!data) {
-                    resolve(null as unknown as T);
+                    resolve((null as unknown) as T);
                     return;
                 }
 
@@ -32,7 +32,7 @@ async function read<T>(key: string): Promise<T> {
             } catch (err) {
                 reject(err);
             }
-        }, 1)
+        }, 1),
     );
 }
 
@@ -46,7 +46,7 @@ async function write<T>(key: string, data: T): Promise<void> {
             } catch (err) {
                 reject(err);
             }
-        }, 1)
+        }, 1),
     );
 }
 

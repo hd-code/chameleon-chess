@@ -1,11 +1,13 @@
-import React, { FC }from 'react';
+import React, { FC } from 'react';
 
 import { FieldColor } from 'core/game-state';
 
 // -----------------------------------------------------------------------------
 
 export enum FieldState {
-    normal, disabled, marked,
+    normal,
+    disabled,
+    marked,
 }
 
 export interface FieldProps {
@@ -13,7 +15,7 @@ export interface FieldProps {
     state: FieldState;
 }
 
-const component: FC<FieldProps> = (props) => {
+const component: FC<FieldProps> = props => {
     const colorClass = mapColorClass[props.color];
     const stateClass = mapStateClass[props.state];
     return <div className={'hw-12 border' + ' ' + colorClass + ' ' + stateClass}></div>;

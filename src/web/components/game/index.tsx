@@ -12,11 +12,13 @@ interface GameProps extends AppState {
     width: number;
 }
 
-const component: FC<GameProps> = (props) => {
+const component: FC<GameProps> = props => {
     const boardWidth = Math.min(props.height, props.width);
-    return <div className='h-100 w-100 flex wrap justify'>
-        <Logo />
-        <Board {...props} width={boardWidth} />
-    </div>;
+    return (
+        <div className='h-100 w-100 flex wrap justify'>
+            <Logo />
+            <Board {...props} width={boardWidth} />
+        </div>
+    );
 };
 export default component;

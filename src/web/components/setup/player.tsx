@@ -12,12 +12,14 @@ interface PlayerProps {
     onClick: () => void;
 }
 
-const component: FC<PlayerProps> = (props) => {
+const component: FC<PlayerProps> = props => {
     const colorClass = mapColorClass[props.color];
-    return <div className={'flex-1 border p-2 ' + colorClass} onClick={props.onClick}>
-        <img src={mapTypeImg[props.type]} alt=""/>
-        <p>{PlayerType[props.type]}</p>
-    </div>;
+    return (
+        <div className={'flex-1 border p-2 ' + colorClass} onClick={props.onClick}>
+            <img src={mapTypeImg[props.type]} alt='' />
+            <p>{PlayerType[props.type]}</p>
+        </div>
+    );
 };
 export default component;
 

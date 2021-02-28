@@ -16,15 +16,15 @@ export { arePlayersAlive, Player } from './player';
 /**
  * This is the main data structure for playing a game of chameleon chess.
  * It represents the current state of the game with all needed information.
- * 
+ *
  * It holds the following properties:
  * - `limits`: specify the current size of the game board (see {@link Limits})
  * - `pawns`:  an array with all the pawns that are still in play/alive (see {@link Pawn})
  * - `player`: the player who is currently on turn (see {@link Player})
- * 
+ *
  * All other information about the current game, can be derived from this game
  * state object.
- * 
+ *
  * _Important_: Only living pawns are stored in the pawns array. If a pawn is
  * beaten, it gets removed from that array.
  */
@@ -39,21 +39,24 @@ export interface GameState {
 
 /**
  * Type guard for `GameState`.
- * 
+ *
  * It checks all the keys and types of the object. It will also perform further
  * checks to confirm the validity of the game state, that go beyond simple type
  * checking.
- * 
+ *
  * E.g. if there are several pawns on the same field (which is not possible
  * according to the game rules), this function will return false, as well.
  */
 export function isGameState(gs: unknown): gs is GameState {
-    return hasKey(gs, 'limits', isLimits)
-        && hasKey(gs, 'pawns') && isArray((gs as GameState).pawns, isPawn)
-        && hasKey(gs, 'player', isPlayer)
-        && noPawnsOutsideOfLimits(gs as GameState)
-        && noPawnsOnSameField(gs as GameState)
-        && arePlayersAlive((gs as GameState).pawns)[(gs as GameState).player];
+    return (
+        hasKey(gs, 'limits', isLimits) &&
+        hasKey(gs, 'pawns') &&
+        isArray((gs as GameState).pawns, isPawn) &&
+        hasKey(gs, 'player', isPlayer) &&
+        noPawnsOutsideOfLimits(gs as GameState) &&
+        noPawnsOnSameField(gs as GameState) &&
+        arePlayersAlive((gs as GameState).pawns)[(gs as GameState).player]
+    );
 }
 
 /** This is for the AI. It returns all possible game states that could succeed
@@ -78,16 +81,16 @@ export function getNextGameStates(gs: GameState): GameState[] {
 
 /**
  * Starts a new game and returns the corresponding game state.
- * 
+ *
  * Up to four players can play in a game. Players are linked to a color. So
  * there is a red, green, yellow and a blue player. For each player a boolean
  * is passed as a parameter to indicate if this player takes part in the game or
  * not. (true means the player takes part in the game)
- * 
+ *
  * A minimum of two players are required for a game. If too few players were
  * provided in the params, this function will return null as no game can be
  * played anyway.
- * 
+ *
  * @param red    If set to true, the red    player takes part in this game.
  * @param green  If set to true, the green  player takes part in this game.
  * @param yellow If set to true, the yellow player takes part in this game.
@@ -126,12 +129,12 @@ export function isGameOver(gs: GameState): boolean {
 /**
  * Advances the game by one turn. It moves the pawn to the destination and
  * returns the updated game state. If anything is wrong, it returns `null`.
- * 
+ *
  * Possible errors:
  * - the game is already over
  * - the pawn does not exist or does not belong to the player whose turn it is
  * - destination is not reachable by the pawn
- * 
+ *
  * @param gs the current game state
  * @param pawnI the index of the pawn to be moved in the array
  * @param destination the position where the pawn should be moved to
@@ -152,7 +155,7 @@ export function makeMove(gs: GameState, pawnI: number, destination: Position): G
 
 // -----------------------------------------------------------------------------
 
-function noPawnsOutsideOfLimits({pawns, limits}: GameState): boolean {
+function noPawnsOutsideOfLimits({ pawns, limits }: GameState): boolean {
     for (let i = 0, ie = pawns.length; i < ie; i++) {
         const pawn = pawns[i] as Pawn;
         if (!isWithinLimits(pawn.position, limits)) {
@@ -162,12 +165,12 @@ function noPawnsOutsideOfLimits({pawns, limits}: GameState): boolean {
     return true;
 }
 
-function noPawnsOnSameField({pawns}: GameState): boolean {
+function noPawnsOnSameField({ pawns }: GameState): boolean {
     const positions = pawns.map(pawn => pawn.position);
     positions.sort(sortPositions);
 
     for (let i = 1, ie = positions.length; i < ie; i++) {
-        if (isSamePosition(positions[i-1] as Position, positions[i] as Position)) {
+        if (isSamePosition(positions[i - 1] as Position, positions[i] as Position)) {
             return false;
         }
     }
@@ -177,7 +180,7 @@ function noPawnsOnSameField({pawns}: GameState): boolean {
 /** Not validity check! Just makes the move. */
 function updateGameState(gs: GameState, pawnI: number, destination: Position): GameState {
     const beatenPawnI = getPawnIndexAtPosition(destination, gs.pawns);
-    const pawns = gs.pawns.map(pawn => ({...pawn})); // TODO: deep clone
+    const pawns = gs.pawns.map(pawn => ({ ...pawn })); // TODO: deep clone
     (pawns[pawnI] as Pawn).position = destination;
     if (beatenPawnI >= 0) {
         pawns.splice(beatenPawnI, 1);
@@ -189,7 +192,7 @@ function updateGameState(gs: GameState, pawnI: number, destination: Position): G
         const centerPawnI = getPawnIndexAtPosition(centerPos, pawns);
         if (centerPawnI >= 0) {
             const role = getRole(pawns[centerPawnI] as Pawn);
-            if (role === Role.knight && !isGameOver({limits, pawns, player: gs.player})) {
+            if (role === Role.knight && !isGameOver({ limits, pawns, player: gs.player })) {
                 pawns.splice(centerPawnI, 1);
             }
         }

@@ -11,7 +11,10 @@ import type { Pawn } from './pawn';
  * - `blue`:   3
  */
 export enum Player {
-    red, green, yellow, blue,
+    red,
+    green,
+    yellow,
+    blue,
 }
 
 /** TypeGuard for `Player` */
@@ -22,12 +25,12 @@ export function isPlayer(player: unknown): player is Player {
 /**
  * Checks whether the players are alive or already out. This function will check
  * all players at once.
- * 
+ *
  * It returns an object, where the keys are the players and the values are of
  * boolean type. If the value is true, the corresponding player is still alive.
  * False means the player is out.
  */
-export function arePlayersAlive(pawns: Pawn[]): {[player in Player]: boolean} {
+export function arePlayersAlive(pawns: Pawn[]): { [player in Player]: boolean } {
     const result = {
         [Player.red]: false,
         [Player.green]: false,

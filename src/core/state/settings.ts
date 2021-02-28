@@ -19,7 +19,8 @@ export interface SettingsState {
 export function useSettings(storage: Storage): SettingsState {
     const [settings, setSettings] = useState(defaultSettings);
 
-    storage.read<Settings>(storageKey)
+    storage
+        .read<Settings>(storageKey)
         .then(data => !!data && setSettings(data))
         .catch(console.info);
 

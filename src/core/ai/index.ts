@@ -8,7 +8,9 @@ import { GameState, Player, getNextGameStates } from 'core/game-state';
 /** An enum which represents different levels of difficulty for the computer
  * opponent. */
 export enum Difficulty {
-    easy, normal, hard,
+    easy,
+    normal,
+    hard,
 }
 
 /** This function will do a computer move. The calculation takes around one
@@ -74,7 +76,7 @@ const mapDifficultyToRangeOfMoves = {
 };
 
 function selectMove(player: Player, scores: Score[], difficulty: Difficulty): number {
-    const indexScores = scores.map((score, index) => ({index, score: score[player]}));
+    const indexScores = scores.map((score, index) => ({ index, score: score[player] }));
     indexScores.sort(sortIndexScore);
 
     const rangeOfMoves = mapDifficultyToRangeOfMoves[difficulty] * scores.length;
