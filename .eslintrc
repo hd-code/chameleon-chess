@@ -8,7 +8,6 @@
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended",
-    "prettier",
     "plugin:prettier/recommended"
   ],
   "parser": "@typescript-eslint/parser",
@@ -19,7 +18,8 @@
     "curly": ["error", "all"],
     "no-else-return": "error",
     "sort-imports": ["warn", {"ignoreDeclarationSort": true}],
-    "@typescript-eslint/naming-convention": "error"
+    "@typescript-eslint/naming-convention": "error",
+    "prettier/prettier": "warn"
   },
   "settings": {
     "react": {

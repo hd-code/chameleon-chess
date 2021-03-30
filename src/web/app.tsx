@@ -1,29 +1,30 @@
-import React, { FC, useEffect, useRef, useState } from 'react';
+import React, { FC, useState } from 'react';
 
 import { useAppState } from 'core/state';
 import { View } from 'core/state/view';
-import WebStorage from 'web/storage';
 
-import About from './about';
-import Game from './game';
-import Home from './home';
-import Setup from './setup';
-import Settings from './settings';
+import About from 'web/about';
+import Game from 'web/game';
+import Home from 'web/home';
+import Setup from 'web/setup';
+import Settings from 'web/settings';
+import WebStorage from 'web/storage';
 
 // -----------------------------------------------------------------------------
 
 const component: FC<Record<string, never>> = () => {
     const appState = useAppState(WebStorage);
 
-    const ref = useRef((null as unknown) as HTMLDivElement);
     const [{ height, width }, setDimensions] = useState({ height: 0, width: 0 });
-    useEffect(() => {
-        const newHeight = ref.current.clientHeight ?? 0;
-        const newWidth = ref.current.clientWidth ?? 0;
-        if (newHeight !== height || newWidth !== width) {
-            setDimensions({ height: newHeight, width: newWidth });
+    const appContainer = (div: HTMLDivElement | null) => {
+        if (div) {
+            const newHeight = div.clientHeight;
+            const newWidth = div.clientWidth;
+            if (newHeight !== height || newWidth !== width) {
+                setDimensions({ height: newHeight, width: newWidth });
+            }
         }
-    });
+    };
 
     const loadView = () => {
         switch (appState.view) {
@@ -45,7 +46,7 @@ const component: FC<Record<string, never>> = () => {
     };
 
     return (
-        <div className='h-100 w-100 flex center middle' ref={ref}>
+        <div className='h-100 w-100 no-overflow flex center middle font-1 fz-140' ref={appContainer}>
             {loadView()}
         </div>
     );

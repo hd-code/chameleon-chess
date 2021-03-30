@@ -12,6 +12,10 @@ Base CSS Settings
     margin: 0;
     padding: 0;
 }
+button, input, select, textarea {
+    font: inherit;
+    color: inherit;
+}
 ol,ul { list-style: none }
 small,sub,sup { font-size: .75em }
 

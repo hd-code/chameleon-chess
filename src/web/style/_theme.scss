@@ -29,43 +29,23 @@ Website's Theme
     &-white { color: #fff }
 }
 
-// .bg-main, .bg-main-focus:focus, .bg-main-hover:hover { background-color: #ddd }
-
-// .bg-primary, .bg-primary-focus:focus, .bg-primary-hover:hover { color: #00a }
-// .bg-secondary, .bg-secondary-focus:focus, .bg-secondary-hover:hover { color: #06a }
-// .bg-neutral, .bg-neutral-focus:focus, .bg-neutral-hover:hover { color: #fff }
-
-// .bg-error, .bg-error-focus:focus, .bg-error-hover:hover { background-color: #800 }
-// .bg-warn, .bg-warn-focus:focus, .bg-warn-hover:hover { background-color: #880 }
-// .bg-success, .bg-success-focus:focus, .bg-success-hover:hover { background-color: #080 }
-
-// .c-primary, .c-primary-focus:focus, .c-primary-hover:hover { color: #00a }
-// .c-secondary, .c-secondary-focus:focus, .c-secondary-hover:hover { color: #06a }
-// .c-neutral, .c-neutral-focus:focus, .c-neutral-hover:hover { color: #000 }
-// .c-contrast, .c-contrast-focus:focus, .c-contrast-hover:hover { color: #fff }
-
-// .c-error, .c-error-focus:focus, .c-error-hover:hover { color: #800 }
-// .c-warn, .c-warn-focus:focus, .c-warn-hover:hover { color: #a80 }
-// .c-success, .c-success-focus:focus, .c-success-hover:hover { color: #070 }
-
 /* Typography --------------------------------------------------------------- */
 
-// .font-1 { font-family: Helvetica, sans-serif }
+.font-1 { font-family: Verdana, sans-serif }
 // .font-2 { font-family: Times, serif }
 
 // .text-block * + * { margin-top: .5em }
+.text-border { text-shadow: 1px 1px #000, 1px -1px #000, -1px 1px #000, -1px -1px #000 }
 
 /* Util --------------------------------------------------------------------- */
 
 .absolute { position: absolute }
 
-.border { border: 1px solid currentColor }
+.border { border: solid 1px #000 }
+.no-border { border: 0 }
+
 .circle { border-radius: 50% }
 .rounded { border-radius: .5em }
-
-.shadow { box-shadow: 0 0 .2em #000 }
-.text-border { text-shadow: 0 0 1px #000 }
-.text-shadow { text-shadow: .1em .1em #000 }
 
 .square {
     height: 0;
