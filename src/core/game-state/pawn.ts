@@ -1,4 +1,5 @@
 import { hasKey, isInteger } from 'core/type-guards';
+
 import { FieldColor, Position, getFieldColor, isFieldColor, isPosition, isSamePosition } from './board';
 import { Limits, isWithinLimits } from './limits';
 import { Player, isPlayer } from './player';

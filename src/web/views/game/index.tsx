@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
 
 import { AppState } from 'core/state';
-
 import Logo from 'web/shared/logo';
 
 import Board from './board';

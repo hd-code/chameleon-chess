@@ -1,8 +1,8 @@
 import { useState } from 'react';
 
-import * as GS from '../game-state';
-import { Game, initGame, makeMove } from '../game';
-import Storage from '../storage';
+import { Game, initGame, makeMove } from 'core/game';
+import * as GS from 'core/game-state';
+import Storage from 'core/storage';
 
 // -----------------------------------------------------------------------------
 

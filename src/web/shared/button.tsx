@@ -1,7 +1,7 @@
-import { FieldColor } from 'core/game-state';
 import React, { FC } from 'react';
 
-import Text from './text';
+import { FieldColor } from 'core/game-state';
+import Text from 'web/shared/text';
 
 // -----------------------------------------------------------------------------
 

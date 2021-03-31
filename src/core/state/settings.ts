@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import Storage from '../storage';
+import Storage from 'core/storage';
 
 // -----------------------------------------------------------------------------
 

@@ -1,5 +1,5 @@
-import * as GS from './game-state';
-import { PlayerType, Players } from './players';
+import * as GS from 'core/game-state';
+import { PlayerType, Players } from 'core/players';
 
 // -----------------------------------------------------------------------------
 

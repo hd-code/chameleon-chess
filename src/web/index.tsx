@@ -1,8 +1,8 @@
 import React from 'react';
 import { render } from 'react-dom';
 
-import './style/main.scss';
-import App from './app';
+import 'web/style/main.scss';
+import App from 'web/app';
 
 // -----------------------------------------------------------------------------
 

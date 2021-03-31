@@ -1,4 +1,5 @@
 import { hasKey, isArray } from 'core/type-guards';
+
 import { Position, isInPositions, isSamePosition, sortPositions } from './board';
 import { Limits, getStartLimits, isLimits, isSmallestLimits, isWithinLimits, updateLimits } from './limits';
 import { Pawn, Role, getMoves, getPawnIndexAtPosition, getRole, getStartPawns, isPawn } from './pawn';

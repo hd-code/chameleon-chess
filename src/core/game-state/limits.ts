@@ -1,4 +1,5 @@
 import { hasKey, isInteger } from 'core/type-guards';
+
 import type { Position } from './board';
 import type { Pawn } from './pawn';
 

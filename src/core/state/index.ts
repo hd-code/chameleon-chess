@@ -1,7 +1,8 @@
+import Storage from 'core/storage';
+
 import { GameState, useGame } from './game';
 import { SettingsState, useSettings } from './settings';
 import { ViewState, useView } from './view';
-import Storage from '../storage';
 
 // -----------------------------------------------------------------------------
 

@@ -3,7 +3,6 @@ import React, { FC, useState } from 'react';
 import { Player } from 'core/game-state';
 import { nextPlayersType } from 'core/players';
 import { AppState } from 'core/state';
-
 import Button from 'web/shared/button';
 
 import Players from './players';

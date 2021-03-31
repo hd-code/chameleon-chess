@@ -2,7 +2,6 @@ import React, { FC, useState } from 'react';
 
 import { useAppState } from 'core/state';
 import { View } from 'core/state/view';
-
 import WebStorage from 'web/storage';
 import About from 'web/views/about';
 import Game from 'web/views/game';
