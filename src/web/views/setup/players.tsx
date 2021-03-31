@@ -18,10 +18,10 @@ const component: FC<PlayersProps> = props => {
     });
     return (
         <div className='flex stretch'>
-            <Player {...getProps(PlayerModel.red)} />
-            <Player {...getProps(PlayerModel.green)} />
-            <Player {...getProps(PlayerModel.yellow)} />
-            <Player {...getProps(PlayerModel.blue)} />
+            <Player {...getProps(PlayerModel.red)} className='w-25' />
+            <Player {...getProps(PlayerModel.green)} className='w-25' />
+            <Player {...getProps(PlayerModel.yellow)} className='w-25' />
+            <Player {...getProps(PlayerModel.blue)} className='w-25' />
         </div>
     );
 };

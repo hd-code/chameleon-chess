@@ -16,13 +16,19 @@ module.exports = {
         test: /\.tsx?$/,
         loader: 'ts-loader',
         exclude: /node_modules/,
-        options: { configFile: 'tsconfig.web.json' }
+        options: {
+          configFile: path.resolve(__dirname, 'tsconfig.json'),
+          compilerOptions: {
+            jsx: "react",
+            outDir: "build",
+          }
+        }
       },
     ],
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
-    modules: ['node_modules','src'],
+    modules: ['node_modules', 'src'],
   },
   output: {
     filename: 'chameleon-chess.js',

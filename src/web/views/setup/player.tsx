@@ -7,6 +7,7 @@ import { imgDir } from 'web/constants';
 // -----------------------------------------------------------------------------
 
 interface PlayerProps {
+    className?: string;
     color: PlayerColor;
     type: PlayerType;
     onClick: () => void;
@@ -15,7 +16,7 @@ interface PlayerProps {
 const component: FC<PlayerProps> = props => {
     const colorClass = mapColorClass[props.color];
     return (
-        <div className={'flex-1 border p-2 ' + colorClass} onClick={props.onClick}>
+        <div className={`flex-1 border p-2 ${colorClass} ${props.className ?? ''}`} onClick={props.onClick}>
             <img src={mapTypeImg[props.type]} alt='' />
             <p>{PlayerType[props.type]}</p>
         </div>

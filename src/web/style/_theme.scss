@@ -55,3 +55,28 @@ Website's Theme
 }
 
 .transition { transition: .5s }
+
+.overlay {
+    &-parent { position: relative }
+
+    &-bright, &-dark, &-frame {
+        position: relative;
+    }
+
+    &, &-bright::after, &-dark::after, &-frame::after {
+        border-radius: inherit;
+        position: absolute;
+        top: 0; bottom: 0; left: 0; right: 0;
+    }
+
+    &-bright::after, &-dark::after, &-frame::after { content: '' }
+
+    &-bright::after { background-color: #fff8 }
+    &-dark::after { background-color: #000a }
+    &-frame::after { border: 0.25em solid #fffc }
+
+    &-screen {
+        position: fixed;
+        top: 0; bottom: 0; left: 0; right: 0;
+    }
+}

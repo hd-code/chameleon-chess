@@ -3,12 +3,12 @@ import React, { FC, useState } from 'react';
 import { useAppState } from 'core/state';
 import { View } from 'core/state/view';
 
-import About from 'web/about';
-import Game from 'web/game';
-import Home from 'web/home';
-import Setup from 'web/setup';
-import Settings from 'web/settings';
 import WebStorage from 'web/storage';
+import About from 'web/views/about';
+import Game from 'web/views/game';
+import Home from 'web/views/home';
+import Setup from 'web/views/setup';
+import Settings from 'web/views/settings';
 
 // -----------------------------------------------------------------------------
 
@@ -46,7 +46,7 @@ const component: FC<Record<string, never>> = () => {
     };
 
     return (
-        <div className='h-100 w-100 no-overflow flex center middle font-1 fz-140' ref={appContainer}>
+        <div className='hw-100 no-overflow flex center middle font-1 fz-140' ref={appContainer}>
             {loadView()}
         </div>
     );

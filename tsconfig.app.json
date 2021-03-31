@@ -1,8 +1,0 @@
-{
-  "extends": "./tsconfig.json",
-  "compilerOptions": {
-    "jsx": "react-native",
-    "noEmit": true
-  },
-  "include": ["src/app","src/core"]
-}
