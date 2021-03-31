@@ -1,6 +1,4 @@
 import { maxNIS } from 'core/ai/max-n-is';
-import * as assert from 'assert';
-
 import { GameState, getStartGameState } from 'core/game-state';
 
 // -----------------------------------------------------------------------------
@@ -10,13 +8,13 @@ describe('core/ai/' + maxNIS.name, () => {
         const expected = { 0: 0.25, 1: 0.25, 2: 0.25, 3: 0.25 };
         const gs = getStartGameState(true, true, true, true) as GameState;
         const score = maxNIS(gs, 0);
-        assert.deepStrictEqual(score, expected);
+        expect(score).toEqual(expected);
     });
 
     it('should return different score for different depths', () => {
         const gs = getStartGameState(true, true, true, true) as GameState;
         const d0 = maxNIS(gs, 0);
         const d1 = maxNIS(gs, 1);
-        assert.notDeepStrictEqual(d0, d1);
+        expect(d0).not.toEqual(d1);
     });
 });

@@ -8,7 +8,6 @@ import {
     isGameState,
     makeMove,
 } from 'core/game-state';
-import * as assert from 'assert';
 
 // -----------------------------------------------------------------------------
 
@@ -299,62 +298,48 @@ describe('core/game-state', () => {
         const nextGSs = getNextGameStates(gs);
 
         it('should return 13 game states for start game state', () => {
-            assert.strictEqual(nextGSs.length, 13);
+            expect(nextGSs.length).toBe(13);
         });
 
         it('should return an array of valid game states', () => {
-            nextGSs.forEach(gs => assert.ok(isGameState(gs)));
+            nextGSs.forEach(gs => expect(isGameState(gs)).toBeTruthy());
         });
 
         it('all game states should differ from input', () => {
-            nextGSs.forEach(nextGS => assert.notDeepStrictEqual(nextGS, gs));
+            nextGSs.forEach(nextGS => expect(nextGS).not.toEqual(gs));
         });
 
         it('all game states should have player blue on turn', () => {
-            nextGSs.forEach(gs => assert.strictEqual(gs.player, Player.blue));
+            nextGSs.forEach(gs => expect(gs.player).toBe(Player.blue));
         });
     });
 
     it.todo(getStartGameState.name);
 
     describe(isGameOver.name, () => {
-        [
-            {
-                name: 'normal game state',
-                expected: false,
-                gs: testMoves.normalMove.gameState,
-            },
-            {
-                name: 'start game state',
-                expected: false,
-                gs: getStartGameState(true, true, true, true) as GameState,
-            },
-            {
-                name: 'only blue pawns',
-                expected: true,
-                gs: {
+        it.each([
+            ['normal game state', testMoves.normalMove.gameState, false],
+            ['start game state', getStartGameState(true, true, true, true) as GameState, false],
+            [
+                'only blue pawns',
+                {
                     ...testMoves.normalMove.gameState,
                     pawns: testMoves.normalMove.gameState.pawns.filter(pawn => pawn.player === Player.blue),
                 },
-            },
-            {
-                name: 'no pawns',
-                expected: true,
-                gs: { ...testMoves.normalMove.gameState, pawns: [] },
-            },
-            {
-                name: 'just one pawn',
-                expected: true,
-                gs: {
+                true,
+            ],
+            ['no pawns', { ...testMoves.normalMove.gameState, pawns: [] }, true],
+            [
+                'just one pawn',
+                {
                     ...testMoves.normalMove.gameState,
                     pawns: [testMoves.normalMove.gameState.pawns[0]],
                 },
-            },
-        ].forEach(({ name, gs, expected }) => {
-            it(`${name} => ${expected}`, () => {
-                const actual = isGameOver(gs);
-                assert.strictEqual(actual, expected);
-            });
+                true,
+            ],
+        ])('%s', (_, input, expected) => {
+            const actual = isGameOver(input);
+            expect(actual).toBe(expected);
         });
     });
 
@@ -363,7 +348,7 @@ describe('core/game-state', () => {
             const { gameState, pawnIndex, destination, expected } = testMoves[name];
             it(name, () => {
                 const actual = makeMove(gameState, pawnIndex, destination);
-                assert.deepStrictEqual(actual, expected);
+                expect(actual).toEqual(expected);
             });
         }
         // TODO: add invalid moves

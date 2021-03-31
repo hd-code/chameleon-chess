@@ -1,3 +1,5 @@
+import { FieldColor, GameState, Player, Position, getStartGameState } from 'core/game-state';
+import { isSamePosition, sortPositions } from 'core/game-state/board';
 import {
     Role,
     getMoves,
@@ -8,10 +10,6 @@ import {
     isPawn,
     isRole,
 } from 'core/game-state/pawn';
-import * as assert from 'assert';
-
-import { FieldColor, GameState, Player, Position, getStartGameState } from 'core/game-state';
-import { isSamePosition, sortPositions } from 'core/game-state/board';
 
 // -----------------------------------------------------------------------------
 
@@ -132,74 +130,68 @@ const queenMoves = <Position[]>[
 
 describe('core/game-state/pawn', () => {
     describe(isRole.name, () => {
-        [
-            { input: 0, expected: true },
-            { input: 1, expected: true },
-            { input: 2, expected: true },
-            { input: 3, expected: true },
-            { input: -1, expected: false },
-            { input: 4, expected: false },
-            { input: 0.5, expected: false },
-            { input: 2.3, expected: false },
-            { input: '0', expected: false },
-            { input: null, expected: false },
-            { input: [], expected: false },
-            { input: {}, expected: false },
-        ].forEach(({ input, expected }) => {
-            it(`${JSON.stringify(input)} => ${expected}`, () => {
-                const actual = isRole(input);
-                assert.strictEqual(actual, expected);
-            });
+        it.each([
+            [0, true],
+            [1, true],
+            [2, true],
+            [3, true],
+            [-1, false],
+            [4, false],
+            [0.5, false],
+            [2.3, false],
+            ['0', false],
+            [null, false],
+            [[], false],
+            [{}, false],
+        ])('%j => %j', (input, expected) => {
+            const actual = isRole(input);
+            expect(actual).toBe(expected);
         });
     });
 
     describe(isPawn.name, () => {
-        [
-            { input: { player: 0, position: { row: 5, col: 3 }, knightColor: 0 }, expected: true },
-            { input: { player: 3, position: { row: 5, col: 1 }, knightColor: 0 }, expected: true },
-            { input: { player: 0, position: { row: 1, col: 3 }, knightColor: 3 }, expected: true },
-            { input: { player: 1, position: { row: 5, col: 4 }, knightColor: 0 }, expected: true },
-            { input: { player: 2, position: { row: 2, col: 3 }, knightColor: 2 }, expected: true },
-            { input: { player: 2, position: { row: 3, col: 7 }, knightColor: 0 }, expected: true },
-            { input: { player: 2, position: { row: 3, col: 7 }, knightColor: 8 }, expected: false },
-            { input: { player: 6, position: { row: 3, col: 7 }, knightColor: 0 }, expected: false },
-            { input: { player: 2, position: { row: 0.5, col: 7 }, knightColor: 0 }, expected: false },
-            { input: { player: 2, position: { row: 3, col: -2 }, knightColor: 0 }, expected: false },
-            { input: { position: { row: 3, col: 7 }, knightColor: 0 }, expected: false },
-            { input: { player: 2, knightColor: 0 }, expected: false },
-            { input: { player: 2, position: { row: 3, col: 7 } }, expected: false },
-            { input: { player: 2, position: { row: 3 }, knightColor: 0 }, expected: false },
-            { input: { player: 2, position: { col: 7 }, knightColor: 0 }, expected: false },
-            { input: { col: 3 }, expected: false },
-            { input: 4, expected: false },
-            { input: -1, expected: false },
-            { input: 0.5, expected: false },
-            { input: 2.3, expected: false },
-            { input: '0', expected: false },
-            { input: null, expected: false },
-            { input: [], expected: false },
-            { input: {}, expected: false },
-        ].forEach(({ input, expected }) => {
-            it(`${JSON.stringify(input)} => ${expected}`, () => {
-                const actual = isPawn(input);
-                assert.strictEqual(actual, expected);
-            });
+        it.each([
+            [{ player: 0, position: { row: 5, col: 3 }, knightColor: 0 }, true],
+            [{ player: 3, position: { row: 5, col: 1 }, knightColor: 0 }, true],
+            [{ player: 0, position: { row: 1, col: 3 }, knightColor: 3 }, true],
+            [{ player: 1, position: { row: 5, col: 4 }, knightColor: 0 }, true],
+            [{ player: 2, position: { row: 2, col: 3 }, knightColor: 2 }, true],
+            [{ player: 2, position: { row: 3, col: 7 }, knightColor: 0 }, true],
+            [{ player: 2, position: { row: 3, col: 7 }, knightColor: 8 }, false],
+            [{ player: 6, position: { row: 3, col: 7 }, knightColor: 0 }, false],
+            [{ player: 2, position: { row: 0.5, col: 7 }, knightColor: 0 }, false],
+            [{ player: 2, position: { row: 3, col: -2 }, knightColor: 0 }, false],
+            [{ position: { row: 3, col: 7 }, knightColor: 0 }, false],
+            [{ player: 2, knightColor: 0 }, false],
+            [{ player: 2, position: { row: 3, col: 7 } }, false],
+            [{ player: 2, position: { row: 3 }, knightColor: 0 }, false],
+            [{ player: 2, position: { col: 7 }, knightColor: 0 }, false],
+            [{ col: 3 }, false],
+            [4, false],
+            [-1, false],
+            [0.5, false],
+            [2.3, false],
+            ['0', false],
+            [null, false],
+            [[], false],
+            [{}, false],
+        ])('%j => %j', (input, expected) => {
+            const actual = isPawn(input);
+            expect(actual).toBe(expected);
         });
     });
 
     describe(getMoves.name, () => {
-        [
-            { name: 'should return the correct moves for a knight', pawnI: knightIndex, expected: knightMoves },
-            { name: 'should return the correct moves for a queen', pawnI: queenIndex, expected: queenMoves },
-            { name: 'should return the correct moves for a bishop', pawnI: bishopIndex, expected: bishopMoves },
-            { name: 'should return the correct moves for a rook', pawnI: rookIndex, expected: rookMoves },
-        ].forEach(({ name, pawnI, expected }) => {
-            it(name, () => {
-                const actual = getMoves(pawnI, gs.pawns, gs.limits);
-                actual.sort(sortPositions);
-                expected.sort(sortPositions);
-                assert.deepStrictEqual(actual, expected);
-            });
+        it.each([
+            ['should return the correct moves for a knight', knightIndex, knightMoves],
+            ['should return the correct moves for a queen', queenIndex, queenMoves],
+            ['should return the correct moves for a bishop', bishopIndex, bishopMoves],
+            ['should return the correct moves for a rook', rookIndex, rookMoves],
+        ])('%s', (_, pawnI, expected) => {
+            const actual = getMoves(pawnI, gs.pawns, gs.limits);
+            actual.sort(sortPositions);
+            expected.sort(sortPositions);
+            expect(actual).toEqual(expected);
         });
 
         it('should return 13 moves for all pawns of a player in start game state', () => {
@@ -211,7 +203,7 @@ describe('core/game-state/pawn', () => {
             movesRed.push(...getMoves(2, gs.pawns, gs.limits));
             movesRed.push(...getMoves(3, gs.pawns, gs.limits));
 
-            assert.strictEqual(movesRed.length, 13);
+            expect(movesRed.length).toBe(13);
         });
     });
 
@@ -240,7 +232,7 @@ describe('core/game-state/pawn', () => {
             const nthPawn = expected === -1 ? 'no' : `the ${expected}.`;
             it(`At ${JSON.stringify(position)} there is ${nthPawn} pawn`, () => {
                 const actual = getPawnIndexAtPosition(position, pawns);
-                assert.strictEqual(actual, expected);
+                expect(actual).toBe(expected);
             });
         });
     });
@@ -259,51 +251,51 @@ describe('core/game-state/pawn', () => {
             const posString = JSON.stringify(pawn.position);
             it(`pawn at ${posString} with knight color ${FieldColor[pawn.knightColor]} => ${Role[expected]}`, () => {
                 const actual = getRole(pawn);
-                assert.strictEqual(actual, expected);
+                expect(actual).toBe(expected);
             });
         });
     });
 
     describe(getRoleMapping.name, () => {
         const basePawn = { player: 0, position: { row: 0, col: 0 }, knightColor: 0 };
-        [
-            { knightColor: FieldColor.red, expected: { 0: 0, 1: 1, 2: 2, 3: 3 } },
-            { knightColor: FieldColor.green, expected: { 0: 3, 1: 0, 2: 1, 3: 2 } },
-            { knightColor: FieldColor.yellow, expected: { 0: 2, 1: 3, 2: 0, 3: 1 } },
-            { knightColor: FieldColor.blue, expected: { 0: 1, 1: 2, 2: 3, 3: 0 } },
-        ].forEach(({ knightColor, expected }) => {
-            it(`${FieldColor[knightColor]} => ${JSON.stringify(expected)}`, () => {
-                const pawn = { ...basePawn, knightColor };
-                const actual = getRoleMapping(pawn);
-                assert.deepStrictEqual(actual, expected);
-            });
+
+        it.each([
+            [FieldColor.red, { 0: 0, 1: 1, 2: 2, 3: 3 }],
+            [FieldColor.green, { 0: 3, 1: 0, 2: 1, 3: 2 }],
+            [FieldColor.yellow, { 0: 2, 1: 3, 2: 0, 3: 1 }],
+            [FieldColor.blue, { 0: 1, 1: 2, 2: 3, 3: 0 }],
+        ])('%j => %j', (knightColor, expected) => {
+            const pawn = { ...basePawn, knightColor };
+            const actual = getRoleMapping(pawn);
+            expect(actual).toEqual(expected);
         });
     });
 
     describe(getStartPawns.name, () => {
-        [Player.red, Player.green, Player.yellow, Player.blue].forEach(player => {
-            it(Player[player], () => {
-                const pawns = getStartPawns(player);
+        describe.each([Player.red, Player.green, Player.yellow, Player.blue])('Player: %j', player => {
+            const pawns = getStartPawns(player);
 
-                assert.strictEqual(pawns.length, 4, 'There should be 4 pawns');
+            it('There should be 4 pawns', () => expect(pawns.length).toBe(4));
 
-                pawns.forEach(pawn =>
-                    assert.strictEqual(pawn.player, player, 'All pawns should be from the same player'),
-                );
+            it('All pawns should be from the same player', () =>
+                pawns.forEach(pawn => expect(pawn.player).toEqual(player)));
 
+            it('Pawns should have different knight colors', () => {
                 const knightColors = pawns.map(pawn => pawn.knightColor);
-                assert.notStrictEqual(knightColors[0], knightColors[1], 'Pawns should have different knight colors');
-                assert.notStrictEqual(knightColors[0], knightColors[2], 'Pawns should have different knight colors');
-                assert.notStrictEqual(knightColors[0], knightColors[3], 'Pawns should have different knight colors');
-                assert.notStrictEqual(knightColors[1], knightColors[2], 'Pawns should have different knight colors');
-                assert.notStrictEqual(knightColors[1], knightColors[3], 'Pawns should have different knight colors');
-                assert.notStrictEqual(knightColors[2], knightColors[3], 'Pawns should have different knight colors');
+                expect(knightColors[0]).not.toBe(knightColors[1]);
+                expect(knightColors[0]).not.toBe(knightColors[2]);
+                expect(knightColors[0]).not.toBe(knightColors[3]);
+                expect(knightColors[1]).not.toBe(knightColors[2]);
+                expect(knightColors[1]).not.toBe(knightColors[3]);
+                expect(knightColors[2]).not.toBe(knightColors[3]);
+            });
 
+            it('No pawns should be at the same position', () => {
                 const positions = pawns.map(pawn => pawn.position);
                 positions.sort(sortPositions);
-                assert.ok(!isSamePosition(positions[0], positions[1]), 'No pawns should be at the same position');
-                assert.ok(!isSamePosition(positions[1], positions[2]), 'No pawns should be at the same position');
-                assert.ok(!isSamePosition(positions[2], positions[3]), 'No pawns should be at the same position');
+                expect(isSamePosition(positions[0], positions[1])).toBeFalsy();
+                expect(isSamePosition(positions[1], positions[2])).toBeFalsy();
+                expect(isSamePosition(positions[2], positions[3])).toBeFalsy();
             });
         });
     });
