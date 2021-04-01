@@ -39,7 +39,7 @@ export function isGameOver(game: Game): boolean {
     return gameOver(gs);
 }
 
-export function makeMove(pawnIndex: number, destination: Position, game: Game): Game | null {
+export function makeMove(game: Game, pawnIndex: number, destination: Position): Game | null {
     const nextGS = move(getCurrentGameState(game), pawnIndex, destination);
     if (!nextGS) {
         return null;

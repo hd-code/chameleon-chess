@@ -22,6 +22,12 @@ interface BoardProps extends AppState {
 }
 
 const component: FC<BoardProps> = props => {
+    if (!props.game) {
+        console.warn('There is no game running currently!');
+        props.goTo.home();
+        return <></>;
+    }
+
     const [selectedPawnI, setSelected] = useState(-1);
 
     const gs = getCurrentGameState(props.game);

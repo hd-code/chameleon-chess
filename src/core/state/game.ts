@@ -3,30 +3,48 @@ import { useState } from 'react';
 import { Game, initGame, makeMove } from 'core/game';
 import { Position } from 'core/game-state';
 import Storage from 'core/storage';
+import { Players } from 'core/players';
 
 // -----------------------------------------------------------------------------
 
 export interface GameState {
-    game: Game;
+    game: Game | null;
+    beginNewGame: (players: Players) => boolean;
     makeMove: (pawnIndex: number, destination: Position) => boolean;
     onNextTurn: () => void;
 }
 
 export function useGame(storage: Storage): GameState {
-    const [game, setGame] = useState(startGame);
+    const [game, setGame] = useState<Game | null>(null);
 
     storage
         .read<Game>(storageKey)
         .then(data => !!data && setGame(data))
         .catch(console.info);
 
-    const makeMoveOnCurrent = (pawnIndex: number, destination: Position) => {
-        const newGame = makeMove(pawnIndex, destination, game);
+    const updateGame = (newGame: Game | null) => {
+        void storage.write<Game | null>(storageKey, newGame);
+        setGame(newGame);
+    };
+
+    const beginNewGame = (players: Players): boolean => {
+        const newGame = initGame(players);
         if (!newGame) {
             return false;
         }
-        void storage.write<Game>(storageKey, newGame);
-        setGame(newGame);
+        updateGame(newGame);
+        return true;
+    };
+
+    const makeMoveOnCurrent = (pawnIndex: number, destination: Position) => {
+        if (!game) {
+            return false;
+        }
+        const newGame = makeMove(game, pawnIndex, destination);
+        if (!newGame) {
+            return false;
+        }
+        updateGame(newGame);
         return true;
     };
 
@@ -34,11 +52,9 @@ export function useGame(storage: Storage): GameState {
         // call ai if necessary
     };
 
-    return { game, makeMove: makeMoveOnCurrent, onNextTurn };
+    return { game, beginNewGame, makeMove: makeMoveOnCurrent, onNextTurn };
 }
 
 // -----------------------------------------------------------------------------
 
 const storageKey = 'game';
-
-const startGame = initGame({ 0: 1, 1: 0, 2: 1, 3: 0 }) as Game;

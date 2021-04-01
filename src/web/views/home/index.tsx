@@ -17,7 +17,7 @@ const component: FC<AppState> = props => {
             <Button
                 className='mb-1'
                 color={Color.red}
-                disabled={isGameOver(props.game)}
+                disabled={!props.game || isGameOver(props.game)}
                 onClick={() => props.goTo.game()}
             >
                 Continue
