@@ -1,3 +1,4 @@
+import { AILevel } from 'core/ai';
 import {
     Color,
     GameState,
@@ -11,6 +12,7 @@ import { PlayerType, Players } from 'core/players';
 // -----------------------------------------------------------------------------
 
 export interface Game {
+    readonly aiLevel: AILevel;
     gameStates: GameState[];
     readonly players: Players;
 }
@@ -19,7 +21,7 @@ export function getCurrentGameState(game: Game): GameState {
     return game.gameStates[game.gameStates.length - 1];
 }
 
-export function initGame(players: Players): Game | null {
+export function initGame(players: Players, aiLevel = AILevel.normal): Game | null {
     const gs = getStartGameState(
         players[Color.red] !== PlayerType.none,
         players[Color.green] !== PlayerType.none,
@@ -31,7 +33,7 @@ export function initGame(players: Players): Game | null {
         return null;
     }
 
-    return { gameStates: [gs], players };
+    return { aiLevel, gameStates: [gs], players };
 }
 
 export function isGameOver(game: Game): boolean {

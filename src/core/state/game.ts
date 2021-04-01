@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+import { AILevel } from 'core/ai';
 import { Game, initGame, makeMove } from 'core/game';
 import { Position } from 'core/game-state';
 import Storage from 'core/storage';
@@ -9,7 +10,7 @@ import { Players } from 'core/players';
 
 export interface GameState {
     game: Game | null;
-    beginNewGame: (players: Players) => boolean;
+    beginNewGame: (players: Players, aiLevel: AILevel) => boolean;
     makeMove: (pawnIndex: number, destination: Position) => boolean;
     onNextTurn: () => void;
 }
@@ -27,8 +28,8 @@ export function useGame(storage: Storage): GameState {
         setGame(newGame);
     };
 
-    const beginNewGame = (players: Players): boolean => {
-        const newGame = initGame(players);
+    const beginNewGame = (players: Players, aiLevel: AILevel): boolean => {
+        const newGame = initGame(players, aiLevel);
         if (!newGame) {
             return false;
         }

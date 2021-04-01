@@ -7,7 +7,7 @@ import { Score, maxScore } from './score';
 
 /** An enum which represents different levels of difficulty for the computer
  * opponent. */
-export enum Difficulty {
+export enum AILevel {
     easy,
     normal,
     hard,
@@ -16,7 +16,7 @@ export enum Difficulty {
 /** This function will do a computer move. The calculation takes around one
  * second. A difficulty can be passed to specify how intelligently the computer
  * will play. */
-export function makeComputerMove(gs: GameState, difficulty = Difficulty.easy): GameState {
+export function makeComputerMove(gs: GameState, difficulty = AILevel.easy): GameState {
     const nextGSs = getNextGameStates(gs);
 
     const scores = [];
@@ -70,12 +70,12 @@ function updateScores(nextGSs: GameState[], scores: Score[], player: Player): vo
  * specifies how, many entries will be in the list. The longer the list is, the
  * more of the worse moves will be in the list. */
 const mapDifficultyToRangeOfMoves = {
-    [Difficulty.easy]: 0.5,
-    [Difficulty.normal]: 0.25,
-    [Difficulty.hard]: 0,
+    [AILevel.easy]: 0.5,
+    [AILevel.normal]: 0.25,
+    [AILevel.hard]: 0,
 };
 
-function selectMove(player: Player, scores: Score[], difficulty: Difficulty): number {
+function selectMove(player: Player, scores: Score[], difficulty: AILevel): number {
     const indexScores = scores.map((score, index) => ({ index, score: score[player] }));
     indexScores.sort(sortIndexScore);
 

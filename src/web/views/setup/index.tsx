@@ -1,5 +1,7 @@
 import React, { FC, useState } from 'react';
 
+import { AILevel } from 'core/ai';
+import { initGame } from 'core/game';
 import { Player } from 'core/game-state';
 import { getDefaultPlayers, togglePlayersBySingle } from 'core/players';
 import { AppState } from 'core/state';
@@ -8,7 +10,6 @@ import Link from 'web/shared/link';
 import Text from 'web/shared/text';
 
 import Players from './players';
-import { initGame } from 'core/game';
 
 // -----------------------------------------------------------------------------
 
@@ -18,7 +19,7 @@ const component: FC<AppState> = props => {
 
     const newGame = initGame(players);
     const beginNewGame = () => {
-        const newGameCreated = props.beginNewGame(players);
+        const newGameCreated = props.beginNewGame(players, AILevel.normal);
         if (newGameCreated) {
             props.goTo.game();
         }
@@ -29,13 +30,17 @@ const component: FC<AppState> = props => {
             <Text className='c-white fz-120 text-border' type='h1'>
                 Ein neues Spiel starten
             </Text>
+
             <Players {...{ ...players, onClick }} />
+
             <Button color={1} disabled={!newGame} onClick={beginNewGame}>
                 Spiel beginnen
             </Button>
+
             <p className='c-white fz-80 my-2 text-border'>
                 Klicke auf die Flächen, um die teilnehmenden <br /> Spieler zu konfigurieren.
             </p>
+
             <Link onClick={props.goBack}>zurück</Link>
         </div>
     );
