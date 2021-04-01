@@ -2,8 +2,6 @@ import { Player } from 'core/game-state';
 
 // -----------------------------------------------------------------------------
 
-export { Player } from 'core/game-state';
-
 export enum PlayerType {
     none,
     human,

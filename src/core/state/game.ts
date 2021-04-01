@@ -1,14 +1,14 @@
 import { useState } from 'react';
 
 import { Game, initGame, makeMove } from 'core/game';
-import * as GS from 'core/game-state';
+import { Position } from 'core/game-state';
 import Storage from 'core/storage';
 
 // -----------------------------------------------------------------------------
 
 export interface GameState {
     game: Game;
-    makeMove: (pawnIndex: number, destination: GS.Position) => boolean;
+    makeMove: (pawnIndex: number, destination: Position) => boolean;
     onNextTurn: () => void;
 }
 
@@ -20,7 +20,7 @@ export function useGame(storage: Storage): GameState {
         .then(data => !!data && setGame(data))
         .catch(console.info);
 
-    const makeMoveOnCurrent = (pawnIndex: number, destination: GS.Position) => {
+    const makeMoveOnCurrent = (pawnIndex: number, destination: Position) => {
         const newGame = makeMove(pawnIndex, destination, game);
         if (!newGame) {
             return false;

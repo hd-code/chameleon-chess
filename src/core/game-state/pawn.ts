@@ -1,29 +1,12 @@
-import { hasKey, isInteger } from 'core/type-guards';
+import { hasKey } from 'core/type-guards';
 
 import { FieldColor, Position, getFieldColor, isFieldColor, isPosition, isSamePosition } from './board';
+import { Color } from './color';
 import { Limits, isWithinLimits } from './limits';
 import { Player, isPlayer } from './player';
+import { Role } from './role';
 
 // -----------------------------------------------------------------------------
-
-/**
- * An enum, which represents the four chess roles a pawn could have.
- * - `knight`: 0
- * - `queen`:  1
- * - `bishop`: 2
- * - `rook`:   3
- */
-export enum Role {
-    knight,
-    queen,
-    bishop,
-    rook,
-}
-
-/** TypeGuard for `Role` */
-export function isRole(role: unknown): role is Role {
-    return isInteger(role) && Role[role] !== undefined;
-}
 
 /**
  * This data structure represents a pawn. Each player has four of these initially.
@@ -102,7 +85,7 @@ export function getRole(pawn: Pawn): Role {
 /** Returns an object that maps the four field colors to a corresponding chess
  * role. This mapping is dependent on a pawns knight role. There four different
  * mappings that can occur. */
-export function getRoleMapping(pawn: Pawn): { [color in FieldColor]: Role } {
+export function getRoleMapping(pawn: Pawn): { [color in Color]: Role } {
     return { ...mapKnightColorRoles[pawn.knightColor] };
 }
 
@@ -114,48 +97,48 @@ export function getStartPawns(player: Player): Pawn[] {
 // -----------------------------------------------------------------------------
 
 const mapKnightColorRoles = {
-    [FieldColor.red]: { 0: 0, 1: 1, 2: 2, 3: 3 },
-    [FieldColor.green]: { 0: 3, 1: 0, 2: 1, 3: 2 },
-    [FieldColor.yellow]: { 0: 2, 1: 3, 2: 0, 3: 1 },
-    [FieldColor.blue]: { 0: 1, 1: 2, 2: 3, 3: 0 },
+    [Color.red]: { 0: 0, 1: 1, 2: 2, 3: 3 },
+    [Color.green]: { 0: 3, 1: 0, 2: 1, 3: 2 },
+    [Color.yellow]: { 0: 2, 1: 3, 2: 0, 3: 1 },
+    [Color.blue]: { 0: 1, 1: 2, 2: 3, 3: 0 },
 };
 
 // -----------------------------------------------------------------------------
 
 function createPawns(player: Player): Pawn[] {
     switch (player) {
-        case Player.red:
+        case Color.red:
             return [
-                createPawn(player, 7, 0, FieldColor.red),
-                createPawn(player, 7, 1, FieldColor.green),
-                createPawn(player, 7, 2, FieldColor.yellow),
-                createPawn(player, 7, 3, FieldColor.blue),
+                createPawn(player, 7, 0, Color.red),
+                createPawn(player, 7, 1, Color.green),
+                createPawn(player, 7, 2, Color.yellow),
+                createPawn(player, 7, 3, Color.blue),
             ];
-        case Player.green:
+        case Color.green:
             return [
-                createPawn(player, 7, 7, FieldColor.green),
-                createPawn(player, 6, 7, FieldColor.yellow),
-                createPawn(player, 5, 7, FieldColor.blue),
-                createPawn(player, 4, 7, FieldColor.red),
+                createPawn(player, 7, 7, Color.green),
+                createPawn(player, 6, 7, Color.yellow),
+                createPawn(player, 5, 7, Color.blue),
+                createPawn(player, 4, 7, Color.red),
             ];
-        case Player.yellow:
+        case Color.yellow:
             return [
-                createPawn(player, 0, 7, FieldColor.yellow),
-                createPawn(player, 0, 6, FieldColor.blue),
-                createPawn(player, 0, 5, FieldColor.red),
-                createPawn(player, 0, 4, FieldColor.green),
+                createPawn(player, 0, 7, Color.yellow),
+                createPawn(player, 0, 6, Color.blue),
+                createPawn(player, 0, 5, Color.red),
+                createPawn(player, 0, 4, Color.green),
             ];
-        case Player.blue:
+        case Color.blue:
             return [
-                createPawn(player, 0, 0, FieldColor.blue),
-                createPawn(player, 1, 0, FieldColor.red),
-                createPawn(player, 2, 0, FieldColor.green),
-                createPawn(player, 3, 0, FieldColor.yellow),
+                createPawn(player, 0, 0, Color.blue),
+                createPawn(player, 1, 0, Color.red),
+                createPawn(player, 2, 0, Color.green),
+                createPawn(player, 3, 0, Color.yellow),
             ];
     }
 }
 
-function createPawn(player: Player, row: number, col: number, knightColor: FieldColor): Pawn {
+function createPawn(player: Player, row: number, col: number, knightColor: Color): Pawn {
     return { knightColor, player, position: { row, col } };
 }
 

@@ -9,7 +9,7 @@ const component: FC<AppState> = props => {
     return (
         <div className='text-center'>
             <p className='c-white text-border mb-1'>Settings works!</p>
-            <Link onClick={() => props.goTo.home()}>Back</Link>
+            <Link onClick={() => props.goBack()}>Back</Link>
         </div>
     );
 };

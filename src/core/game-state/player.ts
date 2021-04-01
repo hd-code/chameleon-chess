@@ -1,26 +1,14 @@
-import { isInteger } from 'core/type-guards';
-
+import { Color, isColor } from './color';
 import type { Pawn } from './pawn';
 
 // -----------------------------------------------------------------------------
 
-/**
- * An enum which represents the four different players.
- * - `red`:    0
- * - `green`:  1
- * - `yellow`: 2
- * - `blue`:   3
- */
-export enum Player {
-    red,
-    green,
-    yellow,
-    blue,
-}
+/** An enum which represents the four different players. */
+export type Player = Color;
 
 /** TypeGuard for `Player` */
 export function isPlayer(player: unknown): player is Player {
-    return isInteger(player) && Player[player] !== undefined;
+    return isColor(player);
 }
 
 /**
@@ -33,10 +21,10 @@ export function isPlayer(player: unknown): player is Player {
  */
 export function arePlayersAlive(pawns: Pawn[]): { [player in Player]: boolean } {
     const result = {
-        [Player.red]: false,
-        [Player.green]: false,
-        [Player.yellow]: false,
-        [Player.blue]: false,
+        [Color.red]: false,
+        [Color.green]: false,
+        [Color.yellow]: false,
+        [Color.blue]: false,
     };
     for (let i = 0, ie = pawns.length; i < ie; i++) {
         result[pawns[i].player] = true;
@@ -47,18 +35,18 @@ export function arePlayersAlive(pawns: Pawn[]): { [player in Player]: boolean } 
 /** Returns the next player on turn. Needs the already updated pawns to work. */
 export function getNextPlayer(current: Player, pawns: Pawn[]): Player {
     const playersState = arePlayersAlive(pawns);
-    let nextPlayer = mapPlayerNext[current];
+    let nextPlayer = mapPlayerToNext[current];
     while (!playersState[nextPlayer] && nextPlayer !== current) {
-        nextPlayer = mapPlayerNext[nextPlayer];
+        nextPlayer = mapPlayerToNext[nextPlayer];
     }
     return nextPlayer;
 }
 
 // -----------------------------------------------------------------------------
 
-const mapPlayerNext = {
-    [Player.red]: Player.blue,
-    [Player.green]: Player.red,
-    [Player.yellow]: Player.green,
-    [Player.blue]: Player.yellow,
+const mapPlayerToNext = {
+    [Color.red]: Color.blue,
+    [Color.green]: Color.red,
+    [Color.yellow]: Color.green,
+    [Color.blue]: Color.yellow,
 };

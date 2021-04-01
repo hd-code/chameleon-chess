@@ -1,6 +1,6 @@
 import {
+    Color,
     GameState,
-    Player,
     Position,
     getNextGameStates,
     getStartGameState,
@@ -310,7 +310,7 @@ describe('core/game-state', () => {
         });
 
         it('all game states should have player blue on turn', () => {
-            nextGSs.forEach(gs => expect(gs.player).toBe(Player.blue));
+            nextGSs.forEach(gs => expect(gs.player).toBe(Color.blue));
         });
     });
 
@@ -324,7 +324,7 @@ describe('core/game-state', () => {
                 'only blue pawns',
                 {
                     ...testMoves.normalMove.gameState,
-                    pawns: testMoves.normalMove.gameState.pawns.filter(pawn => pawn.player === Player.blue),
+                    pawns: testMoves.normalMove.gameState.pawns.filter(pawn => pawn.player === Color.blue),
                 },
                 true,
             ],

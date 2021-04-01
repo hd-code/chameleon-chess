@@ -1,23 +1,30 @@
-import * as GS from 'core/game-state';
+import {
+    Color,
+    GameState,
+    Position,
+    isGameOver as gameOver,
+    getStartGameState,
+    makeMove as move,
+} from 'core/game-state';
 import { PlayerType, Players } from 'core/players';
 
 // -----------------------------------------------------------------------------
 
 export interface Game {
-    gameStates: GS.GameState[];
+    gameStates: GameState[];
     readonly players: Players;
 }
 
-export function getCurrentGameState(game: Game): GS.GameState {
+export function getCurrentGameState(game: Game): GameState {
     return game.gameStates[game.gameStates.length - 1];
 }
 
 export function initGame(players: Players): Game | null {
-    const gs = GS.getStartGameState(
-        players[GS.Player.red] !== PlayerType.none,
-        players[GS.Player.green] !== PlayerType.none,
-        players[GS.Player.yellow] !== PlayerType.none,
-        players[GS.Player.blue] !== PlayerType.none,
+    const gs = getStartGameState(
+        players[Color.red] !== PlayerType.none,
+        players[Color.green] !== PlayerType.none,
+        players[Color.yellow] !== PlayerType.none,
+        players[Color.blue] !== PlayerType.none,
     );
 
     if (!gs) {
@@ -29,11 +36,11 @@ export function initGame(players: Players): Game | null {
 
 export function isGameOver(game: Game): boolean {
     const gs = getCurrentGameState(game);
-    return GS.isGameOver(gs);
+    return gameOver(gs);
 }
 
-export function makeMove(pawnIndex: number, destination: GS.Position, game: Game): Game | null {
-    const nextGS = GS.makeMove(getCurrentGameState(game), pawnIndex, destination);
+export function makeMove(pawnIndex: number, destination: Position, game: Game): Game | null {
+    const nextGS = move(getCurrentGameState(game), pawnIndex, destination);
     if (!nextGS) {
         return null;
     }

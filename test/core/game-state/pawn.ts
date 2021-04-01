@@ -1,30 +1,21 @@
-import { FieldColor, GameState, Player, Position, getStartGameState } from 'core/game-state';
+import { Color, GameState, Position, Role, getStartGameState } from 'core/game-state';
 import { isSamePosition, sortPositions } from 'core/game-state/board';
-import {
-    Role,
-    getMoves,
-    getPawnIndexAtPosition,
-    getRole,
-    getRoleMapping,
-    getStartPawns,
-    isPawn,
-    isRole,
-} from 'core/game-state/pawn';
+import { getMoves, getPawnIndexAtPosition, getRole, getRoleMapping, getStartPawns, isPawn } from 'core/game-state/pawn';
 
 // -----------------------------------------------------------------------------
 
 const gs = <GameState>{
     limits: { minRow: 1, maxRow: 5, minCol: 0, maxCol: 6 },
     pawns: [
-        { player: Player.red, position: { row: 5, col: 3 }, knightColor: FieldColor.yellow }, // red knight
-        { player: Player.red, position: { row: 4, col: 1 }, knightColor: FieldColor.green }, // red rook
-        { player: Player.red, position: { row: 2, col: 1 }, knightColor: FieldColor.red }, // red blocking pawn
-        { player: Player.yellow, position: { row: 2, col: 3 }, knightColor: FieldColor.blue }, // yellow bishop
-        { player: Player.yellow, position: { row: 4, col: 5 }, knightColor: FieldColor.yellow }, // yellow queen
-        { player: Player.yellow, position: { row: 1, col: 0 }, knightColor: FieldColor.green }, // yellow corner pawn
-        { player: Player.yellow, position: { row: 1, col: 6 }, knightColor: FieldColor.red }, // yellow corner pawn
+        { player: Color.red, position: { row: 5, col: 3 }, knightColor: Color.yellow }, // red knight
+        { player: Color.red, position: { row: 4, col: 1 }, knightColor: Color.green }, // red rook
+        { player: Color.red, position: { row: 2, col: 1 }, knightColor: Color.red }, // red blocking pawn
+        { player: Color.yellow, position: { row: 2, col: 3 }, knightColor: Color.blue }, // yellow bishop
+        { player: Color.yellow, position: { row: 4, col: 5 }, knightColor: Color.yellow }, // yellow queen
+        { player: Color.yellow, position: { row: 1, col: 0 }, knightColor: Color.green }, // yellow corner pawn
+        { player: Color.yellow, position: { row: 1, col: 6 }, knightColor: Color.red }, // yellow corner pawn
     ],
-    player: Player.red,
+    player: Color.red,
 };
 
 const knightIndex = 0;
@@ -129,26 +120,6 @@ const queenMoves = <Position[]>[
 ];
 
 describe('core/game-state/pawn', () => {
-    describe(isRole.name, () => {
-        it.each([
-            [0, true],
-            [1, true],
-            [2, true],
-            [3, true],
-            [-1, false],
-            [4, false],
-            [0.5, false],
-            [2.3, false],
-            ['0', false],
-            [null, false],
-            [[], false],
-            [{}, false],
-        ])('%j => %j', (input, expected) => {
-            const actual = isRole(input);
-            expect(actual).toBe(expected);
-        });
-    });
-
     describe(isPawn.name, () => {
         it.each([
             [{ player: 0, position: { row: 5, col: 3 }, knightColor: 0 }, true],
@@ -209,13 +180,13 @@ describe('core/game-state/pawn', () => {
 
     describe(getPawnIndexAtPosition.name, () => {
         const pawns = [
-            { player: Player.red, position: { row: 5, col: 3 }, knightColor: FieldColor.yellow },
-            { player: Player.red, position: { row: 4, col: 1 }, knightColor: FieldColor.green },
-            { player: Player.red, position: { row: 2, col: 1 }, knightColor: FieldColor.red },
-            { player: Player.yellow, position: { row: 2, col: 3 }, knightColor: FieldColor.blue },
-            { player: Player.yellow, position: { row: 4, col: 5 }, knightColor: FieldColor.yellow },
-            { player: Player.yellow, position: { row: 1, col: 0 }, knightColor: FieldColor.green },
-            { player: Player.yellow, position: { row: 1, col: 6 }, knightColor: FieldColor.red },
+            { player: Color.red, position: { row: 5, col: 3 }, knightColor: Color.yellow },
+            { player: Color.red, position: { row: 4, col: 1 }, knightColor: Color.green },
+            { player: Color.red, position: { row: 2, col: 1 }, knightColor: Color.red },
+            { player: Color.yellow, position: { row: 2, col: 3 }, knightColor: Color.blue },
+            { player: Color.yellow, position: { row: 4, col: 5 }, knightColor: Color.yellow },
+            { player: Color.yellow, position: { row: 1, col: 0 }, knightColor: Color.green },
+            { player: Color.yellow, position: { row: 1, col: 6 }, knightColor: Color.red },
         ];
 
         [
@@ -240,16 +211,16 @@ describe('core/game-state/pawn', () => {
     describe(getRole.name, () => {
         [
             {
-                pawn: { player: 0, position: { row: 5, col: 3 }, knightColor: FieldColor.yellow },
+                pawn: { player: 0, position: { row: 5, col: 3 }, knightColor: Color.yellow },
                 expected: Role.knight,
             },
-            { pawn: { player: 1, position: { row: 4, col: 1 }, knightColor: FieldColor.green }, expected: Role.rook },
-            { pawn: { player: 2, position: { row: 2, col: 3 }, knightColor: FieldColor.blue }, expected: Role.bishop },
-            { pawn: { player: 3, position: { row: 4, col: 5 }, knightColor: FieldColor.yellow }, expected: Role.queen },
-            { pawn: { player: 3, position: { row: 4, col: 5 }, knightColor: FieldColor.red }, expected: Role.rook },
+            { pawn: { player: 1, position: { row: 4, col: 1 }, knightColor: Color.green }, expected: Role.rook },
+            { pawn: { player: 2, position: { row: 2, col: 3 }, knightColor: Color.blue }, expected: Role.bishop },
+            { pawn: { player: 3, position: { row: 4, col: 5 }, knightColor: Color.yellow }, expected: Role.queen },
+            { pawn: { player: 3, position: { row: 4, col: 5 }, knightColor: Color.red }, expected: Role.rook },
         ].forEach(({ pawn, expected }) => {
             const posString = JSON.stringify(pawn.position);
-            it(`pawn at ${posString} with knight color ${FieldColor[pawn.knightColor]} => ${Role[expected]}`, () => {
+            it(`pawn at ${posString} with knight color ${Color[pawn.knightColor]} => ${Role[expected]}`, () => {
                 const actual = getRole(pawn);
                 expect(actual).toBe(expected);
             });
@@ -260,10 +231,10 @@ describe('core/game-state/pawn', () => {
         const basePawn = { player: 0, position: { row: 0, col: 0 }, knightColor: 0 };
 
         it.each([
-            [FieldColor.red, { 0: 0, 1: 1, 2: 2, 3: 3 }],
-            [FieldColor.green, { 0: 3, 1: 0, 2: 1, 3: 2 }],
-            [FieldColor.yellow, { 0: 2, 1: 3, 2: 0, 3: 1 }],
-            [FieldColor.blue, { 0: 1, 1: 2, 2: 3, 3: 0 }],
+            [Color.red, { 0: 0, 1: 1, 2: 2, 3: 3 }],
+            [Color.green, { 0: 3, 1: 0, 2: 1, 3: 2 }],
+            [Color.yellow, { 0: 2, 1: 3, 2: 0, 3: 1 }],
+            [Color.blue, { 0: 1, 1: 2, 2: 3, 3: 0 }],
         ])('%j => %j', (knightColor, expected) => {
             const pawn = { ...basePawn, knightColor };
             const actual = getRoleMapping(pawn);
@@ -272,7 +243,7 @@ describe('core/game-state/pawn', () => {
     });
 
     describe(getStartPawns.name, () => {
-        describe.each([Player.red, Player.green, Player.yellow, Player.blue])('Player: %j', player => {
+        describe.each([Color.red, Color.green, Color.yellow, Color.blue])('Player: %j', player => {
             const pawns = getStartPawns(player);
 
             it('There should be 4 pawns', () => expect(pawns.length).toBe(4));

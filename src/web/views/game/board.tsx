@@ -1,7 +1,15 @@
 import React, { FC, useState } from 'react';
 
 import { getCurrentGameState } from 'core/game';
-import * as GS from 'core/game-state';
+import {
+    GameState,
+    Pawn as PawnModel,
+    Position,
+    getBoard,
+    getMoves,
+    getPawnIndexAtPosition,
+    isWithinLimits,
+} from 'core/game-state';
 import { AppState } from 'core/state';
 
 import Field, { FieldProps, FieldState } from './field';
@@ -23,7 +31,7 @@ const component: FC<BoardProps> = props => {
 
     const onClick = (event: React.MouseEvent) => {
         const clickPos = getClickPosition(event);
-        const clickedPawnI = GS.getPawnIndexAtPosition(clickPos, gs.pawns);
+        const clickedPawnI = getPawnIndexAtPosition(clickPos, gs.pawns);
 
         if (selectedPawnI !== -1) {
             const madeMove = props.makeMove(selectedPawnI, clickPos);
@@ -58,21 +66,21 @@ export default component;
 
 // -----------------------------------------------------------------------------
 
-const fieldColors = GS.getBoard();
+const fieldColors = getBoard();
 
-function makeFields(gs: GS.GameState, pawnIndex: number): FieldProps[] {
+function makeFields(gs: GameState, pawnIndex: number): FieldProps[] {
     const result: FieldProps[] = [];
     for (let i = 0, ie = fieldColors.length; i < ie; i++) {
         for (let j = 0, je = fieldColors[i].length; j < je; j++) {
             result.push({
                 color: fieldColors[i][j],
-                state: GS.isWithinLimits({ row: i, col: j }, gs.limits) ? FieldState.normal : FieldState.disabled,
+                state: isWithinLimits({ row: i, col: j }, gs.limits) ? FieldState.normal : FieldState.disabled,
             });
         }
     }
 
     if (pawnIndex !== -1) {
-        const marked = GS.getMoves(pawnIndex, gs.pawns, gs.limits);
+        const marked = getMoves(pawnIndex, gs.pawns, gs.limits);
         marked.forEach(({ row, col }) => (result[row * 8 + col].state = FieldState.marked));
     }
 
@@ -81,7 +89,7 @@ function makeFields(gs: GS.GameState, pawnIndex: number): FieldProps[] {
 
 // -----------------------------------------------------------------------------
 
-function getClickPosition(event: React.MouseEvent): GS.Position {
+function getClickPosition(event: React.MouseEvent): Position {
     const { x, y } = calcRelativeClickPosition(event);
     return { row: Math.floor(y * 8), col: Math.floor(x * 8) };
 }
@@ -96,6 +104,6 @@ function calcRelativeClickPosition(event: React.MouseEvent): { x: number; y: num
 
 // -----------------------------------------------------------------------------
 
-function getPawnKey({ player, knightColor }: GS.Pawn): string {
+function getPawnKey({ player, knightColor }: PawnModel): string {
     return `${player}${knightColor}`;
 }

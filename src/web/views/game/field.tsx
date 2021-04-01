@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import { FieldColor } from 'core/game-state';
+import { Color } from 'core/game-state';
 
 // -----------------------------------------------------------------------------
 
@@ -11,7 +11,7 @@ export enum FieldState {
 }
 
 export interface FieldProps {
-    color: FieldColor;
+    color: Color;
     state: FieldState;
 }
 
@@ -25,10 +25,10 @@ export default component;
 // -----------------------------------------------------------------------------
 
 const mapColorClass = {
-    [FieldColor.red]: 'bgc-red',
-    [FieldColor.green]: 'bgc-green',
-    [FieldColor.yellow]: 'bgc-yellow',
-    [FieldColor.blue]: 'bgc-blue',
+    [Color.red]: 'bgc-red',
+    [Color.green]: 'bgc-green',
+    [Color.yellow]: 'bgc-yellow',
+    [Color.blue]: 'bgc-blue',
 };
 
 const mapStateClass = {

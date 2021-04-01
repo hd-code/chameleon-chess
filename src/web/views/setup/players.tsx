@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 
-import { Player as PlayerModel, Players as PlayersModel } from 'core/players';
+import { Color, Player as PlayerModel } from 'core/game-state';
+import { Players as PlayersModel } from 'core/players';
 
 import Player from './player';
 
@@ -19,16 +20,16 @@ const component: FC<PlayersProps> = props => {
     return (
         <div className={'my-2 flex middle'}>
             <div className='grow'>
-                <Player {...getProps(PlayerModel.blue)} />
+                <Player {...getProps(Color.blue)} />
             </div>
 
             <div className='grow mx-1'>
-                <Player {...getProps(PlayerModel.yellow)} className='mb-4'/>
-                <Player {...getProps(PlayerModel.red)} />
+                <Player {...getProps(Color.yellow)} className='mb-4' />
+                <Player {...getProps(Color.red)} />
             </div>
 
             <div className='grow'>
-                <Player {...getProps(PlayerModel.green)} />
+                <Player {...getProps(Color.green)} />
             </div>
         </div>
     );

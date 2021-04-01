@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import { Player as PlayerColor } from 'core/game-state';
+import { Color, Player as PlayerColor } from 'core/game-state';
 import { PlayerType } from 'core/players';
 import { imgDir } from 'web/constants';
 import Text from 'web/shared/text';
@@ -23,7 +23,9 @@ const component: FC<PlayerProps> = props => {
             style={{ width: '5em' }}
         >
             <img className='w-66' src={mapTypeImg[props.type]} alt='' />
-            <Text className='one-line' type='p'>{PlayerType[props.type]}</Text>
+            <Text className='one-line' type='p'>
+                {PlayerType[props.type]}
+            </Text>
         </div>
     );
 };
@@ -32,10 +34,10 @@ export default component;
 // -----------------------------------------------------------------------------
 
 const mapColorClass = {
-    [PlayerColor.red]: 'bgc-red',
-    [PlayerColor.green]: 'bgc-green',
-    [PlayerColor.yellow]: 'bgc-yellow',
-    [PlayerColor.blue]: 'bgc-blue',
+    [Color.red]: 'bgc-red',
+    [Color.green]: 'bgc-green',
+    [Color.yellow]: 'bgc-yellow',
+    [Color.blue]: 'bgc-blue',
 };
 
 const mapTypeImg = {

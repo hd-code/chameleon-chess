@@ -1,32 +1,21 @@
 import { hasKey, isInteger } from 'core/type-guards';
 
+import { Color, isColor } from './color';
+
 // -----------------------------------------------------------------------------
 
-/**
- * An enum, which represents the four colors a field on the board can have.
- * - `red`: 0
- * - `green`: 1
- * - `yellow`: 2
- * - `blue`: 3
- */
-export enum FieldColor {
-    red,
-    green,
-    yellow,
-    blue,
-}
+/** An enum, which represents the four colors a field on the board can have. */
+export type FieldColor = Color;
 
 /** TypeGuard for `FieldColor` */
 export function isFieldColor(color: unknown): color is FieldColor {
-    return isInteger(color) && FieldColor[color] !== undefined;
+    return isColor(color);
 }
 
 /** Returns the color of the field on the game board at a given position. */
 export function getFieldColor(position: Position): FieldColor {
     return BOARD[position.row][position.col];
 }
-
-// -----------------------------------------------------------------------------
 
 /**
  * Returns the game board, which is a two-dimensional array of {@link FieldColor}'s.
@@ -93,7 +82,7 @@ export function sortPositions(a: Position, b: Position): number {
 
 // -----------------------------------------------------------------------------
 
-const [R, G, Y, B] = [FieldColor.red, FieldColor.green, FieldColor.yellow, FieldColor.blue];
+const [R, G, Y, B] = [Color.red, Color.green, Color.yellow, Color.blue];
 const BOARD = [
     [B, R, B, Y, G, R, B, Y],
     [R, G, R, B, Y, G, R, B],

@@ -8,7 +8,7 @@ interface TextProps {
 }
 
 const component: FC<TextProps> = props => {
-    const Tag = props.type ?? 'span';
-    return <Tag className={props.className}>{props.children}</Tag>
+    const Tag = props.type ?? 'span'; // eslint-disable-line @typescript-eslint/naming-convention
+    return <Tag className={props.className}>{props.children}</Tag>;
 };
 export default component;

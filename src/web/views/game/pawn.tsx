@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import { FieldColor, Pawn, Role, getRoleMapping } from 'core/game-state';
+import { Color, Pawn, Role, getRoleMapping } from 'core/game-state';
 import { imgDir } from 'web/constants';
 
 // -----------------------------------------------------------------------------
@@ -37,13 +37,13 @@ export default component;
 
 // -----------------------------------------------------------------------------
 
-const colorOrder: FieldColor[] = [0, 1, 2, 3];
+const colorOrder: Color[] = [0, 1, 2, 3];
 
 const mapColorClass = {
-    [FieldColor.red]: 'bgc-red',
-    [FieldColor.green]: 'bgc-green',
-    [FieldColor.yellow]: 'bgc-yellow',
-    [FieldColor.blue]: 'bgc-blue',
+    [Color.red]: 'bgc-red',
+    [Color.green]: 'bgc-green',
+    [Color.yellow]: 'bgc-yellow',
+    [Color.blue]: 'bgc-blue',
 };
 
 const mapRoleIcon = {

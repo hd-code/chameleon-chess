@@ -11,12 +11,14 @@ import Players from './players';
 
 // -----------------------------------------------------------------------------
 
-const component: FC<AppState> = ({ game, goTo }) => {
+const component: FC<AppState> = ({ game, goBack }) => {
     const [players, setPlayers] = useState(game?.players || defaultPlayers);
     const onClick = (player: Player) => setPlayers(nextPlayersType(players, player));
     return (
         <div className='mxh-100 scroll-y text-center'>
-            <Text className='c-white fz-120 text-border' type='h1'>Begin a New Game</Text>
+            <Text className='c-white fz-120 text-border' type='h1'>
+                Begin a New Game
+            </Text>
             <Players {...{ ...players, onClick }} />
             <Button color={1}>Start Game</Button>
             {/* <p>Hinweisetext</p>
@@ -28,7 +30,7 @@ const component: FC<AppState> = ({ game, goTo }) => {
                     <option value='2'>hard</option>
                 </select>
             </div> */}
-            <Link onClick={() => goTo.home()}>Back</Link>
+            <Link onClick={() => goBack()}>Back</Link>
         </div>
     );
 };

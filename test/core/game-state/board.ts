@@ -1,5 +1,5 @@
+import { Color } from 'core/game-state';
 import {
-    FieldColor,
     getBoard,
     getFieldColor,
     isFieldColor,
@@ -34,12 +34,12 @@ describe('core/game-state/board', () => {
 
     describe(getFieldColor.name, () => {
         it.each([
-            [{ row: 0, col: 0 }, FieldColor.blue],
-            [{ row: 3, col: 2 }, FieldColor.green],
-            [{ row: 7, col: 0 }, FieldColor.red],
-            [{ row: 7, col: 1 }, FieldColor.green],
-            [{ row: 7, col: 2 }, FieldColor.yellow],
-            [{ row: 7, col: 3 }, FieldColor.blue],
+            [{ row: 0, col: 0 }, Color.blue],
+            [{ row: 3, col: 2 }, Color.green],
+            [{ row: 7, col: 0 }, Color.red],
+            [{ row: 7, col: 1 }, Color.green],
+            [{ row: 7, col: 2 }, Color.yellow],
+            [{ row: 7, col: 3 }, Color.blue],
         ])('%j => %j', (input, expected) => {
             const actual = getFieldColor(input);
             expect(actual).toBe(expected);

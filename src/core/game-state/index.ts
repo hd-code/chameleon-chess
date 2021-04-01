@@ -1,16 +1,20 @@
 import { hasKey, isArray } from 'core/type-guards';
 
 import { Position, isInPositions, isSamePosition, sortPositions } from './board';
+import { Color } from './color';
 import { Limits, getStartLimits, isLimits, isSmallestLimits, isWithinLimits, updateLimits } from './limits';
-import { Pawn, Role, getMoves, getPawnIndexAtPosition, getRole, getStartPawns, isPawn } from './pawn';
+import { Pawn, getMoves, getPawnIndexAtPosition, getRole, getStartPawns, isPawn } from './pawn';
 import { Player, arePlayersAlive, getNextPlayer, isPlayer } from './player';
+import { Role } from './role';
 
 // -----------------------------------------------------------------------------
 
+export { Color, isColor } from './color';
 export { getBoard, FieldColor, Position } from './board';
 export { Limits, isWithinLimits } from './limits';
-export { getMoves, getPawnIndexAtPosition, getRole, getRoleMapping, Pawn, Role } from './pawn';
+export { getMoves, getPawnIndexAtPosition, getRole, getRoleMapping, Pawn } from './pawn';
 export { arePlayersAlive, Player } from './player';
+export { Role } from './role';
 
 // -----------------------------------------------------------------------------
 
@@ -108,7 +112,7 @@ export function getStartGameState(red: boolean, green: boolean, yellow: boolean,
     }
 
     const limits = updateLimits(pawns, getStartLimits());
-    const player = getNextPlayer(Player.green, pawns);
+    const player = getNextPlayer(Color.green, pawns);
 
     return { limits, pawns, player };
 }
@@ -177,7 +181,7 @@ function noPawnsOnSameField({ pawns }: GameState): boolean {
 /** Not validity check! Just makes the move. */
 function updateGameState(gs: GameState, pawnI: number, destination: Position): GameState {
     const beatenPawnI = getPawnIndexAtPosition(destination, gs.pawns);
-    const pawns = gs.pawns.map(pawn => ({ ...pawn })); // TODO: deep clone
+    const pawns = gs.pawns.map(pawn => ({ ...pawn }));
     pawns[pawnI].position = destination;
     if (beatenPawnI >= 0) {
         pawns.splice(beatenPawnI, 1);
