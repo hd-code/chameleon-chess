@@ -6,6 +6,7 @@
     "build:web": "webpack --mode production",
     "check": "tsc --noEmit",
     "lint": "eslint src test",
+    "start": "npm run start:web",
     "start:web": "webpack --watch --mode development",
     "test": "jest"
   },

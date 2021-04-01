@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
 
-import { useAppState } from 'core/state';
+import { AppState, useAppState } from 'core/state';
 import { View } from 'core/state/view';
 import WebStorage from 'web/storage';
 import About from 'web/views/about';
@@ -25,29 +25,34 @@ const component: FC<Record<string, never>> = () => {
         }
     };
 
-    const loadView = () => {
-        switch (appState.view) {
-            case View.about:
-                return <About {...appState} />;
-
-            case View.game:
-                return <Game {...appState} height={height} width={width} />;
-
-            case View.home:
-                return <Home {...appState} />;
-
-            case View.setup:
-                return <Setup {...appState} />;
-
-            case View.settings:
-                return <Settings {...appState} />;
-        }
-    };
+    // This is for testing individual views specifically
+    // appState.view = View.setup;
 
     return (
         <div className='hw-100 no-overflow flex center middle font-1 fz-140' ref={appContainer}>
-            {loadView()}
+            {loadView(appState, height, width)}
         </div>
     );
 };
 export default component;
+
+// -----------------------------------------------------------------------------
+
+function loadView(appState: AppState, height: number, width: number) {
+    switch (appState.view) {
+        case View.about:
+            return <About {...appState} />;
+
+        case View.game:
+            return <Game {...appState} height={height} width={width} />;
+
+        case View.home:
+            return <Home {...appState} />;
+
+        case View.setup:
+            return <Setup {...appState} />;
+
+        case View.settings:
+            return <Settings {...appState} />;
+    }
+}

@@ -239,7 +239,11 @@ Atomic helper classes for responsive layout, spacing, text and other utilities.
 .text-right { text-align: right }
 .text-justify { text-align: justify }
 
-.one-line { text-overflow: ellipsis }
+.one-line {
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
 
 .capitalize { text-transform: capitalize }
 .lowercase { text-transform: lowercase }
@@ -259,4 +263,5 @@ Atomic helper classes for responsive layout, spacing, text and other utilities.
 .scroll, .scroll-y { overflow-y: auto }
 
 .forbidden { cursor: not-allowed }
+.no-select { user-select: none }
 .pointer { cursor: pointer }

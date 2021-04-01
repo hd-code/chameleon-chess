@@ -3,6 +3,7 @@ import React, { FC } from 'react';
 import { Player as PlayerColor } from 'core/game-state';
 import { PlayerType } from 'core/players';
 import { imgDir } from 'web/constants';
+import Text from 'web/shared/text';
 
 // -----------------------------------------------------------------------------
 
@@ -16,9 +17,13 @@ interface PlayerProps {
 const component: FC<PlayerProps> = props => {
     const colorClass = mapColorClass[props.color];
     return (
-        <div className={`flex-1 border p-2 ${colorClass} ${props.className ?? ''}`} onClick={props.onClick}>
-            <img src={mapTypeImg[props.type]} alt='' />
-            <p>{PlayerType[props.type]}</p>
+        <div
+            className={`border no-select pointer py-1 text-center ${colorClass} ${props.className ?? ''}`}
+            onClick={props.onClick}
+            style={{ width: '5em' }}
+        >
+            <img className='w-66' src={mapTypeImg[props.type]} alt='' />
+            <Text className='one-line' type='p'>{PlayerType[props.type]}</Text>
         </div>
     );
 };

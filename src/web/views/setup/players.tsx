@@ -17,11 +17,19 @@ const component: FC<PlayersProps> = props => {
         onClick: () => props.onClick(player),
     });
     return (
-        <div className='flex stretch'>
-            <Player {...getProps(PlayerModel.red)} className='w-25' />
-            <Player {...getProps(PlayerModel.green)} className='w-25' />
-            <Player {...getProps(PlayerModel.yellow)} className='w-25' />
-            <Player {...getProps(PlayerModel.blue)} className='w-25' />
+        <div className={'my-2 flex middle'}>
+            <div className='grow'>
+                <Player {...getProps(PlayerModel.blue)} />
+            </div>
+
+            <div className='grow mx-1'>
+                <Player {...getProps(PlayerModel.yellow)} className='mb-4'/>
+                <Player {...getProps(PlayerModel.red)} />
+            </div>
+
+            <div className='grow'>
+                <Player {...getProps(PlayerModel.green)} />
+            </div>
         </div>
     );
 };
