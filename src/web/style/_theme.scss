@@ -18,6 +18,8 @@ Website's Theme
 
     &-brighten { background-color: #fff8 }
     &-darken { background-color: #000a }
+
+    &-transparent { background-color: transparent }
 }
 
 .c {
@@ -27,6 +29,23 @@ Website's Theme
     &-blue { color: #04909D }
 
     &-white { color: #fff }
+}
+
+.overlay {
+    &-bright, &-dark, &-frame {
+        position: relative;
+    }
+
+    &-bright::after, &-dark::after, &-frame::after {
+        content: '';
+        border-radius: inherit;
+        position: absolute;
+        top: 0; bottom: 0; left: 0; right: 0;
+    }
+
+    &-bright::after { background-color: #fff8 }
+    &-dark::after { background-color: #000a }
+    &-frame::after { border: 0.2em solid #fffd }
 }
 
 /* Typography --------------------------------------------------------------- */
@@ -39,7 +58,7 @@ Website's Theme
 
 /* Util --------------------------------------------------------------------- */
 
-.absolute { position: absolute }
+.shadow { box-shadow: 0px 0px .1em #000 }
 
 .border { border: solid 1px #000 }
 .no-border { border: 0 }
@@ -53,32 +72,14 @@ Website's Theme
     padding-bottom: 100%;
     width: 100%;
 }
-
-.transition { transition: .5s }
-
-.overlay {
-    &-parent { position: relative }
-
-    &-bright, &-dark, &-frame {
-        position: relative;
-    }
-
-    &, &-bright::after, &-dark::after, &-frame::after {
-        border-radius: inherit;
-        position: absolute;
-        top: 0; bottom: 0; left: 0; right: 0;
-    }
-
-    &-bright::after, &-dark::after, &-frame::after { content: '' }
-
-    &-bright::after { background-color: #fff8 }
-    &-dark::after { background-color: #000a }
-    &-frame::after { border: 0.25em solid #fffc }
-
-    &-screen {
-        position: fixed;
-        top: 0; bottom: 0; left: 0; right: 0;
-    }
+.cover {
+    position: absolute;
+    top: 0; bottom: 0; left: 0; right: 0;
+}
+.cover-screen {
+    position: fixed;
+    top: 0; bottom: 0; left: 0; right: 0;
 }
 
+.transition { transition: .5s }
 .mxh-100 { max-height: 100% }

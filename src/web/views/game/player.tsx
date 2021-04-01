@@ -1,31 +1,32 @@
 import React, { FC } from 'react';
 
-import { Color, Player as PlayerColor } from 'core/game-state';
+import { Color } from 'core/game-state';
 import { PlayerType } from 'core/players';
+
 import { imgDir } from 'web/constants';
-import Text from 'web/shared/text';
 
 // -----------------------------------------------------------------------------
 
 interface PlayerProps {
+    active: boolean;
     className?: string;
-    color: PlayerColor;
-    onClick: () => void;
+    color: Color;
+    dead: boolean;
     type: PlayerType;
 }
 
 const component: FC<PlayerProps> = props => {
+    const activeClass = props.active ? 'overlay-frame' : '';
+    const baseClasses = 'border no-select p-05';
     const colorClass = mapColorClass[props.color];
+    const deadClass = props.dead ? 'overlay-dark' : '';
+
     return (
         <div
-            className={`border no-select pointer py-1 text-center ${colorClass} ${props.className ?? ''}`}
-            onClick={props.onClick}
-            style={{ width: '5em' }}
+            className={`${activeClass} ${baseClasses} ${colorClass} ${deadClass} ${props.className ?? ''}`}
+            style={{ width: '3em' }}
         >
-            <img className='w-66' src={mapTypeImg[props.type]} alt='' />
-            <Text className='one-line' type='p'>
-                {PlayerType[props.type]}
-            </Text>
+            <img src={mapTypeImg[props.type]} alt='' />
         </div>
     );
 };

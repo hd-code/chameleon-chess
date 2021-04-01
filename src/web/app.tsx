@@ -26,7 +26,7 @@ const component: FC<Record<string, never>> = () => {
     };
 
     // This is for testing individual views specifically
-    // appState.view = View.setup;
+    // appState.view = View.game;
 
     return (
         <div className='hw-100 no-overflow flex center middle font-1 fz-140' ref={appContainer}>

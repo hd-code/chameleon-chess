@@ -1,6 +1,5 @@
 import React, { FC, useState } from 'react';
 
-import { getCurrentGameState } from 'core/game';
 import {
     GameState,
     Pawn as PawnModel,
@@ -10,34 +9,27 @@ import {
     getPawnIndexAtPosition,
     isWithinLimits,
 } from 'core/game-state';
-import { AppState } from 'core/state';
 
 import Field, { FieldProps, FieldState } from './field';
 import Pawn from './pawn';
 
 // -----------------------------------------------------------------------------
 
-interface BoardProps extends AppState {
-    width: number;
+interface BoardProps {
+    gameState: GameState;
+    makeMove: (pawnIndex: number, destination: Position) => boolean;
+    size: number;
 }
 
 const component: FC<BoardProps> = props => {
-    if (!props.game) {
-        console.warn('There is no game running currently!');
-        props.goTo.home();
-        return <></>;
-    }
-
     const [selectedPawnI, setSelected] = useState(-1);
 
-    const gs = getCurrentGameState(props.game);
-
-    const fields = makeFields(gs, selectedPawnI);
-    const pawns = gs.pawns.map((pawn, i) => ({ ...pawn, selected: i === selectedPawnI }));
+    const fields = makeFields(props.gameState, selectedPawnI);
+    const pawns = props.gameState.pawns.map((pawn, i) => ({ ...pawn, selected: i === selectedPawnI }));
 
     const onClick = (event: React.MouseEvent) => {
         const clickPos = getClickPosition(event);
-        const clickedPawnI = getPawnIndexAtPosition(clickPos, gs.pawns);
+        const clickedPawnI = getPawnIndexAtPosition(clickPos, props.gameState.pawns);
 
         if (selectedPawnI !== -1) {
             const madeMove = props.makeMove(selectedPawnI, clickPos);
@@ -50,20 +42,16 @@ const component: FC<BoardProps> = props => {
         setSelected(clickedPawnI);
     };
 
-    props.onNextTurn();
-
     return (
-        <div style={{ width: props.width }}>
-            <div className='square overlay-parent'>
-                <div className='overlay flex wrap'>
-                    {fields.map((field, i) => (
-                        <Field key={i} {...field} />
-                    ))}
-                    {pawns.map(pawn => (
-                        <Pawn key={getPawnKey(pawn)} {...pawn} />
-                    ))}
-                </div>
-                <div className='overlay' onClick={onClick}></div>
+        <div className='relative' style={{ height: props.size, width: props.size }}>
+            <div className='cover flex wrap'>
+                {fields.map((field, i) => (
+                    <Field key={i} {...field} />
+                ))}
+                {pawns.map(pawn => (
+                    <Pawn key={getPawnKey(pawn)} {...pawn} />
+                ))}
+                <div className='cover' onClick={onClick}></div>
             </div>
         </div>
     );

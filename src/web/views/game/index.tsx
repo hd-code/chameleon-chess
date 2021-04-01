@@ -1,9 +1,10 @@
 import React, { FC } from 'react';
 
+import { getCurrentGameState } from 'core/game';
 import { AppState } from 'core/state';
-import Logo from 'web/shared/logo';
 
 import Board from './board';
+import Players from './players';
 
 // -----------------------------------------------------------------------------
 
@@ -13,11 +14,27 @@ interface GameProps extends AppState {
 }
 
 const component: FC<GameProps> = props => {
-    const boardWidth = Math.min(props.height, props.width);
+    if (!props.game) {
+        console.warn('There is no game to be played.');
+        props.goTo.home();
+        return <></>;
+    }
+
+    const gs = getCurrentGameState(props.game);
+    const boardWidth = Math.min(props.height, props.width) * 0.98;
+
+    const isPortrait = props.height > props.width;
+
     return (
-        <div className='h-100 w-100 flex wrap justify'>
-            <Logo />
-            <Board {...props} width={boardWidth} />
+        <div className={'flex middle' + (isPortrait ? ' col center' : '')}>
+            <Players
+                gameState={gs}
+                goToHome={props.goTo.home}
+                goToSettings={props.goTo.settings}
+                isPortrait={isPortrait}
+                players={props.game.players}
+            />
+            <Board gameState={gs} makeMove={props.makeMove} size={boardWidth} />
         </div>
     );
 };

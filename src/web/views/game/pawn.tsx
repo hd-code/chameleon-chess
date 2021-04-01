@@ -14,19 +14,21 @@ const component: FC<PawnProps> = props => {
     const roleMap = getRoleMapping(props);
 
     return (
-        <div className='hw-12 flex center middle absolute' style={offset}>
+        <div className='hw-12 flex center middle absolute transition' style={offset}>
             <div
                 className={
-                    'hw-80 rounded shadow flex center middle ' +
+                    'hw-75 border rounded flex center middle ' +
                     mapColorClass[props.player] +
                     (props.selected ? ' overlay-bright' : '')
                 }
             >
-                <div className='hw-80 flex wrap'>
+                <div className='hw-75 flex wrap'>
                     {colorOrder.map(color => (
-                        <div key={color} className={'hw-50 ' + mapColorClass[color]}>
-                            <img src={mapRoleIcon[roleMap[color]]} className='hw-100' />
-                        </div>
+                        <img
+                            key={color}
+                            className={'hw-50 ' + mapColorClass[color]}
+                            src={mapRoleIcon[roleMap[color]]}
+                        />
                     ))}
                 </div>
             </div>

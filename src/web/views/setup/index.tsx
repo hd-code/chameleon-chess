@@ -13,7 +13,7 @@ import { initGame } from 'core/game';
 // -----------------------------------------------------------------------------
 
 const component: FC<AppState> = props => {
-    const [players, setPlayers] = useState(props.game?.players || getDefaultPlayers());
+    const [players, setPlayers] = useState(getDefaultPlayers());
     const onClick = (player: Player) => setPlayers(togglePlayersBySingle(players, player));
 
     const newGame = initGame(players);
@@ -27,20 +27,16 @@ const component: FC<AppState> = props => {
     return (
         <div className='mxh-100 scroll-y text-center'>
             <Text className='c-white fz-120 text-border' type='h1'>
-                Begin a New Game
+                Ein neues Spiel starten
             </Text>
             <Players {...{ ...players, onClick }} />
-            <Button color={1} disabled={!newGame} onClick={beginNewGame}>Start Game</Button>
-            {/* <p>Hinweisetext</p>
-            <h2>KI-Level</h2>
-            <div>
-                <select name='ki'>
-                    <option value='0'>easy</option>
-                    <option value='1'>normal</option>
-                    <option value='2'>hard</option>
-                </select>
-            </div> */}
-            <Link onClick={props.goBack}>Back</Link>
+            <Button color={1} disabled={!newGame} onClick={beginNewGame}>
+                Spiel beginnen
+            </Button>
+            <p className='c-white fz-80 my-2 text-border'>
+                Klicke auf die Flächen, um die teilnehmenden <br /> Spieler zu konfigurieren.
+            </p>
+            <Link onClick={props.goBack}>zurück</Link>
         </div>
     );
 };

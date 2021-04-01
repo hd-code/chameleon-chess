@@ -18,18 +18,20 @@ const component: FC<PlayersProps> = props => {
         onClick: () => props.onClick(player),
     });
     return (
-        <div className={'my-2 flex middle'}>
-            <div className='grow'>
-                <Player {...getProps(Color.blue)} />
-            </div>
+        <div className='my-2 flex center middle'>
+            <div className={'flex middle'}>
+                <div className='grow'>
+                    <Player {...getProps(Color.blue)} />
+                </div>
 
-            <div className='grow mx-1'>
-                <Player {...getProps(Color.yellow)} className='mb-4' />
-                <Player {...getProps(Color.red)} />
-            </div>
+                <div className='grow mx-1'>
+                    <Player {...getProps(Color.yellow)} className='mb-4' />
+                    <Player {...getProps(Color.red)} />
+                </div>
 
-            <div className='grow'>
-                <Player {...getProps(Color.green)} />
+                <div className='grow'>
+                    <Player {...getProps(Color.green)} />
+                </div>
             </div>
         </div>
     );

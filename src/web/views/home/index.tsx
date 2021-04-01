@@ -20,15 +20,15 @@ const component: FC<AppState> = props => {
                 disabled={!props.game || isGameOver(props.game)}
                 onClick={() => props.goTo.game()}
             >
-                Continue
+                Fortsetzen
             </Button>
 
             <Button className='mb-1' color={Color.green} onClick={() => props.goTo.setup()}>
-                New Game
+                Neues Spiel
             </Button>
 
             <Button className='mb-1' color={Color.yellow} onClick={() => props.goTo.settings()}>
-                Settings
+                Einstellungen
             </Button>
 
             <Button color={Color.blue} disabled={true}>
