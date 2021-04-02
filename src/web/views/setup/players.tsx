@@ -3,19 +3,20 @@ import React, { FC } from 'react';
 import { Color, Player as PlayerModel } from 'core/game-state';
 import { Players as PlayersModel } from 'core/players';
 
-import Player from './player';
+import { Player } from './player';
 
 // -----------------------------------------------------------------------------
 
-interface PlayersProps extends PlayersModel {
+interface PlayersProps {
+    players: PlayersModel;
     onClick: (player: PlayerModel) => void;
 }
 
-const component: FC<PlayersProps> = props => {
+export const Players: FC<PlayersProps> = ({ onClick, players }) => {
     const getProps = (player: PlayerModel) => ({
         color: player,
-        type: props[player],
-        onClick: () => props.onClick(player),
+        type: players[player],
+        onClick: () => onClick(player),
     });
     return (
         <div className='my-2 flex center middle'>
@@ -36,4 +37,3 @@ const component: FC<PlayersProps> = props => {
         </div>
     );
 };
-export default component;

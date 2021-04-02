@@ -4,15 +4,14 @@ import React, { FC } from 'react';
 
 interface TextProps {
     className?: string;
-    type?: 'h1' | 'h2' | 'h3' | 'p' | 'span';
+    Tag?: 'h1' | 'h2' | 'h3' | 'p' | 'span'; // eslint-disable-line @typescript-eslint/naming-convention
 }
 
-const component: FC<TextProps> = props => {
-    const Tag = props.type ?? 'span'; // eslint-disable-line @typescript-eslint/naming-convention
-    const children = (typeof props.children === 'string' && de[props.children]) || props.children;
-    return <Tag className={props.className}>{children}</Tag>;
-};
-export default component;
+// eslint-disable-next-line @typescript-eslint/naming-convention
+export const Text: FC<TextProps> = ({ children, className, Tag = 'span' }) => (
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    <Tag className={className}>{(typeof children === 'string' && de[children]) || children}</Tag>
+);
 
 // -----------------------------------------------------------------------------
 

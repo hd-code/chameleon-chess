@@ -10,8 +10,8 @@ import {
     isWithinLimits,
 } from 'core/game-state';
 
-import Field, { FieldProps, FieldState } from './field';
-import Pawn from './pawn';
+import { Field, FieldProps, FieldState } from './field';
+import { Pawn } from './pawn';
 
 // -----------------------------------------------------------------------------
 
@@ -21,18 +21,18 @@ interface BoardProps {
     size: number;
 }
 
-const component: FC<BoardProps> = props => {
+export const Board: FC<BoardProps> = ({ gameState, makeMove, size }) => {
     const [selectedPawnI, setSelected] = useState(-1);
 
-    const fields = makeFields(props.gameState, selectedPawnI);
-    const pawns = props.gameState.pawns.map((pawn, i) => ({ ...pawn, selected: i === selectedPawnI }));
+    const fields = makeFields(gameState, selectedPawnI);
+    const pawns = gameState.pawns.map((pawn, i) => ({ ...pawn, selected: i === selectedPawnI }));
 
     const onClick = (event: React.MouseEvent) => {
         const clickPos = getClickPosition(event);
-        const clickedPawnI = getPawnIndexAtPosition(clickPos, props.gameState.pawns);
+        const clickedPawnI = getPawnIndexAtPosition(clickPos, gameState.pawns);
 
         if (selectedPawnI !== -1) {
-            const madeMove = props.makeMove(selectedPawnI, clickPos);
+            const madeMove = makeMove(selectedPawnI, clickPos);
             if (madeMove) {
                 setSelected(-1);
                 return;
@@ -43,7 +43,7 @@ const component: FC<BoardProps> = props => {
     };
 
     return (
-        <div className='relative' style={{ height: props.size, width: props.size }}>
+        <div className='relative' style={{ height: size, width: size }}>
             <div className='cover flex wrap'>
                 {fields.map((field, i) => (
                     <Field key={i} {...field} />
@@ -56,7 +56,6 @@ const component: FC<BoardProps> = props => {
         </div>
     );
 };
-export default component;
 
 // -----------------------------------------------------------------------------
 

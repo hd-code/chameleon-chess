@@ -1,15 +1,15 @@
 import React, { FC } from 'react';
 
-import { Color, Pawn, Role, getRoleMapping } from 'core/game-state';
-import { imgDir } from 'web/constants';
+import { Color, Pawn as PawnModel, Role, getRoleMapping } from 'core/game-state';
+import { img } from 'web/assets';
 
 // -----------------------------------------------------------------------------
 
-interface PawnProps extends Pawn {
+interface PawnProps extends PawnModel {
     selected: boolean;
 }
 
-const component: FC<PawnProps> = props => {
+export const Pawn: FC<PawnProps> = props => {
     const offset = { left: props.position.col * 12.5 + '%', top: props.position.row * 12.5 + '%' };
     const roleMap = getRoleMapping(props);
 
@@ -35,7 +35,6 @@ const component: FC<PawnProps> = props => {
         </div>
     );
 };
-export default component;
 
 // -----------------------------------------------------------------------------
 
@@ -49,8 +48,8 @@ const mapColorClass = {
 };
 
 const mapRoleIcon = {
-    [Role.knight]: imgDir + 'knight.svg',
-    [Role.queen]: imgDir + 'queen.svg',
-    [Role.bishop]: imgDir + 'bishop.svg',
-    [Role.rook]: imgDir + 'rook.svg',
+    [Role.knight]: img.knight,
+    [Role.queen]: img.queen,
+    [Role.bishop]: img.bishop,
+    [Role.rook]: img.rook,
 };

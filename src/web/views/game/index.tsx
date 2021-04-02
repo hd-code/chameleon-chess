@@ -3,8 +3,8 @@ import React, { FC } from 'react';
 import { getCurrentGameState } from 'core/game';
 import { AppState } from 'core/state';
 
-import Board from './board';
-import Players from './players';
+import { Board } from './board';
+import { Players } from './players';
 
 // -----------------------------------------------------------------------------
 
@@ -13,7 +13,7 @@ interface GameProps extends AppState {
     width: number;
 }
 
-const component: FC<GameProps> = props => {
+export const Game: FC<GameProps> = props => {
     if (!props.game) {
         console.warn('There is no game to be played.');
         props.goTo.home();
@@ -38,4 +38,3 @@ const component: FC<GameProps> = props => {
         </div>
     );
 };
-export default component;

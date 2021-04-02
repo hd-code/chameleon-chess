@@ -4,7 +4,6 @@ import { AppState } from 'core/state';
 
 // -----------------------------------------------------------------------------
 
-const component: FC<AppState> = () => {
+export const About: FC<AppState> = () => {
     return <div>About works!</div>;
 };
-export default component;

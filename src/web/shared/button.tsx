@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 
 import { Color } from 'core/game-state';
-import Text from 'web/shared/text';
+import { Text } from 'web/shared/text';
 
 // -----------------------------------------------------------------------------
 
@@ -12,21 +12,19 @@ interface ButtonProps {
     onClick?: () => void;
 }
 
-const component: FC<ButtonProps> = props => {
-    const { children, className, color, ...rest } = props;
-
-    const baseClasses = 'c-white text-border border p-1 rounded';
-    const colorClasses = mapColorClass[color ?? Color.red];
-    const disabledClasses = !props.disabled ? 'pointer' : 'overlay-dark forbidden';
-    const classes = `${baseClasses} ${colorClasses} ${disabledClasses} ${className}`;
-
-    return (
-        <button {...rest} className={classes}>
-            <Text>{children}</Text>
-        </button>
-    );
-};
-export default component;
+export const Button: FC<ButtonProps> = ({ children, className, color, ...rest }) => (
+    <button
+        className={[
+            'c-white text-border border p-1 rounded',
+            mapColorClass[color ?? Color.red],
+            !rest.disabled ? 'pointer' : 'overlay-dark forbidden',
+            className,
+        ].join(' ')}
+        {...rest}
+    >
+        <Text>{children}</Text>
+    </button>
+);
 
 // -----------------------------------------------------------------------------
 

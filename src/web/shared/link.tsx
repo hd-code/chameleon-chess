@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import Text from './text';
+import { Text } from './text';
 
 // -----------------------------------------------------------------------------
 
@@ -9,11 +9,8 @@ interface LinkProps {
     onClick?: () => void;
 }
 
-const component: FC<LinkProps> = props => {
-    return (
-        <a className={`c-white no-select one-line pointer underline ${props.className ?? ''}`} onClick={props.onClick}>
-            <Text>{props.children}</Text>
-        </a>
-    );
-};
-export default component;
+export const Link: FC<LinkProps> = ({ children, className, onClick }) => (
+    <a className={`c-white no-select one-line pointer underline ${className ?? ''}`} onClick={onClick}>
+        <Text>{children}</Text>
+    </a>
+);

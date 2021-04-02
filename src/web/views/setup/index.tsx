@@ -5,15 +5,15 @@ import { initGame } from 'core/game';
 import { Player } from 'core/game-state';
 import { getDefaultPlayers, togglePlayersBySingle } from 'core/players';
 import { AppState } from 'core/state';
-import Button from 'web/shared/button';
-import Link from 'web/shared/link';
-import Text from 'web/shared/text';
+import { Button } from 'web/shared/button';
+import { Link } from 'web/shared/link';
+import { Text } from 'web/shared/text';
 
-import Players from './players';
+import { Players } from './players';
 
 // -----------------------------------------------------------------------------
 
-const component: FC<AppState> = props => {
+export const Setup: FC<AppState> = props => {
     const [players, setPlayers] = useState(getDefaultPlayers());
     const onClick = (player: Player) => setPlayers(togglePlayersBySingle(players, player));
 
@@ -27,11 +27,11 @@ const component: FC<AppState> = props => {
 
     return (
         <div className='mxh-100 scroll-y text-center'>
-            <Text className='c-white fz-120 text-border' type='h1'>
+            <Text className='c-white fz-120 text-border' Tag='h1'>
                 Ein neues Spiel starten
             </Text>
 
-            <Players {...{ ...players, onClick }} />
+            <Players players={players} onClick={onClick} />
 
             <Button color={1} disabled={!newGame} onClick={beginNewGame}>
                 Spiel beginnen
@@ -45,4 +45,3 @@ const component: FC<AppState> = props => {
         </div>
     );
 };
-export default component;

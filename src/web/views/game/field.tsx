@@ -15,12 +15,9 @@ export interface FieldProps {
     state: FieldState;
 }
 
-const component: FC<FieldProps> = props => {
-    const colorClass = mapColorClass[props.color];
-    const stateClass = mapStateClass[props.state];
-    return <div className={'hw-12 border' + ' ' + colorClass + ' ' + stateClass}></div>;
-};
-export default component;
+export const Field: FC<FieldProps> = ({ color, state }) => (
+    <div className={`hw-12 border ${mapColorClass[color]} ${mapStateClass[state]}`}></div>
+);
 
 // -----------------------------------------------------------------------------
 

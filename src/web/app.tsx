@@ -3,15 +3,15 @@ import React, { FC, useState } from 'react';
 import { AppState, useAppState } from 'core/state';
 import { View } from 'core/state/view';
 import WebStorage from 'web/storage';
-import About from 'web/views/about';
-import Game from 'web/views/game';
-import Home from 'web/views/home';
-import Setup from 'web/views/setup';
-import Settings from 'web/views/settings';
+import { About } from 'web/views/about';
+import { Game } from 'web/views/game';
+import { Home } from 'web/views/home';
+import { Setup } from 'web/views/setup';
+import { Settings } from 'web/views/settings';
 
 // -----------------------------------------------------------------------------
 
-const component: FC<Record<string, never>> = () => {
+export const App: FC = () => {
     const appState = useAppState(WebStorage);
 
     const [{ height, width }, setDimensions] = useState({ height: 0, width: 0 });
@@ -25,16 +25,12 @@ const component: FC<Record<string, never>> = () => {
         }
     };
 
-    // This is for testing individual views specifically
-    // appState.view = View.game;
-
     return (
         <div className='hw-100 no-overflow flex center middle font-1 fz-140' ref={appContainer}>
             {loadView(appState, height, width)}
         </div>
     );
 };
-export default component;
 
 // -----------------------------------------------------------------------------
 

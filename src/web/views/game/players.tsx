@@ -1,11 +1,11 @@
 import React, { FC } from 'react';
 
 import { Color, GameState, arePlayersAlive } from 'core/game-state';
-import { Players } from 'core/players';
-import { imgDir } from 'web/constants';
+import { Players as PlayersModel } from 'core/players';
+import { img } from 'web/assets';
 
-import LinkIcon from './link-icon';
-import Player from './player';
+import { LinkIcon } from './link-icon';
+import { Player } from './player';
 
 // -----------------------------------------------------------------------------
 
@@ -14,14 +14,14 @@ interface PlayersProps {
     goToHome: () => void;
     goToSettings: () => void;
     isPortrait: boolean;
-    players: Players;
+    players: PlayersModel;
 }
 
-const component: FC<PlayersProps> = props => {
+export const Players: FC<PlayersProps> = props => {
     const playersState = arePlayersAlive(props.gameState.pawns);
     return (
         <div className={props.isPortrait ? 'mb-1 flex center middle' : 'mr-1'}>
-            <LinkIcon onClick={props.goToHome} src={imgDir + 'home.svg'} />
+            <LinkIcon onClick={props.goToHome} src={img.home} />
             {players.map((player, i) => (
                 <Player
                     key={i}
@@ -31,11 +31,10 @@ const component: FC<PlayersProps> = props => {
                     type={props.players[player]}
                 />
             ))}
-            <LinkIcon onClick={props.goToSettings} src={imgDir + 'settings.svg'} />
+            <LinkIcon onClick={props.goToSettings} src={img.settings} />
         </div>
     );
 };
-export default component;
 
 // -----------------------------------------------------------------------------
 
