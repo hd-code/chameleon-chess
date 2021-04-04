@@ -9,6 +9,7 @@ import {
     getPawnIndexAtPosition,
     isWithinLimits,
 } from 'core/game-state';
+import { isSamePosition } from 'core/game-state/board';
 
 import { Field, FieldProps, FieldState } from './field';
 import { Pawn } from './pawn';
@@ -32,6 +33,11 @@ export const Board: FC<BoardProps> = ({ gameState, makeMove, size }) => {
         const clickedPawnI = getPawnIndexAtPosition(clickPos, gameState.pawns);
 
         if (selectedPawnI !== -1) {
+            if (isSamePosition(clickPos, gameState.pawns[selectedPawnI].position)) {
+                setSelected(-1);
+                return;
+            }
+
             const madeMove = makeMove(selectedPawnI, clickPos);
             if (madeMove) {
                 setSelected(-1);

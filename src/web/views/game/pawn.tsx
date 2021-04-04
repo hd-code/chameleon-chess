@@ -14,7 +14,7 @@ export const Pawn: FC<PawnProps> = props => {
     const roleMap = getRoleMapping(props);
 
     return (
-        <div className='hw-12 flex center middle absolute transition' style={offset}>
+        <div className='hw-12 flex center middle absolute transition no-select' style={offset}>
             <div
                 className={
                     'hw-75 border rounded flex center middle ' +

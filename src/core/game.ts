@@ -1,4 +1,4 @@
-import { AILevel } from 'core/ai';
+import { AILevel, makeComputerMove as computerMove } from 'core/ai';
 import {
     Color,
     GameState,
@@ -41,11 +41,56 @@ export function isGameOver(game: Game): boolean {
     return gameOver(gs);
 }
 
+export function isComputerTurn(game: Game): boolean {
+    // const currentGS = getCurrentGameState(game);
+    // return game.players[currentGS.player] === PlayerType.computer;
+    return false;
+}
+
 export function makeMove(game: Game, pawnIndex: number, destination: Position): Game | null {
+    if (isComputerTurn(game)) {
+        return null;
+    }
+
     const nextGS = move(getCurrentGameState(game), pawnIndex, destination);
     if (!nextGS) {
         return null;
     }
+
     game.gameStates.push(nextGS);
     return game;
 }
+
+export function makeComputerMove(game: Game): Promise<Game> {
+    return new Promise((resolve, reject) => {
+        if (computerIsRunning) {
+            return reject();
+        }
+
+        if (!isComputerTurn(game)) {
+            return reject('Computer is not on turn');
+        }
+
+        computerIsRunning = true;
+
+        const currentGS = getCurrentGameState(game);
+        const aiLevel = game.aiLevel;
+
+        const begin = Date.now();
+        const nextGS = computerMove(currentGS, aiLevel);
+
+        const duration = Date.now() - begin;
+        const timeout = Math.max(1, computerMinTime - duration);
+
+        setTimeout(() => {
+            game.gameStates.push(nextGS);
+            resolve(game);
+            computerIsRunning = false;
+        }, timeout);
+    });
+}
+
+// -----------------------------------------------------------------------------
+
+const computerMinTime = 1000;
+let computerIsRunning = false;

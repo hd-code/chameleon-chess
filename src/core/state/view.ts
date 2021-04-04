@@ -50,4 +50,5 @@ export function useView(): ViewState {
 // -----------------------------------------------------------------------------
 
 const defaultView = View.home;
+
 let previous = defaultView;

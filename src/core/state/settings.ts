@@ -1,7 +1,5 @@
 import { useState } from 'react';
 
-import Storage from 'core/storage';
-
 // -----------------------------------------------------------------------------
 
 export interface Settings {
@@ -10,19 +8,12 @@ export interface Settings {
     sounds: boolean;
 }
 
-// -----------------------------------------------------------------------------
-
 export interface SettingsState {
     settings: Settings;
 }
 
-export function useSettings(storage: Storage): SettingsState {
-    const [settings, setSettings] = useState(defaultSettings);
-
-    storage
-        .read<Settings>(storageKey)
-        .then(data => !!data && setSettings(data))
-        .catch(console.info);
+export function useSettings(): SettingsState {
+    const [settings] = useState(defaultSettings);
 
     return {
         settings,
@@ -30,8 +21,6 @@ export function useSettings(storage: Storage): SettingsState {
 }
 
 // -----------------------------------------------------------------------------
-
-const storageKey = 'settings';
 
 const defaultSettings: Settings = {
     language: 'de',

@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 
 import { AppState, useAppState } from 'core/state';
 import { View } from 'core/state/view';
-import WebStorage from 'web/storage';
+import Storage from 'web/storage';
 import { About } from 'web/views/about';
 import { Game } from 'web/views/game';
 import { Home } from 'web/views/home';
@@ -12,7 +12,7 @@ import { Settings } from 'web/views/settings';
 // -----------------------------------------------------------------------------
 
 export const App: FC = () => {
-    const appState = useAppState(WebStorage);
+    const appState = useAppState(Storage);
 
     const [{ height, width }, setDimensions] = useState({ height: 0, width: 0 });
     const appContainer = (div: HTMLDivElement | null) => {
@@ -24,6 +24,8 @@ export const App: FC = () => {
             }
         }
     };
+
+    console.log('App render is called');
 
     return (
         <div className='hw-100 no-overflow flex center middle font-1 fz-140' ref={appContainer}>

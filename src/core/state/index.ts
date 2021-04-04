@@ -11,7 +11,7 @@ export interface AppState extends GameState, SettingsState, ViewState {}
 export function useAppState(storage: Storage): AppState {
     return {
         ...useGame(storage),
-        ...useSettings(storage),
+        ...useSettings(),
         ...useView(),
     };
 }

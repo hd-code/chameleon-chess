@@ -13,28 +13,30 @@ interface GameProps extends AppState {
     width: number;
 }
 
-export const Game: FC<GameProps> = props => {
-    if (!props.game) {
+export const Game: FC<GameProps> = ({game, goTo, height, width, makeMove, onNextTurn}) => {
+    if (!game) {
         console.warn('There is no game to be played.');
-        props.goTo.home();
+        goTo.home();
         return <></>;
     }
 
-    const gs = getCurrentGameState(props.game);
-    const boardWidth = Math.min(props.height, props.width) * 0.98;
+    setTimeout(onNextTurn, 500); // delay to let the animations finish before the computer move is calculated
 
-    const isPortrait = props.height > props.width;
+    const gs = getCurrentGameState(game);
+
+    const boardWidth = Math.min(height, width) * 0.98;
+    const isPortrait = height > width;
 
     return (
         <div className={'flex middle' + (isPortrait ? ' col center' : '')}>
             <Players
                 gameState={gs}
-                goToHome={props.goTo.home}
-                goToSettings={props.goTo.settings}
+                goToHome={goTo.home}
+                goToSettings={goTo.settings}
                 isPortrait={isPortrait}
-                players={props.game.players}
+                players={game.players}
             />
-            <Board gameState={gs} makeMove={props.makeMove} size={boardWidth} />
+            <Board gameState={gs} makeMove={makeMove} size={boardWidth} />
         </div>
     );
 };
