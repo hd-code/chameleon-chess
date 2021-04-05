@@ -4,7 +4,7 @@ import { FieldColor, Position, getFieldColor, isFieldColor, isPosition, isSamePo
 import { Color } from './color';
 import { Limits, isWithinLimits } from './limits';
 import { Player, isPlayer } from './player';
-import { Role } from './role';
+import { Role, RoleMap, getRole, getRoles } from './role';
 
 // -----------------------------------------------------------------------------
 
@@ -50,8 +50,8 @@ export function isPawn(pawn: unknown): pawn is Pawn {
  * @param limits the current limits of the game
  * @returns an array of positions that the pawn could go to
  */
-export function getMoves(pawnI: number, pawns: Pawn[], limits: Limits): Position[] {
-    switch (getRole(pawns[pawnI])) {
+export function getPawnMoves(pawnI: number, pawns: Pawn[], limits: Limits): Position[] {
+    switch (getPawnRole(pawns[pawnI])) {
         case Role.knight:
             return getKnightMoves(pawnI, pawns, limits);
 
@@ -77,31 +77,22 @@ export function getPawnIndexAtPosition(position: Position, pawns: Pawn[]): numbe
 }
 
 /** Returns the role the pawn has on it's current field. */
-export function getRole(pawn: Pawn): Role {
+export function getPawnRole(pawn: Pawn): Role {
     const fieldColor = getFieldColor(pawn.position);
-    return mapKnightColorRoles[pawn.knightColor][fieldColor];
+    return getRole(pawn.knightColor, fieldColor);
 }
 
 /** Returns an object that maps the four field colors to a corresponding chess
  * role. This mapping is dependent on a pawns knight role. There four different
  * mappings that can occur. */
-export function getRoleMapping(pawn: Pawn): { [color in Color]: Role } {
-    return { ...mapKnightColorRoles[pawn.knightColor] };
+export function getPawnRoles(pawn: Pawn): RoleMap {
+    return getRoles(pawn.knightColor);
 }
 
 /** Returns the initial pawns for a given player. */
 export function getStartPawns(player: Player): Pawn[] {
     return createPawns(player);
 }
-
-// -----------------------------------------------------------------------------
-
-const mapKnightColorRoles = {
-    [Color.red]: { 0: 0, 1: 1, 2: 2, 3: 3 },
-    [Color.green]: { 0: 3, 1: 0, 2: 1, 3: 2 },
-    [Color.yellow]: { 0: 2, 1: 3, 2: 0, 3: 1 },
-    [Color.blue]: { 0: 1, 1: 2, 2: 3, 3: 0 },
-};
 
 // -----------------------------------------------------------------------------
 

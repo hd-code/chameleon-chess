@@ -1,20 +1,19 @@
 import React, { FC } from 'react';
 
-import { Color, Player as PlayerColor } from 'core/game-state';
-import { PlayerType } from 'core/players';
+import { Color, Player as PlayerColor, PlayerType } from 'core/game';
 import { img } from 'web/assets';
-import { Text } from 'web/shared/text';
+import { Text } from 'web/shared';
 
 // -----------------------------------------------------------------------------
 
-interface PlayerProps {
+interface PlayerCardProps {
     className?: string;
     color: PlayerColor;
     onClick: () => void;
     type: PlayerType;
 }
 
-export const Player: FC<PlayerProps> = ({ className = '', color, ...props }) => (
+export const PlayerCard: FC<PlayerCardProps> = ({ className = '', color, ...props }) => (
     <div
         className={`border no-select pointer py-1 text-center ${mapColorToClass[color]} ${className}`}
         onClick={props.onClick}

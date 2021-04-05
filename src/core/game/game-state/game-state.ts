@@ -3,18 +3,9 @@ import { hasKey, isArray } from 'core/type-guards';
 import { Position, isInPositions, isSamePosition, sortPositions } from './board';
 import { Color } from './color';
 import { Limits, getStartLimits, isLimits, isSmallestLimits, isWithinLimits, updateLimits } from './limits';
-import { Pawn, getMoves, getPawnIndexAtPosition, getRole, getStartPawns, isPawn } from './pawn';
+import { Pawn, getPawnIndexAtPosition, getPawnMoves, getPawnRole, getStartPawns, isPawn } from './pawn';
 import { Player, arePlayersAlive, getNextPlayer, isPlayer } from './player';
 import { Role } from './role';
-
-// -----------------------------------------------------------------------------
-
-export { Color, isColor } from './color';
-export { getBoard, FieldColor, Position } from './board';
-export { Limits, isWithinLimits } from './limits';
-export { getMoves, getPawnIndexAtPosition, getRole, getRoleMapping, Pawn } from './pawn';
-export { arePlayersAlive, Player } from './player';
-export { Role } from './role';
 
 // -----------------------------------------------------------------------------
 
@@ -74,7 +65,7 @@ export function getNextGameStates(gs: GameState): GameState[] {
         if (gs.pawns[i].player !== gs.player) {
             continue;
         }
-        const moves = getMoves(i, gs.pawns, gs.limits);
+        const moves = getPawnMoves(i, gs.pawns, gs.limits);
         for (let j = 0, je = moves.length; j < je; j++) {
             result.push(updateGameState(gs, i, moves[j]));
         }
@@ -147,7 +138,7 @@ export function makeMove(gs: GameState, pawnI: number, destination: Position): G
         return null;
     }
 
-    const moves = getMoves(pawnI, gs.pawns, gs.limits);
+    const moves = getPawnMoves(pawnI, gs.pawns, gs.limits);
     if (!moves.length || !isInPositions(destination, moves)) {
         return null;
     }
@@ -192,7 +183,7 @@ function updateGameState(gs: GameState, pawnI: number, destination: Position): G
         const centerPos = { row: limits.minRow + 1, col: limits.minCol + 1 };
         const centerPawnI = getPawnIndexAtPosition(centerPos, pawns);
         if (centerPawnI >= 0) {
-            const role = getRole(pawns[centerPawnI]);
+            const role = getPawnRole(pawns[centerPawnI]);
             if (role === Role.knight && !isGameOver({ limits, pawns, player: gs.player })) {
                 pawns.splice(centerPawnI, 1);
             }

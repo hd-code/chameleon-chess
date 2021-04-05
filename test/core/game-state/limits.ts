@@ -1,4 +1,4 @@
-import { getStartLimits, isLimits, isSmallestLimits, isWithinLimits, updateLimits } from 'core/game-state/limits';
+import { getStartLimits, isLimits, isSmallestLimits, isWithinLimits, updateLimits } from 'core/game/game-state/limits';
 
 // -----------------------------------------------------------------------------
 

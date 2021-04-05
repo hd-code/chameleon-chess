@@ -16,6 +16,11 @@ export const Text: FC<TextProps> = ({ children, className, Tag = 'span' }) => (
 // -----------------------------------------------------------------------------
 
 const de: { [key: string]: string } = {
+    red: 'Rot',
+    green: 'Grün',
+    yellow: 'Gelb',
+    blue: 'Blau',
+
     computer: 'KI',
     human: 'Mensch',
     none: 'Keiner',

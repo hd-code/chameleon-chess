@@ -22,6 +22,11 @@ Website's Theme
     &-transparent { background-color: transparent }
 }
 
+.bc {
+    &-black { border-color: #000 }
+    &-white { border-color: #fff }
+}
+
 .c {
     &-red { color: #B9542D }
     &-green { color: #51A230 }
@@ -30,6 +35,11 @@ Website's Theme
 
     &-white { color: #fff }
 }
+
+.transparent-50 { opacity: .5 }
+.transparent-60 { opacity: .6 }
+.transparent-70 { opacity: .7 }
+.transparent-80 { opacity: .8 }
 
 .overlay {
     &-bright, &-dark, &-frame {
@@ -60,11 +70,13 @@ Website's Theme
 
 .shadow { box-shadow: 0px 0px .1em #000 }
 
-.border { border: solid 1px #000 }
+.border { border-style: solid; border-width: 1px }
 .no-border { border: 0 }
 
 .circle { border-radius: 50% }
 .rounded { border-radius: .5em }
+.rounded-left { border-top-left-radius: .5em; border-bottom-left-radius: .5em }
+.rounded-right { border-top-right-radius: .5em; border-bottom-right-radius: .5em }
 
 .square {
     height: 0;

@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import { Color } from 'core/game-state';
+import { Color } from 'core/game';
 import { Text } from 'web/shared/text';
 
 // -----------------------------------------------------------------------------
@@ -15,7 +15,7 @@ interface ButtonProps {
 export const Button: FC<ButtonProps> = ({ children, className, color, ...rest }) => (
     <button
         className={[
-            'c-white text-border border p-1 rounded',
+            'bc-black border c-white text-border p-1 rounded',
             mapColorClass[color ?? Color.red],
             !rest.disabled ? 'pointer' : 'overlay-dark forbidden',
             className,

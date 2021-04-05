@@ -1,4 +1,4 @@
-import { isRole } from 'core/game-state/role';
+import { isRole } from 'core/game/game-state/role';
 
 // -----------------------------------------------------------------------------
 

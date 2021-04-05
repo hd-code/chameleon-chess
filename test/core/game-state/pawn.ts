@@ -1,6 +1,13 @@
-import { Color, GameState, Position, Role, getStartGameState } from 'core/game-state';
-import { isSamePosition, sortPositions } from 'core/game-state/board';
-import { getMoves, getPawnIndexAtPosition, getRole, getRoleMapping, getStartPawns, isPawn } from 'core/game-state/pawn';
+import { Color, GameState, Position, Role, getStartGameState } from 'core/game/game-state';
+import { isSamePosition, sortPositions } from 'core/game/game-state/board';
+import {
+    getPawnIndexAtPosition,
+    getPawnMoves,
+    getPawnRole,
+    getPawnRoles,
+    getStartPawns,
+    isPawn,
+} from 'core/game/game-state/pawn';
 
 // -----------------------------------------------------------------------------
 
@@ -152,14 +159,14 @@ describe('core/game-state/pawn', () => {
         });
     });
 
-    describe(getMoves.name, () => {
+    describe(getPawnMoves.name, () => {
         it.each([
             ['should return the correct moves for a knight', knightIndex, knightMoves],
             ['should return the correct moves for a queen', queenIndex, queenMoves],
             ['should return the correct moves for a bishop', bishopIndex, bishopMoves],
             ['should return the correct moves for a rook', rookIndex, rookMoves],
         ])('%s', (_, pawnI, expected) => {
-            const actual = getMoves(pawnI, gs.pawns, gs.limits);
+            const actual = getPawnMoves(pawnI, gs.pawns, gs.limits);
             actual.sort(sortPositions);
             expected.sort(sortPositions);
             expect(actual).toEqual(expected);
@@ -169,10 +176,10 @@ describe('core/game-state/pawn', () => {
             const gs = getStartGameState(true, true, true, true) as GameState;
 
             const movesRed = [];
-            movesRed.push(...getMoves(0, gs.pawns, gs.limits));
-            movesRed.push(...getMoves(1, gs.pawns, gs.limits));
-            movesRed.push(...getMoves(2, gs.pawns, gs.limits));
-            movesRed.push(...getMoves(3, gs.pawns, gs.limits));
+            movesRed.push(...getPawnMoves(0, gs.pawns, gs.limits));
+            movesRed.push(...getPawnMoves(1, gs.pawns, gs.limits));
+            movesRed.push(...getPawnMoves(2, gs.pawns, gs.limits));
+            movesRed.push(...getPawnMoves(3, gs.pawns, gs.limits));
 
             expect(movesRed.length).toBe(13);
         });
@@ -208,7 +215,7 @@ describe('core/game-state/pawn', () => {
         });
     });
 
-    describe(getRole.name, () => {
+    describe(getPawnRole.name, () => {
         [
             {
                 pawn: { player: 0, position: { row: 5, col: 3 }, knightColor: Color.yellow },
@@ -221,13 +228,13 @@ describe('core/game-state/pawn', () => {
         ].forEach(({ pawn, expected }) => {
             const posString = JSON.stringify(pawn.position);
             it(`pawn at ${posString} with knight color ${Color[pawn.knightColor]} => ${Role[expected]}`, () => {
-                const actual = getRole(pawn);
+                const actual = getPawnRole(pawn);
                 expect(actual).toBe(expected);
             });
         });
     });
 
-    describe(getRoleMapping.name, () => {
+    describe(getPawnRoles.name, () => {
         const basePawn = { player: 0, position: { row: 0, col: 0 }, knightColor: 0 };
 
         it.each([
@@ -237,7 +244,7 @@ describe('core/game-state/pawn', () => {
             [Color.blue, { 0: 1, 1: 2, 2: 3, 3: 0 }],
         ])('%j => %j', (knightColor, expected) => {
             const pawn = { ...basePawn, knightColor };
-            const actual = getRoleMapping(pawn);
+            const actual = getPawnRoles(pawn);
             expect(actual).toEqual(expected);
         });
     });

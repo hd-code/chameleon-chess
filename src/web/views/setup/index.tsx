@@ -1,27 +1,30 @@
 import React, { FC, useState } from 'react';
 
-import { AILevel } from 'core/ai';
-import { initGame } from 'core/game';
-import { Player } from 'core/game-state';
-import { getDefaultPlayers, togglePlayersBySingle } from 'core/players';
-import { AppState } from 'core/state';
-import { Button } from 'web/shared/button';
-import { Link } from 'web/shared/link';
-import { Text } from 'web/shared/text';
+import { AILevel, isValidPlayerConfig, usePlayerConfig } from 'core/game';
+import { View } from 'core/view';
+import type { AppProps } from 'web/app';
+import { Button, Link, SelectButtons, Text } from 'web/shared';
 
-import { Players } from './players';
+import { PlayerConfig } from './player-config';
 
 // -----------------------------------------------------------------------------
 
-export const Setup: FC<AppState> = props => {
-    const [players, setPlayers] = useState(getDefaultPlayers());
-    const onClick = (player: Player) => setPlayers(togglePlayersBySingle(players, player));
+export const Setup: FC<AppProps> = ({ beginGame, goBack, goTo }) => {
+    const [aiLevel, setAiLevel] = useState(AILevel.normal);
+    const aiLevels = [
+        { label: 'leicht', value: AILevel.easy },
+        { label: 'normal', value: AILevel.normal },
+        { label: 'schwer', value: AILevel.hard },
+    ];
 
-    const newGame = initGame(players);
+    const { playerConfig, onClickPlayer } = usePlayerConfig();
+
+    const validConfig = isValidPlayerConfig(playerConfig);
+
     const beginNewGame = () => {
-        const newGameCreated = props.beginNewGame(players, AILevel.normal);
+        const newGameCreated = beginGame(playerConfig, aiLevel);
         if (newGameCreated) {
-            props.goTo.game();
+            goTo(View.game);
         }
     };
 
@@ -31,17 +34,27 @@ export const Setup: FC<AppState> = props => {
                 Ein neues Spiel starten
             </Text>
 
-            <Players players={players} onClick={onClick} />
+            <PlayerConfig playerConfig={playerConfig} onClickPlayer={onClickPlayer} />
 
-            <Button color={1} disabled={!newGame} onClick={beginNewGame}>
+            <Button color={1} disabled={!validConfig} onClick={beginNewGame}>
                 Spiel beginnen
             </Button>
 
-            <p className='c-white fz-80 my-2 text-border'>
+            <p className='c-white fz-80 my-3 text-border'>
                 Klicke auf die Flächen, um die teilnehmenden <br /> Spieler zu konfigurieren.
             </p>
 
-            <Link onClick={props.goBack}>zurück</Link>
+            <div className='fz-80'>
+                <Text Tag='h2' className='c-white text-border mb-1'>
+                    KI-Schwierigkeit:
+                </Text>
+                {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                <SelectButtons onSelect={setAiLevel as any} options={aiLevels as any} selected={aiLevel as any} />
+            </div>
+
+            <Link className='block mt-2' onClick={goBack}>
+                zurück
+            </Link>
         </div>
     );
 };

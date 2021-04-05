@@ -1,5 +1,4 @@
-import { GameState, Role, getNextGameStates, getRole, isGameOver } from 'core/game-state';
-
+import { GameState, Role, getNextGameStates, getPawnRole, isGameOver } from '../game-state';
 import { Score, getZeroScore, maxScore, normalizeScore } from './score';
 
 // -----------------------------------------------------------------------------
@@ -43,7 +42,7 @@ function evalGS(gs: GameState): Score {
     const result = getZeroScore();
     for (let i = 0, ie = gs.pawns.length; i < ie; i++) {
         const pawn = gs.pawns[i];
-        const role = getRole(pawn);
+        const role = getPawnRole(pawn);
         result[pawn.player] += mapRoleScore[role];
     }
     return normalizeScore(result);

@@ -1,32 +1,36 @@
 import React, { FC } from 'react';
 
-import { isGameOver } from 'core/game';
-import { Color } from 'core/game-state';
-import { AppState } from 'core/state';
-import { Button } from 'web/shared/button';
-import { Logo } from 'web/shared/logo';
+import { Color, isGameOver } from 'core/game';
+import { View } from 'core/view';
+import type { AppProps } from 'web/app';
+import { Button, Logo } from 'web/shared';
 
 // -----------------------------------------------------------------------------
 
-export const Home: FC<AppState> = ({ game, goTo }) => {
+export const Home: FC<AppProps> = ({ gameState, goTo }) => {
     return (
         <div className='flex col center'>
             <Logo className='mb-1 fz-250' />
 
-            <Button className='mb-1' color={Color.red} disabled={!game || isGameOver(game)} onClick={() => goTo.game()}>
+            <Button
+                className='mb-1'
+                color={Color.red}
+                disabled={!gameState || isGameOver(gameState)}
+                onClick={() => goTo(View.game)}
+            >
                 Fortsetzen
             </Button>
 
-            <Button className='mb-1' color={Color.green} onClick={() => goTo.setup()}>
+            <Button className='mb-1' color={Color.green} onClick={() => goTo(View.setup)}>
                 Neues Spiel
             </Button>
 
-            <Button className='mb-1' color={Color.yellow} onClick={() => goTo.settings()}>
-                Einstellungen
+            <Button className='mb-1' color={Color.yellow} disabled={true}>
+                Tutorial
             </Button>
 
-            <Button color={Color.blue} disabled={true}>
-                Tutorial
+            <Button color={Color.blue} onClick={() => goTo(View.settings)}>
+                Einstellungen
             </Button>
         </div>
     );

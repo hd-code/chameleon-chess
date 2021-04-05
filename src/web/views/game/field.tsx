@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import { Color } from 'core/game-state';
+import { Color } from 'core/game';
 
 // -----------------------------------------------------------------------------
 

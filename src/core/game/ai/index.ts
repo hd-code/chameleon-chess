@@ -1,5 +1,4 @@
-import { GameState, Player, getNextGameStates } from 'core/game-state';
-
+import { GameState, Player, getNextGameStates } from '../game-state';
 import { maxNIS } from './max-n-is';
 import { Score, maxScore } from './score';
 
@@ -69,9 +68,9 @@ function updateScores(nextGSs: GameState[], scores: Score[], player: Player): vo
 /** The move is chosen randomly from a list of the best moves. The range
  * specifies how, many entries will be in the list. The longer the list is, the
  * more of the worse moves will be in the list. */
-const mapDifficultyToRangeOfMoves = {
-    [AILevel.easy]: 0.5,
-    [AILevel.normal]: 0.25,
+const mapLevelToPropForWorseMove = {
+    [AILevel.easy]: 0.2,
+    [AILevel.normal]: 0.1,
     [AILevel.hard]: 0,
 };
 
@@ -79,10 +78,12 @@ function selectMove(player: Player, scores: Score[], difficulty: AILevel): numbe
     const indexScores = scores.map((score, index) => ({ index, score: score[player] }));
     indexScores.sort(sortIndexScore);
 
-    const rangeOfMoves = mapDifficultyToRangeOfMoves[difficulty] * scores.length;
-    const selectedI = Math.floor(Math.random() * rangeOfMoves);
+    let index = 0;
+    while (Math.random() < mapLevelToPropForWorseMove[difficulty]) {
+        index += 1;
+    }
 
-    return indexScores[selectedI].index;
+    return indexScores[index].index;
 }
 
 // -----------------------------------------------------------------------------

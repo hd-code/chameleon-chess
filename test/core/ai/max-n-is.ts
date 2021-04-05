@@ -1,5 +1,5 @@
-import { maxNIS } from 'core/ai/max-n-is';
-import { GameState, getStartGameState } from 'core/game-state';
+import { maxNIS } from 'core/game/ai/max-n-is';
+import { GameState, getStartGameState } from 'core/game/game-state';
 
 // -----------------------------------------------------------------------------
 

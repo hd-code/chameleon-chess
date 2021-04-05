@@ -1,5 +1,5 @@
-import { Color, Pawn } from 'core/game-state';
-import { arePlayersAlive, getNextPlayer, isPlayer } from 'core/game-state/player';
+import { Color, Pawn } from 'core/game/game-state';
+import { arePlayersAlive, getNextPlayer, isPlayer } from 'core/game/game-state/player';
 
 // -----------------------------------------------------------------------------
 

@@ -5,11 +5,11 @@ import {
     Pawn as PawnModel,
     Position,
     getBoard,
-    getMoves,
     getPawnIndexAtPosition,
+    getPawnMoves,
+    isSamePosition,
     isWithinLimits,
-} from 'core/game-state';
-import { isSamePosition } from 'core/game-state/board';
+} from 'core/game';
 
 import { Field, FieldProps, FieldState } from './field';
 import { Pawn } from './pawn';
@@ -79,7 +79,7 @@ function makeFields(gs: GameState, pawnIndex: number): FieldProps[] {
     }
 
     if (pawnIndex !== -1) {
-        const marked = getMoves(pawnIndex, gs.pawns, gs.limits);
+        const marked = getPawnMoves(pawnIndex, gs.pawns, gs.limits);
         marked.forEach(({ row, col }) => (result[row * 8 + col].state = FieldState.marked));
     }
 

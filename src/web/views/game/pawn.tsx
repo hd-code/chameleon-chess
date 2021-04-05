@@ -1,17 +1,17 @@
 import React, { FC } from 'react';
 
-import { Color, Pawn as PawnModel, Role, getRoleMapping } from 'core/game-state';
+import { Color, Pawn as PawnData, Role, getPawnRoles } from 'core/game';
 import { img } from 'web/assets';
 
 // -----------------------------------------------------------------------------
 
-interface PawnProps extends PawnModel {
+interface PawnProps extends PawnData {
     selected: boolean;
 }
 
 export const Pawn: FC<PawnProps> = props => {
     const offset = { left: props.position.col * 12.5 + '%', top: props.position.row * 12.5 + '%' };
-    const roleMap = getRoleMapping(props);
+    const roleMap = getPawnRoles(props);
 
     return (
         <div className='hw-12 flex center middle absolute transition no-select' style={offset}>

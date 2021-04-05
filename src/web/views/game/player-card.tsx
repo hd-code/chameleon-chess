@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
 
-import { Color } from 'core/game-state';
-import { PlayerType } from 'core/players';
+import { Color, PlayerType } from 'core/game';
 import { img } from 'web/assets';
 
 // -----------------------------------------------------------------------------
@@ -14,7 +13,7 @@ interface PlayerProps {
     type: PlayerType;
 }
 
-export const Player: FC<PlayerProps> = ({ active, className = '', color, dead, type }) => (
+export const PlayerCard: FC<PlayerProps> = ({ active, className = '', color, dead, type }) => (
     <div
         className={[
             'border no-select p-05',

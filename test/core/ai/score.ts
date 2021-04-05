@@ -1,4 +1,4 @@
-import { getZeroScore, normalizeScore } from 'core/ai/score';
+import { getZeroScore, normalizeScore } from 'core/game/ai/score';
 
 // -----------------------------------------------------------------------------
 

@@ -1,42 +1,57 @@
 import React, { FC } from 'react';
 
-import { getCurrentGameState } from 'core/game';
-import { AppState } from 'core/state';
+import { isGameOver } from 'core/game';
+import { View } from 'core/view';
+import type { AppProps } from 'web/app';
 
 import { Board } from './board';
-import { Players } from './players';
+import { GameOverScreen } from './game-over-screen';
+import { PlayerCards } from './player-cards';
 
 // -----------------------------------------------------------------------------
 
-interface GameProps extends AppState {
-    height: number;
-    width: number;
-}
-
-export const Game: FC<GameProps> = ({game, goTo, height, width, makeMove, onNextTurn}) => {
-    if (!game) {
+export const Game: FC<AppProps> = ({
+    aiLevel,
+    gameState,
+    playerConfig,
+    height,
+    width,
+    beginGame,
+    doComputerMove,
+    goTo,
+    makeMove,
+}) => {
+    if (!gameState) {
         console.warn('There is no game to be played.');
-        goTo.home();
+        goTo(View.home);
         return <></>;
     }
 
-    setTimeout(onNextTurn, 500); // delay to let the animations finish before the computer move is calculated
-
-    const gs = getCurrentGameState(game);
+    doComputerMove(500);
 
     const boardWidth = Math.min(height, width) * 0.98;
     const isPortrait = height > width;
 
     return (
         <div className={'flex middle' + (isPortrait ? ' col center' : '')}>
-            <Players
-                gameState={gs}
-                goToHome={goTo.home}
-                goToSettings={goTo.settings}
+            <PlayerCards
+                gameState={gameState}
+                goToHome={() => goTo(View.home)}
+                goToSettings={() => goTo(View.settings)}
                 isPortrait={isPortrait}
-                players={game.players}
+                players={playerConfig}
             />
-            <Board gameState={gs} makeMove={makeMove} size={boardWidth} />
+
+            <Board gameState={gameState} makeMove={makeMove} size={boardWidth} />
+
+            {isGameOver(gameState) && (
+                <GameOverScreen
+                    winner={gameState.player}
+                    home={() => goTo(View.home)}
+                    newGame={() => goTo(View.setup)}
+                    replay={() => beginGame(playerConfig, aiLevel)}
+                />
+            )}
         </div>
     );
 };

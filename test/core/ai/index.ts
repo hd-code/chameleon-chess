@@ -1,5 +1,5 @@
-import { AILevel, makeComputerMove } from 'core/ai';
-import { GameState, getNextGameStates, getStartGameState } from 'core/game-state';
+import { AILevel, makeComputerMove } from 'core/game/ai';
+import { GameState, getNextGameStates, getStartGameState } from 'core/game/game-state';
 
 // -----------------------------------------------------------------------------
 
