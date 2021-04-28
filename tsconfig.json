@@ -8,12 +8,15 @@
     "target": "es6",
 
     // strict checks
-    "noImplicitAny": true,
-    "noImplicitThis": true,
     "strict": true,
-    "strictBindCallApply": true,
-    "strictFunctionTypes": true,
-    "strictNullChecks": true,
-    "strictPropertyInitialization": true,
+
+    // linter checks
+    "noFallthroughCasesInSwitch": true,
+    // "noImplicitOverride": true, // ab 4.3
+    "noImplicitReturns": true,
+    // "noPropertyAccessFromIndexSignature": true,
+    // "noUncheckedIndexedAccess": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
   }
 }
