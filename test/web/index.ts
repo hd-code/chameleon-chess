@@ -1,1 +1,1 @@
-it.todo('Snapshot tests for the web app');
+it.todo("Snapshot tests for the web app");

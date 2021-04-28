@@ -11,87 +11,167 @@ Website's Theme
 /* Colors ------------------------------------------------------------------- */
 
 .bgc {
-    &-red { background-color: #B9542D }
-    &-green { background-color: #51A230 }
-    &-yellow { background-color: #DDBB71 }
-    &-blue { background-color: #04909D }
+  &-red {
+    background-color: #b9542d;
+  }
+  &-green {
+    background-color: #51a230;
+  }
+  &-yellow {
+    background-color: #ddbb71;
+  }
+  &-blue {
+    background-color: #04909d;
+  }
 
-    &-brighten { background-color: #fff8 }
-    &-darken { background-color: #000a }
+  &-brighten {
+    background-color: #fff8;
+  }
+  &-darken {
+    background-color: #000a;
+  }
 
-    &-transparent { background-color: transparent }
+  &-transparent {
+    background-color: transparent;
+  }
 }
 
 .bc {
-    &-black { border-color: #000 }
-    &-white { border-color: #fff }
+  &-black {
+    border-color: #000;
+  }
+  &-white {
+    border-color: #fff;
+  }
 }
 
 .c {
-    &-red { color: #B9542D }
-    &-green { color: #51A230 }
-    &-yellow { color: #DDBB71 }
-    &-blue { color: #04909D }
+  &-red {
+    color: #b9542d;
+  }
+  &-green {
+    color: #51a230;
+  }
+  &-yellow {
+    color: #ddbb71;
+  }
+  &-blue {
+    color: #04909d;
+  }
 
-    &-white { color: #fff }
+  &-white {
+    color: #fff;
+  }
 }
 
-.transparent-50 { opacity: .5 }
-.transparent-60 { opacity: .6 }
-.transparent-70 { opacity: .7 }
-.transparent-80 { opacity: .8 }
+.transparent-50 {
+  opacity: 0.5;
+}
+.transparent-60 {
+  opacity: 0.6;
+}
+.transparent-70 {
+  opacity: 0.7;
+}
+.transparent-80 {
+  opacity: 0.8;
+}
 
 .overlay {
-    &-bright, &-dark, &-frame {
-        position: relative;
-    }
+  &-bright,
+  &-dark,
+  &-frame {
+    position: relative;
+  }
 
-    &-bright::after, &-dark::after, &-frame::after {
-        content: '';
-        border-radius: inherit;
-        position: absolute;
-        top: 0; bottom: 0; left: 0; right: 0;
-    }
+  &-bright::after,
+  &-dark::after,
+  &-frame::after {
+    content: "";
+    border-radius: inherit;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
 
-    &-bright::after { background-color: #fff8 }
-    &-dark::after { background-color: #000a }
-    &-frame::after { border: 0.2em solid #fffd }
+  &-bright::after {
+    background-color: #fff8;
+  }
+  &-dark::after {
+    background-color: #000a;
+  }
+  &-frame::after {
+    border: 0.2em solid #fffd;
+  }
 }
 
 /* Typography --------------------------------------------------------------- */
 
-.font-1 { font-family: Verdana, sans-serif }
+.font-1 {
+  font-family: Verdana, sans-serif;
+}
 // .font-2 { font-family: Times, serif }
 
 // .text-block * + * { margin-top: .5em }
-.text-border { text-shadow: 1px 1px #000, 1px -1px #000, -1px 1px #000, -1px -1px #000 }
+.text-border {
+  text-shadow: 1px 1px #000, 1px -1px #000, -1px 1px #000, -1px -1px #000;
+}
 
 /* Util --------------------------------------------------------------------- */
 
-.shadow { box-shadow: 0px 0px .1em #000 }
+.shadow {
+  box-shadow: 0px 0px 0.1em #000;
+}
 
-.border { border-style: solid; border-width: 1px }
-.no-border { border: 0 }
+.border {
+  border-style: solid;
+  border-width: 1px;
+}
+.no-border {
+  border: 0;
+}
 
-.circle { border-radius: 50% }
-.rounded { border-radius: .5em }
-.rounded-left { border-top-left-radius: .5em; border-bottom-left-radius: .5em }
-.rounded-right { border-top-right-radius: .5em; border-bottom-right-radius: .5em }
+.circle {
+  border-radius: 50%;
+}
+.rounded {
+  border-radius: 0.5em;
+}
+.rounded-left {
+  border-top-left-radius: 0.5em;
+  border-bottom-left-radius: 0.5em;
+}
+.rounded-right {
+  border-top-right-radius: 0.5em;
+  border-bottom-right-radius: 0.5em;
+}
 
 .square {
-    height: 0;
-    overflow: hidden;
-    padding-bottom: 100%;
-    width: 100%;
+  height: 0;
+  overflow: hidden;
+  padding-bottom: 100%;
+  width: 100%;
 }
 .cover {
-    position: absolute;
-    top: 0; bottom: 0; left: 0; right: 0;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 .cover-screen {
-    position: fixed;
-    top: 0; bottom: 0; left: 0; right: 0;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
-.transition { transition: .5s }
-.mxh-100 { max-height: 100% }
+.transition {
+  transition: 0.5s;
+}
+.mxh-100 {
+  max-height: 100%;
+}

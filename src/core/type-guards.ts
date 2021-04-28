@@ -10,34 +10,34 @@
 
 /** TypeGuard to check if a value is `undefined`. */
 export function isUndefined(value: unknown): value is undefined {
-    return value === undefined;
+  return value === undefined;
 }
 
 /** TypeGuard to check if a value is `null`. */
 export function isNull(value: unknown): value is null {
-    return value === null;
+  return value === null;
 }
 
 // -----------------------------------------------------------------------------
 
 /** TypeGuard to check if a value is a `boolean`. */
 export function isBool(bool: unknown): bool is boolean {
-    return typeof bool === 'boolean';
+  return typeof bool === "boolean";
 }
 
 /** TypeGuard to check if a value is a `number` with no decimals. */
 export function isInteger(num: unknown): num is number {
-    return typeof num === 'number' && Math.floor(num) === num;
+  return typeof num === "number" && Math.floor(num) === num;
 }
 
 /** TypeGuard to check if a value is a `number`. */
 export function isNumber(num: unknown): num is number {
-    return typeof num === 'number';
+  return typeof num === "number";
 }
 
 /** TypeGuard to check if a value is a `string`. */
 export function isString(str: unknown): str is string {
-    return typeof str === 'string';
+  return typeof str === "string";
 }
 
 // -----------------------------------------------------------------------------
@@ -49,22 +49,25 @@ export function isString(str: unknown): str is string {
  * type check on each element of the array. If the type check fails on any
  * element, the function will return false.
  */
-export function isArray<T>(arr: unknown, typeGuard?: (el: unknown) => el is T): arr is T[] {
-    if (!(arr instanceof Array)) {
-        return false;
-    }
+export function isArray<T>(
+  arr: unknown,
+  typeGuard?: (el: unknown) => el is T,
+): arr is T[] {
+  if (!(arr instanceof Array)) {
+    return false;
+  }
 
-    if (!typeGuard) {
-        return true;
-    }
-
-    for (let i = 0, ie = arr.length; i < ie; i++) {
-        if (!typeGuard(arr[i])) {
-            return false;
-        }
-    }
-
+  if (!typeGuard) {
     return true;
+  }
+
+  for (let i = 0, ie = arr.length; i < ie; i++) {
+    if (!typeGuard(arr[i])) {
+      return false;
+    }
+  }
+
+  return true;
 }
 
 /**
@@ -76,7 +79,7 @@ export function isArray<T>(arr: unknown, typeGuard?: (el: unknown) => el is T): 
  * If you want to check the object for specific keys, use `hasKey()`.
  */
 export function isObject<T>(obj: unknown): obj is T {
-    return typeof obj === 'object' && obj !== null && !(obj instanceof Array);
+  return typeof obj === "object" && obj !== null && !(obj instanceof Array);
 }
 
 /**
@@ -90,8 +93,15 @@ export function isObject<T>(obj: unknown): obj is T {
  * the given key is found, the value associated with that key is then
  * type-checked by the typeGuard.
  */
-export function hasKey<T>(obj: unknown, key: keyof T, typeGuard?: (el: unknown) => el is T[keyof T]): obj is T {
-    return (
-        typeof obj === 'object' && obj !== null && key in obj && (!typeGuard || typeGuard(((obj as unknown) as T)[key]))
-    );
+export function hasKey<T>(
+  obj: unknown,
+  key: keyof T,
+  typeGuard?: (el: unknown) => el is T[keyof T],
+): obj is T {
+  return (
+    typeof obj === "object" &&
+    obj !== null &&
+    key in obj &&
+    (!typeGuard || typeGuard(((obj as unknown) as T)[key]))
+  );
 }

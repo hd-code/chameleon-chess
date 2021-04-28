@@ -1,4 +1,4 @@
-import { isInteger } from 'core/type-guards';
+import { isInteger } from "core/type-guards";
 
 // -----------------------------------------------------------------------------
 
@@ -12,13 +12,13 @@ import { isInteger } from 'core/type-guards';
  * - `blue`:   3
  */
 export enum Color {
-    red,
-    green,
-    yellow,
-    blue,
+  red,
+  green,
+  yellow,
+  blue,
 }
 
 /** TypeGuard for `Color` */
 export function isColor(color: unknown): color is Color {
-    return isInteger(color) && Color[color] !== undefined;
+  return isInteger(color) && Color[color] !== undefined;
 }

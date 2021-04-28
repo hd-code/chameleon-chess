@@ -1,7 +1,7 @@
-import { isInteger } from 'core/type-guards';
+import { isInteger } from "core/type-guards";
 
-import { Color } from './color';
-import { FieldColor } from './board';
+import { Color } from "./color";
+import { FieldColor } from "./board";
 
 // -----------------------------------------------------------------------------
 
@@ -13,32 +13,32 @@ import { FieldColor } from './board';
  * - `rook`:   3
  */
 export enum Role {
-    knight,
-    queen,
-    bishop,
-    rook,
+  knight,
+  queen,
+  bishop,
+  rook,
 }
 
 /** TypeGuard for `Role` */
 export function isRole(role: unknown): role is Role {
-    return isInteger(role) && Role[role] !== undefined;
+  return isInteger(role) && Role[role] !== undefined;
 }
 
 export function getRole(knightColor: FieldColor, fieldColor: FieldColor): Role {
-    return getRoles(knightColor)[fieldColor];
+  return getRoles(knightColor)[fieldColor];
 }
 
 export type RoleMap = { [color in FieldColor]: Role };
 
 export function getRoles(knightColor: FieldColor): RoleMap {
-    return mapKnightColorToRoles[knightColor];
+  return mapKnightColorToRoles[knightColor];
 }
 
 // -----------------------------------------------------------------------------
 
 const mapKnightColorToRoles = {
-    [Color.red]: { 0: 0, 1: 1, 2: 2, 3: 3 },
-    [Color.green]: { 0: 3, 1: 0, 2: 1, 3: 2 },
-    [Color.yellow]: { 0: 2, 1: 3, 2: 0, 3: 1 },
-    [Color.blue]: { 0: 1, 1: 2, 2: 3, 3: 0 },
+  [Color.red]: { 0: 0, 1: 1, 2: 2, 3: 3 },
+  [Color.green]: { 0: 3, 1: 0, 2: 1, 3: 2 },
+  [Color.yellow]: { 0: 2, 1: 3, 2: 0, 3: 1 },
+  [Color.blue]: { 0: 1, 1: 2, 2: 3, 3: 0 },
 };

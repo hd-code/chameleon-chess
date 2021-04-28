@@ -1,37 +1,41 @@
-import React, { FC } from 'react';
+import React, { FC } from "react";
 
-import { Color, isGameOver } from 'core/game';
-import { View } from 'core/view';
-import type { AppProps } from 'web/app';
-import { Button, Logo } from 'web/shared';
+import { Color, isGameOver } from "core/game";
+import { View } from "core/view";
+import type { AppProps } from "web/app";
+import { Button, Logo } from "web/shared";
 
 // -----------------------------------------------------------------------------
 
 export const Home: FC<AppProps> = ({ gameState, goTo }) => {
-    return (
-        <div className='flex col center'>
-            <Logo className='mb-1 fz-250' />
+  return (
+    <div className="flex col center">
+      <Logo className="mb-1 fz-250" />
 
-            <Button
-                className='mb-1'
-                color={Color.red}
-                disabled={!gameState || isGameOver(gameState)}
-                onClick={() => goTo(View.game)}
-            >
-                Fortsetzen
-            </Button>
+      <Button
+        className="mb-1"
+        color={Color.red}
+        disabled={!gameState || isGameOver(gameState)}
+        onClick={() => goTo(View.game)}
+      >
+        Fortsetzen
+      </Button>
 
-            <Button className='mb-1' color={Color.green} onClick={() => goTo(View.setup)}>
-                Neues Spiel
-            </Button>
+      <Button
+        className="mb-1"
+        color={Color.green}
+        onClick={() => goTo(View.setup)}
+      >
+        Neues Spiel
+      </Button>
 
-            <Button className='mb-1' color={Color.yellow} disabled={true}>
-                Tutorial
-            </Button>
+      <Button className="mb-1" color={Color.yellow} disabled={true}>
+        Tutorial
+      </Button>
 
-            <Button color={Color.blue} onClick={() => goTo(View.settings)}>
-                Einstellungen
-            </Button>
-        </div>
-    );
+      <Button color={Color.blue} onClick={() => goTo(View.settings)}>
+        Einstellungen
+      </Button>
+    </div>
+  );
 };

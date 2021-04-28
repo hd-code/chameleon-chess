@@ -1,10 +1,17 @@
-import { hasKey } from 'core/type-guards';
+import { hasKey } from "core/type-guards";
 
-import { FieldColor, Position, getFieldColor, isFieldColor, isPosition, isSamePosition } from './board';
-import { Color } from './color';
-import { Limits, isWithinLimits } from './limits';
-import { Player, isPlayer } from './player';
-import { Role, RoleMap, getRole, getRoles } from './role';
+import {
+  FieldColor,
+  Position,
+  getFieldColor,
+  isFieldColor,
+  isPosition,
+  isSamePosition,
+} from "./board";
+import { Color } from "./color";
+import { Limits, isWithinLimits } from "./limits";
+import { Player, isPlayer } from "./player";
+import { Role, RoleMap, getRole, getRoles } from "./role";
 
 // -----------------------------------------------------------------------------
 
@@ -22,21 +29,21 @@ import { Role, RoleMap, getRole, getRoles } from './role';
  * something similar.
  */
 export interface Pawn {
-    /** the field color, where this pawn has the role `knight` */
-    knightColor: FieldColor;
-    /** the player this pawn belongs to */
-    player: Player;
-    /** the current position of the pawn on the game board */
-    position: Position;
+  /** the field color, where this pawn has the role `knight` */
+  knightColor: FieldColor;
+  /** the player this pawn belongs to */
+  player: Player;
+  /** the current position of the pawn on the game board */
+  position: Position;
 }
 
 /** TypeGuard for `Pawn` */
 export function isPawn(pawn: unknown): pawn is Pawn {
-    return (
-        hasKey(pawn, 'knightColor', isFieldColor) &&
-        hasKey(pawn, 'player', isPlayer) &&
-        hasKey(pawn, 'position', isPosition)
-    );
+  return (
+    hasKey(pawn, "knightColor", isFieldColor) &&
+    hasKey(pawn, "player", isPlayer) &&
+    hasKey(pawn, "position", isPosition)
+  );
 }
 
 /**
@@ -50,130 +57,158 @@ export function isPawn(pawn: unknown): pawn is Pawn {
  * @param limits the current limits of the game
  * @returns an array of positions that the pawn could go to
  */
-export function getPawnMoves(pawnI: number, pawns: Pawn[], limits: Limits): Position[] {
-    switch (getPawnRole(pawns[pawnI])) {
-        case Role.knight:
-            return getKnightMoves(pawnI, pawns, limits);
+export function getPawnMoves(
+  pawnI: number,
+  pawns: Pawn[],
+  limits: Limits,
+): Position[] {
+  switch (getPawnRole(pawns[pawnI])) {
+    case Role.knight:
+      return getKnightMoves(pawnI, pawns, limits);
 
-        case Role.queen:
-            return getBishopMoves(pawnI, pawns, limits).concat(getRookMoves(pawnI, pawns, limits));
+    case Role.queen:
+      return getBishopMoves(pawnI, pawns, limits).concat(
+        getRookMoves(pawnI, pawns, limits),
+      );
 
-        case Role.bishop:
-            return getBishopMoves(pawnI, pawns, limits);
+    case Role.bishop:
+      return getBishopMoves(pawnI, pawns, limits);
 
-        case Role.rook:
-            return getRookMoves(pawnI, pawns, limits);
-    }
+    case Role.rook:
+      return getRookMoves(pawnI, pawns, limits);
+  }
 }
 
 /** Returns -1 if no pawn is at that position. */
-export function getPawnIndexAtPosition(position: Position, pawns: Pawn[]): number {
-    for (let i = 0, ie = pawns.length; i < ie; i++) {
-        if (isSamePosition(position, pawns[i].position)) {
-            return i;
-        }
+export function getPawnIndexAtPosition(
+  position: Position,
+  pawns: Pawn[],
+): number {
+  for (let i = 0, ie = pawns.length; i < ie; i++) {
+    if (isSamePosition(position, pawns[i].position)) {
+      return i;
     }
-    return -1;
+  }
+  return -1;
 }
 
 /** Returns the role the pawn has on it's current field. */
 export function getPawnRole(pawn: Pawn): Role {
-    const fieldColor = getFieldColor(pawn.position);
-    return getRole(pawn.knightColor, fieldColor);
+  const fieldColor = getFieldColor(pawn.position);
+  return getRole(pawn.knightColor, fieldColor);
 }
 
 /** Returns an object that maps the four field colors to a corresponding chess
  * role. This mapping is dependent on a pawns knight role. There four different
  * mappings that can occur. */
 export function getPawnRoles(pawn: Pawn): RoleMap {
-    return getRoles(pawn.knightColor);
+  return getRoles(pawn.knightColor);
 }
 
 /** Returns the initial pawns for a given player. */
 export function getStartPawns(player: Player): Pawn[] {
-    return createPawns(player);
+  return createPawns(player);
 }
 
 // -----------------------------------------------------------------------------
 
 function createPawns(player: Player): Pawn[] {
-    switch (player) {
-        case Color.red:
-            return [
-                createPawn(player, 7, 0, Color.red),
-                createPawn(player, 7, 1, Color.green),
-                createPawn(player, 7, 2, Color.yellow),
-                createPawn(player, 7, 3, Color.blue),
-            ];
-        case Color.green:
-            return [
-                createPawn(player, 7, 7, Color.green),
-                createPawn(player, 6, 7, Color.yellow),
-                createPawn(player, 5, 7, Color.blue),
-                createPawn(player, 4, 7, Color.red),
-            ];
-        case Color.yellow:
-            return [
-                createPawn(player, 0, 7, Color.yellow),
-                createPawn(player, 0, 6, Color.blue),
-                createPawn(player, 0, 5, Color.red),
-                createPawn(player, 0, 4, Color.green),
-            ];
-        case Color.blue:
-            return [
-                createPawn(player, 0, 0, Color.blue),
-                createPawn(player, 1, 0, Color.red),
-                createPawn(player, 2, 0, Color.green),
-                createPawn(player, 3, 0, Color.yellow),
-            ];
-    }
+  switch (player) {
+    case Color.red:
+      return [
+        createPawn(player, 7, 0, Color.red),
+        createPawn(player, 7, 1, Color.green),
+        createPawn(player, 7, 2, Color.yellow),
+        createPawn(player, 7, 3, Color.blue),
+      ];
+    case Color.green:
+      return [
+        createPawn(player, 7, 7, Color.green),
+        createPawn(player, 6, 7, Color.yellow),
+        createPawn(player, 5, 7, Color.blue),
+        createPawn(player, 4, 7, Color.red),
+      ];
+    case Color.yellow:
+      return [
+        createPawn(player, 0, 7, Color.yellow),
+        createPawn(player, 0, 6, Color.blue),
+        createPawn(player, 0, 5, Color.red),
+        createPawn(player, 0, 4, Color.green),
+      ];
+    case Color.blue:
+      return [
+        createPawn(player, 0, 0, Color.blue),
+        createPawn(player, 1, 0, Color.red),
+        createPawn(player, 2, 0, Color.green),
+        createPawn(player, 3, 0, Color.yellow),
+      ];
+  }
 }
 
-function createPawn(player: Player, row: number, col: number, knightColor: Color): Pawn {
-    return { knightColor, player, position: { row, col } };
+function createPawn(
+  player: Player,
+  row: number,
+  col: number,
+  knightColor: Color,
+): Pawn {
+  return { knightColor, player, position: { row, col } };
 }
 
 // -----------------------------------------------------------------------------
 
-function getKnightMoves(pawnI: number, pawns: Pawn[], limits: Limits): Position[] {
-    const currentPos: Position = pawns[pawnI].position;
+function getKnightMoves(
+  pawnI: number,
+  pawns: Pawn[],
+  limits: Limits,
+): Position[] {
+  const currentPos: Position = pawns[pawnI].position;
 
-    const offsets: Position[] = [
-        { row: 2, col: 1 },
-        { row: 1, col: 2 },
-        { row: -2, col: 1 },
-        { row: -1, col: 2 },
-        { row: 2, col: -1 },
-        { row: 1, col: -2 },
-        { row: -2, col: -1 },
-        { row: -1, col: -2 },
-    ];
+  const offsets: Position[] = [
+    { row: 2, col: 1 },
+    { row: 1, col: 2 },
+    { row: -2, col: 1 },
+    { row: -1, col: 2 },
+    { row: 2, col: -1 },
+    { row: 1, col: -2 },
+    { row: -2, col: -1 },
+    { row: -1, col: -2 },
+  ];
 
-    const result = offsets.map(offset => ({
-        row: currentPos.row + offset.row,
-        col: currentPos.col + offset.col,
-    }));
+  const result = offsets.map((offset) => ({
+    row: currentPos.row + offset.row,
+    col: currentPos.col + offset.col,
+  }));
 
-    // only return move if it is not INVALID
-    return result.filter(position => getMoveType(position, pawnI, pawns, limits));
+  // only return move if it is not INVALID
+  return result.filter((position) =>
+    getMoveType(position, pawnI, pawns, limits),
+  );
 }
 
-function getBishopMoves(pawnI: number, pawns: Pawn[], limits: Limits): Position[] {
-    return [
-        ...moveGenerator({ row: 1, col: 1 }, pawnI, pawns, limits),
-        ...moveGenerator({ row: -1, col: 1 }, pawnI, pawns, limits),
-        ...moveGenerator({ row: 1, col: -1 }, pawnI, pawns, limits),
-        ...moveGenerator({ row: -1, col: -1 }, pawnI, pawns, limits),
-    ];
+function getBishopMoves(
+  pawnI: number,
+  pawns: Pawn[],
+  limits: Limits,
+): Position[] {
+  return [
+    ...moveGenerator({ row: 1, col: 1 }, pawnI, pawns, limits),
+    ...moveGenerator({ row: -1, col: 1 }, pawnI, pawns, limits),
+    ...moveGenerator({ row: 1, col: -1 }, pawnI, pawns, limits),
+    ...moveGenerator({ row: -1, col: -1 }, pawnI, pawns, limits),
+  ];
 }
 
-function getRookMoves(pawnI: number, pawns: Pawn[], limits: Limits): Position[] {
-    return [
-        ...moveGenerator({ row: 1, col: 0 }, pawnI, pawns, limits),
-        ...moveGenerator({ row: -1, col: 0 }, pawnI, pawns, limits),
-        ...moveGenerator({ row: 0, col: 1 }, pawnI, pawns, limits),
-        ...moveGenerator({ row: 0, col: -1 }, pawnI, pawns, limits),
-    ];
+function getRookMoves(
+  pawnI: number,
+  pawns: Pawn[],
+  limits: Limits,
+): Position[] {
+  return [
+    ...moveGenerator({ row: 1, col: 0 }, pawnI, pawns, limits),
+    ...moveGenerator({ row: -1, col: 0 }, pawnI, pawns, limits),
+    ...moveGenerator({ row: 0, col: 1 }, pawnI, pawns, limits),
+    ...moveGenerator({ row: 0, col: -1 }, pawnI, pawns, limits),
+  ];
 }
 
 /**
@@ -183,56 +218,66 @@ function getRookMoves(pawnI: number, pawns: Pawn[], limits: Limits): Position[] 
  * positions are valid moves and stops once that is no longer the case.
  * @param direction Direction in row and col per step
  */
-function moveGenerator(direction: Position, pawnI: number, pawns: Pawn[], limits: Limits): Position[] {
-    const startingPos = pawns[pawnI].position;
+function moveGenerator(
+  direction: Position,
+  pawnI: number,
+  pawns: Pawn[],
+  limits: Limits,
+): Position[] {
+  const startingPos = pawns[pawnI].position;
 
-    const result: Position[] = [];
-    const currentPos: Position = { ...startingPos };
+  const result: Position[] = [];
+  const currentPos: Position = { ...startingPos };
 
-    // eslint-disable-next-line no-constant-condition
-    while (true) {
-        currentPos.row += direction.row;
-        currentPos.col += direction.col;
-        const moveType = getMoveType(currentPos, pawnI, pawns, limits);
+  // eslint-disable-next-line no-constant-condition
+  while (true) {
+    currentPos.row += direction.row;
+    currentPos.col += direction.col;
+    const moveType = getMoveType(currentPos, pawnI, pawns, limits);
 
-        // don't add move if it's invalid
-        if (moveType !== MoveType.invalid) {
-            result.push({ ...currentPos });
-        }
-
-        // stop generator if invalid or beating was encountered
-        if (moveType !== MoveType.normal) {
-            break;
-        }
+    // don't add move if it's invalid
+    if (moveType !== MoveType.invalid) {
+      result.push({ ...currentPos });
     }
 
-    return result;
+    // stop generator if invalid or beating was encountered
+    if (moveType !== MoveType.normal) {
+      break;
+    }
+  }
+
+  return result;
 }
 
 // -----------------------------------------------------------------------------
 
 enum MoveType {
-    invalid,
-    normal,
-    beating,
+  invalid,
+  normal,
+  beating,
 }
 
-function getMoveType(destination: Position, pawnI: number, pawns: Pawn[], limits: Limits): MoveType {
-    const pawnToMove = pawns[pawnI];
-    const pawnOnField = pawns[getPawnIndexAtPosition(destination, pawns)];
+function getMoveType(
+  destination: Position,
+  pawnI: number,
+  pawns: Pawn[],
+  limits: Limits,
+): MoveType {
+  const pawnToMove = pawns[pawnI];
+  const pawnOnField = pawns[getPawnIndexAtPosition(destination, pawns)];
 
-    if (!isWithinLimits(destination, limits)) {
-        return MoveType.invalid;
-    }
-
-    if (!pawnOnField) {
-        return MoveType.normal;
-    }
-
-    if (pawnOnField.player !== pawnToMove.player) {
-        // pawns from two different players
-        return MoveType.beating;
-    }
-
+  if (!isWithinLimits(destination, limits)) {
     return MoveType.invalid;
+  }
+
+  if (!pawnOnField) {
+    return MoveType.normal;
+  }
+
+  if (pawnOnField.player !== pawnToMove.player) {
+    // pawns from two different players
+    return MoveType.beating;
+  }
+
+  return MoveType.invalid;
 }

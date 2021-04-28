@@ -1,5 +1,5 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
-    flex: { flex: 1, flexDirection: 'row' },
+  flex: { flex: 1, flexDirection: "row" },
 });

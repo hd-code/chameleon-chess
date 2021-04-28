@@ -1,11 +1,30 @@
-import { hasKey, isArray } from 'core/type-guards';
+import { hasKey, isArray } from "core/type-guards";
 
-import { Position, isInPositions, isSamePosition, sortPositions } from './board';
-import { Color } from './color';
-import { Limits, getStartLimits, isLimits, isSmallestLimits, isWithinLimits, updateLimits } from './limits';
-import { Pawn, getPawnIndexAtPosition, getPawnMoves, getPawnRole, getStartPawns, isPawn } from './pawn';
-import { Player, arePlayersAlive, getNextPlayer, isPlayer } from './player';
-import { Role } from './role';
+import {
+  Position,
+  isInPositions,
+  isSamePosition,
+  sortPositions,
+} from "./board";
+import { Color } from "./color";
+import {
+  Limits,
+  getStartLimits,
+  isLimits,
+  isSmallestLimits,
+  isWithinLimits,
+  updateLimits,
+} from "./limits";
+import {
+  Pawn,
+  getPawnIndexAtPosition,
+  getPawnMoves,
+  getPawnRole,
+  getStartPawns,
+  isPawn,
+} from "./pawn";
+import { Player, arePlayersAlive, getNextPlayer, isPlayer } from "./player";
+import { Role } from "./role";
 
 // -----------------------------------------------------------------------------
 
@@ -25,12 +44,12 @@ import { Role } from './role';
  * beaten, it gets removed from that array.
  */
 export interface GameState {
-    /** Specify the current size of the game board. */
-    limits: Limits;
-    /** An array with all the pawns that are still in play (alive). */
-    pawns: Pawn[];
-    /** The player who is currently on turn. */
-    player: Player;
+  /** Specify the current size of the game board. */
+  limits: Limits;
+  /** An array with all the pawns that are still in play (alive). */
+  pawns: Pawn[];
+  /** The player who is currently on turn. */
+  player: Player;
 }
 
 /**
@@ -44,15 +63,15 @@ export interface GameState {
  * according to the game rules), this function will return false, as well.
  */
 export function isGameState(gs: unknown): gs is GameState {
-    return (
-        hasKey<GameState>(gs, 'limits', isLimits) &&
-        hasKey<GameState>(gs, 'pawns') &&
-        hasKey<GameState>(gs, 'player', isPlayer) &&
-        isArray(gs.pawns, isPawn) &&
-        noPawnsOutsideOfLimits(gs) &&
-        noPawnsOnSameField(gs) &&
-        arePlayersAlive(gs.pawns)[gs.player]
-    );
+  return (
+    hasKey<GameState>(gs, "limits", isLimits) &&
+    hasKey<GameState>(gs, "pawns") &&
+    hasKey<GameState>(gs, "player", isPlayer) &&
+    isArray(gs.pawns, isPawn) &&
+    noPawnsOutsideOfLimits(gs) &&
+    noPawnsOnSameField(gs) &&
+    arePlayersAlive(gs.pawns)[gs.player]
+  );
 }
 
 /** This is for the AI. It returns all possible game states that could succeed
@@ -60,17 +79,17 @@ export function isGameState(gs: unknown): gs is GameState {
  * that can be made in the current game state. The AI now has to choose
  * intelligently, which game state to select to continue. */
 export function getNextGameStates(gs: GameState): GameState[] {
-    const result: GameState[] = [];
-    for (let i = 0, ie = gs.pawns.length; i < ie; i++) {
-        if (gs.pawns[i].player !== gs.player) {
-            continue;
-        }
-        const moves = getPawnMoves(i, gs.pawns, gs.limits);
-        for (let j = 0, je = moves.length; j < je; j++) {
-            result.push(updateGameState(gs, i, moves[j]));
-        }
+  const result: GameState[] = [];
+  for (let i = 0, ie = gs.pawns.length; i < ie; i++) {
+    if (gs.pawns[i].player !== gs.player) {
+      continue;
     }
-    return result;
+    const moves = getPawnMoves(i, gs.pawns, gs.limits);
+    for (let j = 0, je = moves.length; j < je; j++) {
+      result.push(updateGameState(gs, i, moves[j]));
+    }
+  }
+  return result;
 }
 
 /**
@@ -91,32 +110,37 @@ export function getNextGameStates(gs: GameState): GameState[] {
  * @param blue   If set to true, the blue   player takes part in this game.
  * @returns the game state of the newly started game or null if there were less than two players
  */
-export function getStartGameState(red: boolean, green: boolean, yellow: boolean, blue: boolean): GameState | null {
-    const pawns = [];
-    red && pawns.push(...getStartPawns(0));
-    green && pawns.push(...getStartPawns(1));
-    yellow && pawns.push(...getStartPawns(2));
-    blue && pawns.push(...getStartPawns(3));
+export function getStartGameState(
+  red: boolean,
+  green: boolean,
+  yellow: boolean,
+  blue: boolean,
+): GameState | null {
+  const pawns = [];
+  red && pawns.push(...getStartPawns(0));
+  green && pawns.push(...getStartPawns(1));
+  yellow && pawns.push(...getStartPawns(2));
+  blue && pawns.push(...getStartPawns(3));
 
-    if (pawns.length <= 4) {
-        return null;
-    }
+  if (pawns.length <= 4) {
+    return null;
+  }
 
-    const limits = updateLimits(pawns, getStartLimits());
-    const player = getNextPlayer(Color.green, pawns);
+  const limits = updateLimits(pawns, getStartLimits());
+  const player = getNextPlayer(Color.green, pawns);
 
-    return { limits, pawns, player };
+  return { limits, pawns, player };
 }
 
 /** Returns true if the given game is already over, false if not. */
 export function isGameOver(gs: GameState): boolean {
-    const player = gs.pawns[0]?.player;
-    for (let i = 1, ie = gs.pawns.length; i < ie; i++) {
-        if (player !== gs.pawns[i].player) {
-            return false;
-        }
+  const player = gs.pawns[0]?.player;
+  for (let i = 1, ie = gs.pawns.length; i < ie; i++) {
+    if (player !== gs.pawns[i].player) {
+      return false;
     }
-    return true;
+  }
+  return true;
 }
 
 /**
@@ -133,64 +157,75 @@ export function isGameOver(gs: GameState): boolean {
  * @param destination the position where the pawn should be moved to
  * @returns the updated game state or null if the move could not be made
  */
-export function makeMove(gs: GameState, pawnI: number, destination: Position): GameState | null {
-    if (gs.player !== gs.pawns[pawnI]?.player) {
-        return null;
-    }
+export function makeMove(
+  gs: GameState,
+  pawnI: number,
+  destination: Position,
+): GameState | null {
+  if (gs.player !== gs.pawns[pawnI]?.player) {
+    return null;
+  }
 
-    const moves = getPawnMoves(pawnI, gs.pawns, gs.limits);
-    if (!moves.length || !isInPositions(destination, moves)) {
-        return null;
-    }
+  const moves = getPawnMoves(pawnI, gs.pawns, gs.limits);
+  if (!moves.length || !isInPositions(destination, moves)) {
+    return null;
+  }
 
-    return updateGameState(gs, pawnI, destination);
+  return updateGameState(gs, pawnI, destination);
 }
 
 // -----------------------------------------------------------------------------
 
 function noPawnsOutsideOfLimits({ pawns, limits }: GameState): boolean {
-    for (let i = 0, ie = pawns.length; i < ie; i++) {
-        if (!isWithinLimits(pawns[i].position, limits)) {
-            return false;
-        }
+  for (let i = 0, ie = pawns.length; i < ie; i++) {
+    if (!isWithinLimits(pawns[i].position, limits)) {
+      return false;
     }
-    return true;
+  }
+  return true;
 }
 
 function noPawnsOnSameField({ pawns }: GameState): boolean {
-    const positions = pawns.map(pawn => pawn.position);
-    positions.sort(sortPositions);
+  const positions = pawns.map((pawn) => pawn.position);
+  positions.sort(sortPositions);
 
-    for (let i = 1, ie = positions.length; i < ie; i++) {
-        if (isSamePosition(positions[i - 1], positions[i])) {
-            return false;
-        }
+  for (let i = 1, ie = positions.length; i < ie; i++) {
+    if (isSamePosition(positions[i - 1], positions[i])) {
+      return false;
     }
-    return true;
+  }
+  return true;
 }
 
 /** Not validity check! Just makes the move. */
-function updateGameState(gs: GameState, pawnI: number, destination: Position): GameState {
-    const beatenPawnI = getPawnIndexAtPosition(destination, gs.pawns);
-    const pawns = gs.pawns.map(pawn => ({ ...pawn }));
-    pawns[pawnI].position = destination;
-    if (beatenPawnI >= 0) {
-        pawns.splice(beatenPawnI, 1);
+function updateGameState(
+  gs: GameState,
+  pawnI: number,
+  destination: Position,
+): GameState {
+  const beatenPawnI = getPawnIndexAtPosition(destination, gs.pawns);
+  const pawns = gs.pawns.map((pawn) => ({ ...pawn }));
+  pawns[pawnI].position = destination;
+  if (beatenPawnI >= 0) {
+    pawns.splice(beatenPawnI, 1);
+  }
+
+  const limits = updateLimits(pawns, gs.limits);
+  if (isSmallestLimits(limits)) {
+    const centerPos = { row: limits.minRow + 1, col: limits.minCol + 1 };
+    const centerPawnI = getPawnIndexAtPosition(centerPos, pawns);
+    if (centerPawnI >= 0) {
+      const role = getPawnRole(pawns[centerPawnI]);
+      if (
+        role === Role.knight &&
+        !isGameOver({ limits, pawns, player: gs.player })
+      ) {
+        pawns.splice(centerPawnI, 1);
+      }
     }
+  }
 
-    const limits = updateLimits(pawns, gs.limits);
-    if (isSmallestLimits(limits)) {
-        const centerPos = { row: limits.minRow + 1, col: limits.minCol + 1 };
-        const centerPawnI = getPawnIndexAtPosition(centerPos, pawns);
-        if (centerPawnI >= 0) {
-            const role = getPawnRole(pawns[centerPawnI]);
-            if (role === Role.knight && !isGameOver({ limits, pawns, player: gs.player })) {
-                pawns.splice(centerPawnI, 1);
-            }
-        }
-    }
+  const player = getNextPlayer(gs.player, pawns);
 
-    const player = getNextPlayer(gs.player, pawns);
-
-    return { limits, pawns, player };
+  return { limits, pawns, player };
 }
