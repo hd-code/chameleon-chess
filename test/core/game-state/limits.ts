@@ -4,7 +4,7 @@ import {
   isSmallestLimits,
   isWithinLimits,
   updateLimits,
-} from "core/game/game-state/limits";
+} from "core/game-old/game-state/limits";
 
 // -----------------------------------------------------------------------------
 

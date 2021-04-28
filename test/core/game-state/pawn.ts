@@ -4,8 +4,8 @@ import {
   Position,
   Role,
   getStartGameState,
-} from "core/game/game-state";
-import { isSamePosition, sortPositions } from "core/game/game-state/board";
+} from "core/game-old/game-state";
+import { isSamePosition, sortPositions } from "core/game-old/game-state/board";
 import {
   getPawnIndexAtPosition,
   getPawnMoves,
@@ -13,7 +13,7 @@ import {
   getPawnRoles,
   getStartPawns,
   isPawn,
-} from "core/game/game-state/pawn";
+} from "core/game-old/game-state/pawn";
 
 // -----------------------------------------------------------------------------
 

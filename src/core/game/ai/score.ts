@@ -1,4 +1,4 @@
-import { Player } from "../game-state";
+import { Player } from "../players";
 
 // -----------------------------------------------------------------------------
 

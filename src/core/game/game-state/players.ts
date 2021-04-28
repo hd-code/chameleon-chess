@@ -1,15 +1,8 @@
-import { Color, isColor } from "./color";
-import type { Pawn } from "./pawn";
+import { Color } from "../color";
+import { Player } from "../players";
+import { Pawn } from "./pawn";
 
 // -----------------------------------------------------------------------------
-
-/** An enum which represents the four different players. */
-export type Player = Color;
-
-/** TypeGuard for `Player` */
-export function isPlayer(player: unknown): player is Player {
-  return isColor(player);
-}
 
 /**
  * Checks whether the players are alive or already out. This function will check

@@ -1,18 +1,16 @@
 import React, { FC } from "react";
 
-import { Color, Player, PlayerConfigState } from "core/game";
+import { Color, Player } from "core/game";
+import { PlayersState } from "core/setup-view";
 
 import { PlayerCard } from "./player-card";
 
 // -----------------------------------------------------------------------------
 
-export const PlayerConfig: FC<PlayerConfigState> = ({
-  playerConfig,
-  onClickPlayer,
-}) => {
+export const PlayerConfig: FC<PlayersState> = ({ players, onClickPlayer }) => {
   const getProps = (player: Player) => ({
     color: player,
-    type: playerConfig[player],
+    type: players[player],
     onClick: () => onClickPlayer(player),
   });
   return (

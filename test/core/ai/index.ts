@@ -1,9 +1,9 @@
-import { AILevel, makeComputerMove } from "core/game/ai";
+import { AILevel, makeComputerMove } from "core/game-old/ai";
 import {
   GameState,
   getNextGameStates,
   getStartGameState,
-} from "core/game/game-state";
+} from "core/game-old/game-state";
 
 // -----------------------------------------------------------------------------
 

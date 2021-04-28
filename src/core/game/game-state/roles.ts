@@ -1,7 +1,7 @@
 import { isInteger } from "core/type-guards";
 
-import { Color } from "./color";
-import { FieldColor } from "./board";
+import { Color } from "../color";
+import { FieldColor } from "../board";
 
 // -----------------------------------------------------------------------------
 
@@ -25,12 +25,14 @@ export function isRole(role: unknown): role is Role {
 }
 
 export function getRole(knightColor: FieldColor, fieldColor: FieldColor): Role {
-  return getRoles(knightColor)[fieldColor];
+  return mapKnightColorToRoles[knightColor][fieldColor];
 }
 
-export type RoleMap = { [color in FieldColor]: Role };
+// -----------------------------------------------------------------------------
 
-export function getRoles(knightColor: FieldColor): RoleMap {
+export type Roles = { [color in FieldColor]: Role };
+
+export function getRoles(knightColor: FieldColor): Roles {
   return mapKnightColorToRoles[knightColor];
 }
 

@@ -1,24 +1,24 @@
-import React, { FC } from "react";
+import React from "react";
 
 import { Text } from "./text";
 
 // -----------------------------------------------------------------------------
 
-interface SelectButtonsProps {
+interface SelectButtonsProps<T> {
   options: {
     disabled?: boolean;
     label?: string;
-    value: string;
+    value: T | string;
   }[];
-  selected?: string;
-  onSelect: (value: string) => void;
+  selected?: T | string;
+  onSelect: (value: T | string) => void;
 }
 
-export const SelectButtons: FC<SelectButtonsProps> = ({
+export function SelectButtons<T>({
   options,
   selected,
   onSelect,
-}) => {
+}: SelectButtonsProps<T>): JSX.Element {
   return (
     <div className="flex center">
       {options.map((option, i) => (
@@ -36,9 +36,9 @@ export const SelectButtons: FC<SelectButtonsProps> = ({
           key={i}
           onClick={() => !option.disabled && onSelect(option.value)}
         >
-          <Text>{option.label ?? option.value}</Text>
+          <Text>{option.label ?? (option.value as string)}</Text>
         </button>
       ))}
     </div>
   );
-};
+}

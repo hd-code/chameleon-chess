@@ -1,4 +1,4 @@
-import { isColor } from "core/game/game-state/color";
+import { isColor } from "core/game-old/game-state/color";
 
 // -----------------------------------------------------------------------------
 

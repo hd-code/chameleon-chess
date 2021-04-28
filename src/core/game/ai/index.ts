@@ -1,4 +1,5 @@
-import { GameState, Player, getNextGameStates } from "../game-state";
+import { GameState, getNextGameStates } from "../game-state";
+import { Player } from "../players";
 import { maxNIS } from "./max-n-is";
 import { Score, maxScore } from "./score";
 
@@ -15,7 +16,7 @@ export enum AILevel {
 /** This function will do a computer move. The calculation takes around one
  * second. A difficulty can be passed to specify how intelligently the computer
  * will play. */
-export function makeComputerMove(
+export function calcNextGameState(
   gs: GameState,
   difficulty = AILevel.easy,
 ): GameState {

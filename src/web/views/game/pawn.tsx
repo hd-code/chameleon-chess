@@ -14,7 +14,7 @@ export const Pawn: FC<PawnProps> = (props) => {
     left: props.position.col * 12.5 + "%",
     top: props.position.row * 12.5 + "%",
   };
-  const roleMap = getPawnRoles(props);
+  const roles = getPawnRoles(props);
 
   return (
     <div
@@ -24,7 +24,7 @@ export const Pawn: FC<PawnProps> = (props) => {
       <div
         className={
           "hw-75 border rounded flex center middle " +
-          mapColorClass[props.player] +
+          mapColorToClass[props.player] +
           (props.selected ? " overlay-bright" : "")
         }
       >
@@ -32,8 +32,8 @@ export const Pawn: FC<PawnProps> = (props) => {
           {colorOrder.map((color) => (
             <img
               key={color}
-              className={"hw-50 " + mapColorClass[color]}
-              src={mapRoleIcon[roleMap[color]]}
+              className={"hw-50 " + mapColorToClass[color]}
+              src={mapRoleToIcon[roles[color]]}
             />
           ))}
         </div>
@@ -46,14 +46,14 @@ export const Pawn: FC<PawnProps> = (props) => {
 
 const colorOrder: Color[] = [0, 1, 2, 3];
 
-const mapColorClass = {
+const mapColorToClass = {
   [Color.red]: "bgc-red",
   [Color.green]: "bgc-green",
   [Color.yellow]: "bgc-yellow",
   [Color.blue]: "bgc-blue",
 };
 
-const mapRoleIcon = {
+const mapRoleToIcon = {
   [Role.knight]: img.knight,
   [Role.queen]: img.queen,
   [Role.bishop]: img.bishop,

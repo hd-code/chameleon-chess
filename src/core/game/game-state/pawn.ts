@@ -7,11 +7,11 @@ import {
   isFieldColor,
   isPosition,
   isSamePosition,
-} from "./board";
-import { Color } from "./color";
+} from "../board";
+import { Color } from "../color";
 import { Limits, isWithinLimits } from "./limits";
-import { Player, isPlayer } from "./player";
-import { Role, RoleMap, getRole, getRoles } from "./role";
+import { Player, isPlayer } from "../players";
+import { Role, Roles, getRole, getRoles } from "./roles";
 
 // -----------------------------------------------------------------------------
 
@@ -101,7 +101,7 @@ export function getPawnRole(pawn: Pawn): Role {
 /** Returns an object that maps the four field colors to a corresponding chess
  * role. This mapping is dependent on a pawns knight role. There four different
  * mappings that can occur. */
-export function getPawnRoles(pawn: Pawn): RoleMap {
+export function getPawnRoles(pawn: Pawn): Roles {
   return getRoles(pawn.knightColor);
 }
 

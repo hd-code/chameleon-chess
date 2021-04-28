@@ -7,7 +7,7 @@ import {
   isGameOver,
   isGameState,
   makeMove,
-} from "core/game/game-state";
+} from "core/game-old/game-state";
 
 // -----------------------------------------------------------------------------
 

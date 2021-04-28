@@ -1,6 +1,7 @@
 import React, { FC, useState } from "react";
 
-import { AILevel, isValidPlayerConfig, usePlayerConfig } from "core/game";
+import { AILevel, isPlayers } from "core/game";
+import { usePlayers } from "core/setup-view";
 import { View } from "core/view";
 import type { AppProps } from "web/app";
 import { Button, Link, SelectButtons, Text } from "web/shared";
@@ -11,18 +12,12 @@ import { PlayerConfig } from "./player-config";
 
 export const Setup: FC<AppProps> = ({ beginGame, goBack, goTo }) => {
   const [aiLevel, setAiLevel] = useState(AILevel.normal);
-  const aiLevels = [
-    { label: "leicht", value: AILevel.easy },
-    { label: "normal", value: AILevel.normal },
-    { label: "schwer", value: AILevel.hard },
-  ];
+  const { players, onClickPlayer } = usePlayers();
 
-  const { playerConfig, onClickPlayer } = usePlayerConfig();
-
-  const validConfig = isValidPlayerConfig(playerConfig);
+  const validConfig = isPlayers(players);
 
   const beginNewGame = () => {
-    const newGameCreated = beginGame(playerConfig, aiLevel);
+    const newGameCreated = beginGame(players, aiLevel);
     if (newGameCreated) {
       goTo(View.game);
     }
@@ -34,7 +29,7 @@ export const Setup: FC<AppProps> = ({ beginGame, goBack, goTo }) => {
         Ein neues Spiel starten
       </Text>
 
-      <PlayerConfig playerConfig={playerConfig} onClickPlayer={onClickPlayer} />
+      <PlayerConfig players={players} onClickPlayer={onClickPlayer} />
 
       <Button color={1} disabled={!validConfig} onClick={beginNewGame}>
         Spiel beginnen
@@ -49,11 +44,10 @@ export const Setup: FC<AppProps> = ({ beginGame, goBack, goTo }) => {
         <Text Tag="h2" className="c-white text-border mb-1">
           KI-Schwierigkeit:
         </Text>
-        {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
         <SelectButtons
           onSelect={setAiLevel as any}
-          options={aiLevels as any}
-          selected={aiLevel as any}
+          options={aiLevels}
+          selected={aiLevel}
         />
       </div>
 
@@ -63,3 +57,11 @@ export const Setup: FC<AppProps> = ({ beginGame, goBack, goTo }) => {
     </div>
   );
 };
+
+// -----------------------------------------------------------------------------
+
+const aiLevels = [
+  { label: "leicht", value: AILevel.easy },
+  { label: "normal", value: AILevel.normal },
+  { label: "schwer", value: AILevel.hard },
+];

@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from "react";
 
-import { Game, useGame } from "core/game";
+import { GameState, useGame } from "core/game-view";
 import { View, ViewDispatcher, useView } from "core/view";
 import { About } from "web/views/about";
 import { Game as GameView } from "web/views/game";
@@ -10,7 +10,7 @@ import { Settings } from "web/views/settings";
 
 // -----------------------------------------------------------------------------
 
-export interface AppProps extends Game, ViewDispatcher {
+export interface AppProps extends GameState, ViewDispatcher {
   height: number;
   width: number;
 }

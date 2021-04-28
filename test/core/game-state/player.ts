@@ -1,9 +1,9 @@
-import { Color, Pawn } from "core/game/game-state";
+import { Color, Pawn } from "core/game-old/game-state";
 import {
   arePlayersAlive,
   getNextPlayer,
   isPlayer,
-} from "core/game/game-state/player";
+} from "core/game-old/game-state/player";
 
 // -----------------------------------------------------------------------------
 

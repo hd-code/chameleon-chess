@@ -11,9 +11,7 @@ import { PlayerCards } from "./player-cards";
 // -----------------------------------------------------------------------------
 
 export const Game: FC<AppProps> = ({
-  aiLevel,
-  gameState,
-  playerConfig,
+  game,
   height,
   width,
   beginGame,
@@ -21,7 +19,7 @@ export const Game: FC<AppProps> = ({
   goTo,
   makeMove,
 }) => {
-  if (!gameState) {
+  if (!game) {
     console.warn("There is no game to be played.");
     goTo(View.home);
     return <></>;
@@ -35,21 +33,21 @@ export const Game: FC<AppProps> = ({
   return (
     <div className={"flex middle" + (isPortrait ? " col center" : "")}>
       <PlayerCards
-        gameState={gameState}
+        gameState={game.gameState}
         goToHome={() => goTo(View.home)}
         goToSettings={() => goTo(View.settings)}
         isPortrait={isPortrait}
-        players={playerConfig}
+        players={game.players}
       />
 
-      <Board gameState={gameState} makeMove={makeMove} size={boardWidth} />
+      <Board gameState={game.gameState} makeMove={makeMove} size={boardWidth} />
 
-      {isGameOver(gameState) && (
+      {isGameOver(game) && (
         <GameOverScreen
-          winner={gameState.player}
+          winner={game.gameState.player}
           home={() => goTo(View.home)}
           newGame={() => goTo(View.setup)}
-          replay={() => beginGame(playerConfig, aiLevel)}
+          replay={() => beginGame(game.players, game.aiLevel)}
         />
       )}
     </div>

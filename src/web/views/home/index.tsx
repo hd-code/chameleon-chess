@@ -7,7 +7,7 @@ import { Button, Logo } from "web/shared";
 
 // -----------------------------------------------------------------------------
 
-export const Home: FC<AppProps> = ({ gameState, goTo }) => {
+export const Home: FC<AppProps> = ({ game, goTo }) => {
   return (
     <div className="flex col center">
       <Logo className="mb-1 fz-250" />
@@ -15,7 +15,7 @@ export const Home: FC<AppProps> = ({ gameState, goTo }) => {
       <Button
         className="mb-1"
         color={Color.red}
-        disabled={!gameState || isGameOver(gameState)}
+        disabled={!game || isGameOver(game)}
         onClick={() => goTo(View.game)}
       >
         Fortsetzen

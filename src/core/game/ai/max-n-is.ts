@@ -1,10 +1,6 @@
-import {
-  GameState,
-  Role,
-  getNextGameStates,
-  getPawnRole,
-  isGameOver,
-} from "../game-state";
+import { GameState, getNextGameStates, isGameOver } from "../game-state";
+import { getPawnRole } from "../game-state/pawn";
+import { Role } from "../game-state/roles";
 import { Score, getZeroScore, maxScore, normalizeScore } from "./score";
 
 // -----------------------------------------------------------------------------
