@@ -18,10 +18,10 @@ module.exports = {
                 exclude: /node_modules/,
                 options: {
                     configFile: path.resolve(__dirname, 'tsconfig.json'),
-                    compilerOptions: {
-                        jsx: 'react',
-                        outDir: 'build',
-                    },
+                    // compilerOptions: {
+                    //     jsx: 'react',
+                    //     outDir: 'build',
+                    // },
                 },
             },
         ],

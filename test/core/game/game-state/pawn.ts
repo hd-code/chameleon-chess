@@ -3,9 +3,10 @@ import {
   GameState,
   Position,
   Role,
-  getStartGameState,
-} from "core/game-old/game-state";
-import { isSamePosition, sortPositions } from "core/game-old/game-state/board";
+  isSamePosition,
+  sortPositions,
+} from "core/game";
+import { getStartGameState } from "core/game/game-state";
 import {
   getPawnIndexAtPosition,
   getPawnMoves,
@@ -13,7 +14,7 @@ import {
   getPawnRoles,
   getStartPawns,
   isPawn,
-} from "core/game-old/game-state/pawn";
+} from "core/game/game-state/pawn";
 
 // -----------------------------------------------------------------------------
 
@@ -160,7 +161,7 @@ const queenMoves = <Position[]>[
   // { row: 0, col: 5 }, // outside of limits
 ];
 
-describe("core/game-state/pawn", () => {
+describe("core/game/game-state/pawn", () => {
   describe(isPawn.name, () => {
     it.each([
       [{ player: 0, position: { row: 5, col: 3 }, knightColor: 0 }, true],

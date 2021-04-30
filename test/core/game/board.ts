@@ -1,4 +1,4 @@
-import { Color } from "core/game-old";
+import { Color } from "core/game";
 import {
   getBoard,
   getFieldColor,
@@ -7,7 +7,7 @@ import {
   isPosition,
   isSamePosition,
   sortPositions,
-} from "core/game-old/game-state/board";
+} from "core/game/board";
 
 // -----------------------------------------------------------------------------
 

@@ -2,8 +2,9 @@
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
     "baseUrl": "./src",
-    "jsx": "preserve",
+    "jsx": "react",
     "moduleResolution": "node",
+    "outDir": "build",
     "skipLibCheck": true,
     "target": "es6",
 
@@ -19,5 +20,4 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
   },
-  "exclude": ["test"]
 }

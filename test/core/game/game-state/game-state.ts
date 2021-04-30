@@ -1,13 +1,12 @@
+import { Color, Position } from "core/game";
 import {
-  Color,
   GameState,
-  Position,
   getNextGameStates,
   getStartGameState,
   isGameOver,
   isGameState,
   makeMove,
-} from "core/game-old/game-state";
+} from "core/game/game-state";
 
 // -----------------------------------------------------------------------------
 

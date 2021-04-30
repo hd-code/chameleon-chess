@@ -4,11 +4,11 @@ import {
   isSmallestLimits,
   isWithinLimits,
   updateLimits,
-} from "core/game-old/game-state/limits";
+} from "core/game/game-state/limits";
 
 // -----------------------------------------------------------------------------
 
-describe("core/game-state/limits", () => {
+describe("core/game/game-state/limits", () => {
   describe(isLimits.name, () => {
     it.each([
       [{ minRow: 0, maxRow: 7, minCol: 0, maxCol: 7 }, true],

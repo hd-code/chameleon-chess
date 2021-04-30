@@ -1,8 +1,8 @@
-import { isRole } from "core/game-old/game-state/role";
+import { isColor } from "core/game/color";
 
 // -----------------------------------------------------------------------------
 
-describe(isRole.name, () => {
+describe(isColor.name, () => {
   it.each([
     [0, true],
     [1, true],
@@ -17,7 +17,7 @@ describe(isRole.name, () => {
     [[], false],
     [{}, false],
   ])("%j => %j", (input, expected) => {
-    const actual = isRole(input);
+    const actual = isColor(input);
     expect(actual).toBe(expected);
   });
 });

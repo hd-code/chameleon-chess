@@ -1,17 +1,17 @@
-import { AILevel, makeComputerMove } from "core/game-old/ai";
+import { AILevel, calcNextGameState } from "core/game/ai";
 import {
   GameState,
   getNextGameStates,
   getStartGameState,
-} from "core/game-old/game-state";
+} from "core/game/game-state";
 
 // -----------------------------------------------------------------------------
 
-describe("core/ai/" + makeComputerMove.name, () => {
+describe("core/game/ai/" + calcNextGameState.name, () => {
   it("should return one of the next game states", () => {
     const gs = getStartGameState(true, true, true, true) as GameState;
     const nextGSs = getNextGameStates(gs);
-    const calcedGS = makeComputerMove(gs);
+    const calcedGS = calcNextGameState(gs);
 
     let numOfMatchingStates = 0;
     for (let i = 0, ie = nextGSs.length; i < ie; i++) {
@@ -25,9 +25,9 @@ describe("core/ai/" + makeComputerMove.name, () => {
 
   it("difficulty hard should not return the same game state as easy (3 tries)", () => {
     const gs = getStartGameState(true, true, true, true) as GameState;
-    const gsHard = makeComputerMove(gs, AILevel.hard);
+    const gsHard = calcNextGameState(gs, AILevel.hard);
     const execTest = () => {
-      const gsEasy = makeComputerMove(gs, AILevel.easy);
+      const gsEasy = calcNextGameState(gs, AILevel.easy);
       expect(gsEasy).not.toEqual(gsHard);
     };
 

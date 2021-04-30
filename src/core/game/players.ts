@@ -28,11 +28,9 @@ export type Players = { [player in Player]: PlayerType };
 
 export function isPlayers(players: Players): boolean {
   let numOfPlayers = 0;
-  // TODO: find typescript way to iterate over object?
-  players[Color.red] !== PlayerType.none && numOfPlayers++;
-  players[Color.green] !== PlayerType.none && numOfPlayers++;
-  players[Color.yellow] !== PlayerType.none && numOfPlayers++;
-  players[Color.blue] !== PlayerType.none && numOfPlayers++;
+  Object.values(players).forEach(
+    (player) => player !== PlayerType.none && ++numOfPlayers,
+  );
   return numOfPlayers >= 2;
 }
 

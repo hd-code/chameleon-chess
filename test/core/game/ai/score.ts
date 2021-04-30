@@ -1,8 +1,8 @@
-import { getZeroScore, normalizeScore } from "core/game-old/ai/score";
+import { getZeroScore, normalizeScore } from "core/game/ai/score";
 
 // -----------------------------------------------------------------------------
 
-describe("core/ai/score", () => {
+describe("core/game/ai/score", () => {
   it(getZeroScore.name, () => {
     const expected = { 0: 0, 1: 0, 2: 0, 3: 0 };
     const actual = getZeroScore();
