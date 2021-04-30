@@ -25,7 +25,7 @@ export const Setup: FC<AppProps> = ({ beginGame, goBack, goTo }) => {
 
   return (
     <div className="mxh-100 scroll-y text-center">
-      <Text className="c-white fz-120 text-border" Tag="h1">
+      <Text className="c-white fz-120 text-border" tag="h1">
         Ein neues Spiel starten
       </Text>
 
@@ -41,7 +41,7 @@ export const Setup: FC<AppProps> = ({ beginGame, goBack, goTo }) => {
       </p>
 
       <div className="fz-80">
-        <Text Tag="h2" className="c-white text-border mb-1">
+        <Text tag="h2" className="c-white text-border mb-1">
           KI-Schwierigkeit:
         </Text>
         <SelectButtons

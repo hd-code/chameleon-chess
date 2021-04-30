@@ -24,7 +24,7 @@ export const PlayerCard: FC<PlayerCardProps> = ({
     style={{ width: "5em" }}
   >
     <img className="w-66" src={mapTypeToImg[props.type]} alt="" />
-    <Text className="one-line" Tag="p">
+    <Text className="one-line" tag="p">
       {PlayerType[props.type]}
     </Text>
   </div>

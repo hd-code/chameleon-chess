@@ -24,13 +24,13 @@ export function SelectButtons<T>({
       {options.map((option, i) => (
         <button
           className={
-            "p-1 border transparent-80 " +
-            (i === 0 ? "rounded-left " : "") +
-            (i + 1 === options.length ? "rounded-right " : "") +
+            "p-1 border opacity-80" +
+            (i === 0 ? " rounded-left " : "") +
+            (i + 1 === options.length ? " rounded-right" : "") +
             (selected === option.value
-              ? "bgc-white "
-              : "bgc-transparent c-white ") +
-            (option.disabled ? "overlay-dark forbidden " : "pointer ")
+              ? " bgc-white"
+              : " bgc-transparent c-white") +
+            (option.disabled ? " overlay-dark forbidden" : " pointer")
           }
           disabled={option.disabled}
           key={i}

@@ -19,12 +19,12 @@ export const Button: FC<ButtonProps> = ({
   ...rest
 }) => (
   <button
-    className={[
-      "bc-black border c-white text-border p-1 rounded",
-      mapColorClass[color ?? Color.red],
-      !rest.disabled ? "pointer" : "overlay-dark forbidden",
-      className,
-    ].join(" ")}
+    className={
+      "bc-black border c-white text-border p-1 rounded " +
+      mapColorClass[color ?? Color.red] +
+      (!rest.disabled ? " pointer " : " overlay-dark forbidden ") +
+      className
+    }
     {...rest}
   >
     <Text>{children}</Text>

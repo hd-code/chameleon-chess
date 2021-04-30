@@ -20,7 +20,7 @@ export const GameOverScreen: FC<GameOverScreen> = ({
 }) => {
   return (
     <Popup className="flex col text-center">
-      <Text Tag="h2" className="fz-150">
+      <Text tag="h2" className="fz-150">
         Spieler <Text>{Color[winner]}</Text> hat gewonnen
       </Text>
 
