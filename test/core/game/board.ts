@@ -11,7 +11,7 @@ import {
 
 // -----------------------------------------------------------------------------
 
-describe("core/game-state/board", () => {
+describe("core/game/board", () => {
   describe(isFieldColor.name, () => {
     it.each([
       [0, true],
@@ -184,6 +184,25 @@ describe("core/game-state/board", () => {
         [
           { row: 2, col: 3 },
           { row: 2, col: 5 },
+        ],
+      ],
+      [
+        "six positions",
+        [
+          { row: 2, col: 2 },
+          { row: 3, col: 4 },
+          { row: 2, col: 4 },
+          { row: 0, col: 0 },
+          { row: 4, col: 5 },
+          { row: 3, col: 5 },
+        ],
+        [
+          { row: 0, col: 0 },
+          { row: 2, col: 2 },
+          { row: 2, col: 4 },
+          { row: 3, col: 4 },
+          { row: 3, col: 5 },
+          { row: 4, col: 5 },
         ],
       ],
     ])("%s", (_, input, expected) => {

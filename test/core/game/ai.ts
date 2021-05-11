@@ -18,7 +18,7 @@ describe("core/game/ai/" + calcNextGameState.name, () => {
       try {
         expect(calcedGS).toEqual(nextGSs[i]);
         numOfMatchingStates += 1;
-      } catch (e) {} // eslint-disable-line no-empty
+      } catch (e) {}
     }
     expect(numOfMatchingStates).toBe(1);
   });
