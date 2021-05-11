@@ -2,6 +2,10 @@
   "name": "chameleon-chess",
   "version": "0.0.1",
   "private": true,
+  "files": [
+    "dist",
+    "index.html"
+  ],
   "scripts": {
     "build:web": "webpack --mode production",
     "check": "tsc --noEmit",

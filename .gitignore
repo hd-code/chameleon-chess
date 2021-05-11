@@ -5,6 +5,7 @@
 
 # npm
 node_modules/
+*.tgz
 
 # OSs
 .DS_Store
