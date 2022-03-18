@@ -1,0 +1,11 @@
+
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": "src",
+    "isolatedModules": true,
+    "jsx": "react-native",
+    "moduleResolution": "node",
+    "skipLibCheck": true,
+  },
+}

@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "baseUrl": "src",
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "strict": true
+  }
+}

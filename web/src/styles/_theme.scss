@@ -1,0 +1,107 @@
+/******************************************************************************* 
+Website's Theme
+- defines colors, typography, utilities and special elements
+- this file needs to be edited the most to match the specific project
+- try to stick to the atomic css principle as much as possible
+    - create utility classes with basic style settings and combine them in html
+    - set global styles only for elements that have very few children
+- any "dirty" hacks should be placed in shame.css file
+*******************************************************************************/
+
+// Colors ----------------------------------------------------------------------
+
+$colors: (
+  "red": #b9542d,
+  "green": #51a230,
+  "yellow": #ddbb71,
+  "blue": #04909d,
+  "black": #000,
+  "white": #fff,
+  "brighten": #fff8,
+  "darken": #000a,
+  "transparent": transparent,
+);
+@each $key, $value in $colors {
+  .bc-#{$key} {
+    border-color: $value;
+  }
+  .bgc-#{$key} {
+    background-color: $value;
+  }
+  .c-#{$key} {
+    color: $value;
+  }
+
+  .overlay-#{$key}::after {
+    background-color: $value;
+  }
+}
+
+.overlay {
+  position: relative;
+
+  &::after {
+    content: "";
+    border-radius: inherit;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+}
+
+.border {
+  border-style: solid;
+  border-width: 1px;
+}
+.no-border {
+  border: 0;
+}
+
+.shadow {
+  box-shadow: 0px 0px 0.1em #000;
+}
+
+// Typography ------------------------------------------------------------------
+
+.font-1 {
+  font-family: Verdana, sans-serif;
+}
+
+.text-border {
+  text-shadow: 1px 1px #000, 1px -1px #000, -1px 1px #000, -1px -1px #000;
+}
+
+// Sizes -----------------------------------------------------------------------
+
+@for $i from 0 through 5 {
+  .w-#{$i}em {
+    width: #{$i}em;
+  }
+}
+
+// Shapes ----------------------------------------------------------------------
+
+.circle {
+  border-radius: 50%;
+}
+.rounded {
+  border-radius: 0.5em;
+
+  &-left {
+    border-top-left-radius: 0.5em;
+    border-bottom-left-radius: 0.5em;
+  }
+
+  &-right {
+    border-top-right-radius: 0.5em;
+    border-bottom-right-radius: 0.5em;
+  }
+}
+.square {
+  height: 0;
+  overflow: hidden;
+  padding-bottom: 100%;
+  width: 100%;
+}

@@ -1,0 +1,21 @@
+{
+  "name": "chameleon-chess-logic",
+  "version": "0.1.0",
+  "private": true,
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "check": "tsc --noEmit",
+    "coverage": "nyc --extends @istanbuljs/nyc-config-typescript npm run test -- -R dot",
+    "format": "prettier --write src",
+    "lint": "eslint src",
+    "start": "npm run format && npm run check && npm run lint && npm test && npm run build",
+    "test": "mocha -r ts-node/register 'src/**/*.test.ts'"
+  },
+  "devDependencies": {
+    "@types/mocha": "^9.1.0",
+    "mocha": "^9.2.2",
+    "nyc": "^15.1.0",
+    "ts-node": "^10.7.0"
+  }
+}

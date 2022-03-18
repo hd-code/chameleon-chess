@@ -1,0 +1,41 @@
+{
+    "logo": "Chamäleon\nSchach",
+    "player": {
+        "red": "Spieler Rot",
+        "green": "Spieler Grün",
+        "yellow": "Spieler Gelb",
+        "blue": "Spieler Blau"
+    },
+    "playerType": {
+        "none": "Keiner",
+        "human": "Mensch",
+        "computer": "Computer"
+    },
+    "home": {
+        "buttons": {
+            "continue": "Fortsetzen",
+            "newGame": "Neues Spiel",
+            "tutorial": "Tutorial",
+            "settings": "Einstellungen"
+        }
+    },
+    "playerConfig": {
+        "heading": "Neues Spiel beginnen",
+        "subText": "Tippe auf einen Spieler, um die Rolle zu ändern.",
+        "button": "Spiel starten"
+    },
+    "game": {
+        "winning": "hat gewonnen.",
+        "buttons": {
+            "home": "Home",
+            "newGame": "Neues Spiel",
+            "replay": "Nochmal"
+        }
+    },
+    "settings": {
+        "heading": "Einstellungen",
+        "sounds": "Sound-Effekte",
+        "music": "Musik",
+        "language": "Sprache"
+    }
+}

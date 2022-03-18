@@ -1,0 +1,40 @@
+{
+  "name": "chameleon-chess",
+  "version": "0.0.1",
+  "private": true,
+  "files": [
+    "dist",
+    "index.html"
+  ],
+  "scripts": {
+    "build:web": "webpack --mode production",
+    "check": "tsc --noEmit",
+    "format": "prettier --write src test",
+    "start": "npm run start:web",
+    "start:web": "webpack --watch --mode development",
+    "test": "jest"
+  },
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-native": "~0.64.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.23",
+    "@types/node": "^14.14.43",
+    "@types/react": "^17.0.4",
+    "@types/react-dom": "^17.0.3",
+    "@types/react-native": "^0.64.4",
+    "css-loader": "^5.2.4",
+    "jest": "^26.6.3",
+    "prettier": "^2.2.1",
+    "sass": "^1.32.11",
+    "sass-loader": "^11.0.1",
+    "style-loader": "^2.0.0",
+    "ts-jest": "^26.5.5",
+    "ts-loader": "^9.1.1",
+    "typescript": "^4.2.4",
+    "webpack": "^5.36.0",
+    "webpack-cli": "^4.6.0"
+  }
+}

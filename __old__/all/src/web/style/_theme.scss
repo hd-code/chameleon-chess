@@ -1,0 +1,122 @@
+/******************************************************************************* 
+Website's Theme
+- defines colors, typography, utilities and special elements
+- this file needs to be edited the most to match the specific project
+- try to stick to the atomic css principle as much as possible
+    - create utility classes with basic style settings and combine them in html
+    - set global styles only for elements that have very few children
+- any "dirty" hacks should be placed in shame.css file
+*******************************************************************************/
+
+// Colors ----------------------------------------------------------------------
+
+.bgc {
+  &-red    { background-color: #b9542d }
+  &-green  { background-color: #51a230 }
+  &-yellow { background-color: #ddbb71 }
+  &-blue   { background-color: #04909d }
+
+  &-brighten { background-color: #fff8 }
+  &-darken   { background-color: #000a }
+
+  &-transparent { background-color: transparent }
+}
+
+.bc {
+  &-black { border-color: #000 }
+  &-white { border-color: #fff }
+}
+
+.c {
+  &-red    { color: #b9542d }
+  &-green  { color: #51a230 }
+  &-yellow { color: #ddbb71 }
+  &-blue   { color: #04909d }
+
+  &-white { color: #fff }
+}
+
+.opacity {
+  &-50 { opacity: 0.5 }
+  &-60 { opacity: 0.6 }
+  &-70 { opacity: 0.7 }
+  &-80 { opacity: 0.8 }
+  &-90 { opacity: 0.9 }
+}
+
+.overlay {
+  &-bright, &-dark, &-frame { position: relative }
+
+  &-bright::after,
+  &-dark::after,
+  &-frame::after {
+    content: "";
+    border-radius: inherit;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+
+  &-bright::after { background-color: #fff8 }
+  &-dark::after   { background-color: #000a }
+
+  &-frame::after { border: 0.2em solid #fffd }
+}
+
+.shadow {
+  box-shadow: 0px 0px 0.1em #000;
+}
+
+// Typography ------------------------------------------------------------------
+
+.font-1 {
+  font-family: Verdana, sans-serif;
+}
+
+.text-border {
+  text-shadow: 1px 1px #000, 1px -1px #000, -1px 1px #000, -1px -1px #000;
+}
+
+// Util ------------------------------------------------------------------------
+
+.border { border-style: solid; border-width: 1px }
+.no-border { border: 0 }
+
+.circle { border-radius: 50% }
+.rounded {
+  border-radius: 0.5em;
+
+  &-left {
+    border-top-left-radius: 0.5em;
+    border-bottom-left-radius: 0.5em;
+  }
+
+  &-right {
+    border-top-right-radius: 0.5em;
+    border-bottom-right-radius: 0.5em;
+  }
+}
+.square {
+  height: 0;
+  overflow: hidden;
+  padding-bottom: 100%;
+  width: 100%;
+}
+
+.cover {
+  position: absolute;
+
+  &-screen { position: fixed }
+
+  &, &-screen {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+}
+
+.mxh-100 { max-height: 100% }
+.transition { transition: 0.5s }

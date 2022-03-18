@@ -1,0 +1,41 @@
+{
+    "logo": "Chameleon\nChess",
+    "player": {
+        "red": "Player Red",
+        "green": "Player Green",
+        "yellow": "Player Yellow",
+        "blue": "Player Blue"
+    },
+    "playerType": {
+        "none": "none",
+        "human": "human",
+        "computer": "computer"
+    },
+    "home": {
+        "buttons": {
+            "continue": "Continue",
+            "newGame": "New Game",
+            "tutorial": "Tutorial",
+            "settings": "Settings"
+        }
+    },
+    "playerConfig": {
+        "heading": "Begin a New Game",
+        "subText": "Tab on a player to change the type.",
+        "button": "Start Game"
+    },
+    "game": {
+        "winning": "has won.",
+        "buttons": {
+            "home": "Home",
+            "newGame": "New Game",
+            "replay": "Replay"
+        }
+    },
+    "settings": {
+        "heading": "Settings",
+        "sounds": "Sounds",
+        "music": "Music",
+        "language": "Language"
+    }
+}

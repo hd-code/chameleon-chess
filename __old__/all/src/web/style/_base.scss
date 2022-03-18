@@ -1,0 +1,93 @@
+/******************************************************************************* 
+Base CSS Settings
+- should be the very first file to be loaded
+- strips some base styles to have a clean slate to start with
+- sets some practical defaults for easier styling
+- fixes some browser inconsistencies
+*******************************************************************************/
+
+/* Reset */
+
+*,
+*::after,
+*::before {
+    box-sizing: inherit;
+    font-family: inherit;
+    font-size: 1em;
+    margin: 0;
+    padding: 0;
+}
+
+/* Base Settings */
+
+html {
+    box-sizing: border-box;
+    height: 100%;
+}
+
+code,
+kbd,
+pre
+samp {
+    font-family: monospace, monospace;
+}
+
+img {
+    height: auto;
+    max-width: 100%;
+    vertical-align: bottom;
+}
+
+ol[class],
+ul[class] {
+    list-style: none;
+}
+ol:not([class]),
+ul:not([class]) {
+    padding-left: 1.5em;
+}
+
+small {
+    font-size: .8em;
+}
+
+sub,
+sup {
+    font-size: .75em;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+}
+sub {
+    bottom: -0.25em;
+}
+sup {
+    top: -0.5em;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+/* Browser Fixes */
+
+button,
+[type=button],
+[type=reset],
+[type=submit] {
+    -webkit-appearance: button;
+}
+
+[type=search] {
+    -webkit-appearance: textfield;
+    outline-offset: -2px;
+}
+[type=search]::-webkit-search-decoration {
+    -webkit-appearance: none;
+}
+
+::-webkit-file-upload-button {
+    -webkit-appearance: button;
+    font: inherit;
+}

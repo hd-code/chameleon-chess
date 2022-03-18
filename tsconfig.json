@@ -1,8 +1,6 @@
 {
   "compilerOptions": {
-    "alwaysStrict": true,
-    "moduleResolution": "node",
-    "target": "es6"
-  },
-  "include": ["src"]
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+  }
 }

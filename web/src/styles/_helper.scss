@@ -1,0 +1,281 @@
+/******************************************************************************* 
+Atomic Helper Classes
+- utility classes for doing one small atomic design task
+- there are classes for box model, flexbox, text and other utilities
+- this file probably needs not to be altered
+*******************************************************************************/
+
+// Box Model -------------------------------------------------------------------
+
+// height & width
+
+$sizes: (
+  "100": 100%,
+  "75": 75%,
+  "66": 66.66%,
+  "50": 50%,
+  "33": 33.33%,
+  "25": 25%,
+  "12": 12.5%,
+);
+@each $key, $value in $sizes {
+  .hw-#{$key},
+  .h-#{$key} {
+    height: $value;
+  }
+  .hw-#{$key},
+  .w-#{$key} {
+    width: $value;
+  }
+}
+
+// padding & margin
+
+$sizes: (
+  "auto": auto,
+  "0": 0,
+  "05": 0.25em,
+  "1": 0.5em,
+  "2": 1em,
+  "3": 1.5em,
+  "4": 2em,
+);
+@each $key, $value in $sizes {
+  .p-#{$key},
+  .px-#{$key},
+  .pl-#{$key} {
+    padding-left: $value;
+  }
+  .p-#{$key},
+  .px-#{$key},
+  .pr-#{$key} {
+    padding-right: $value;
+  }
+  .p-#{$key},
+  .py-#{$key},
+  .pt-#{$key} {
+    padding-top: $value;
+  }
+  .p-#{$key},
+  .py-#{$key},
+  .pb-#{$key} {
+    padding-bottom: $value;
+  }
+
+  .m-#{$key},
+  .mx-#{$key},
+  .ml-#{$key} {
+    margin-left: $value;
+  }
+  .m-#{$key},
+  .mx-#{$key},
+  .mr-#{$key} {
+    margin-right: $value;
+  }
+  .m-#{$key},
+  .my-#{$key},
+  .mt-#{$key} {
+    margin-top: $value;
+  }
+  .m-#{$key},
+  .my-#{$key},
+  .mb-#{$key} {
+    margin-bottom: $value;
+  }
+}
+
+// Flexbox ---------------------------------------------------------------------
+
+// Flex Container
+
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+.flex-col-reverse {
+  flex-direction: column-reverse;
+}
+.flex-row {
+  flex-direction: row;
+} /* default */
+.flex-row-reverse {
+  flex-direction: row-reverse;
+}
+
+.flex-nowrap {
+  flex-wrap: nowrap;
+} /* default */
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.flex-start,
+.flex-x-start {
+  justify-content: flex-start;
+} /* default */
+.flex-center,
+.flex-x-center {
+  justify-content: center;
+}
+.flex-end,
+.flex-x-end {
+  justify-content: flex-end;
+}
+.flex-justify,
+.flex-x-justify {
+  justify-content: space-between;
+}
+
+.flex-y-start {
+  align-items: flex-start;
+}
+.flex-y-center {
+  align-items: center;
+}
+.flex-y-end {
+  align-items: flex-end;
+}
+.flex-y-stretch {
+  align-items: stretch;
+} /* default */
+
+// Flex Child
+
+.self-y-start {
+  align-self: flex-start;
+}
+.self-y-center {
+  align-self: center;
+}
+.self-y-end {
+  align-self: flex-end;
+}
+.self-y-stretch {
+  align-self: stretch;
+}
+
+.flex-base-content {
+  flex-basis: content;
+}
+
+@for $number from 0 to 4 {
+  .flex-#{$number} {
+    flex: $number;
+  }
+  .flex-grow-#{$number} {
+    flex-grow: $number;
+  }
+  .flex-shrink-#{$number} {
+    flex-shrink: $number;
+  }
+  .flex-order-#{$number} {
+    order: $number;
+  }
+}
+
+// Text ------------------------------------------------------------------------
+
+// font size
+
+@for $i from 5 through 30 {
+  .fz-#{$i}0 {
+    font-size: #{$i/10}em;
+  }
+}
+
+// font style
+
+.bold {
+  font-weight: bold;
+}
+.italic {
+  font-style: italic;
+}
+.underline {
+  text-decoration: underline;
+}
+.strike {
+  text-decoration: line-through;
+}
+
+// text alignment
+
+@each $value in left, center, right, justify {
+  .text-#{$value} {
+    text-align: $value;
+  }
+}
+
+// text wrap
+
+.no-wrap {
+  white-space: nowrap;
+}
+.one-line {
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// text transforms
+
+@each $value in capitalize, lowercase, uppercase {
+  .#{$value} {
+    text-transform: $value;
+  }
+}
+
+// Util ------------------------------------------------------------------------
+
+// display
+
+.block {
+  display: block;
+}
+.inline {
+  display: inline;
+}
+
+// position
+
+.absolute {
+  position: absolute;
+}
+.relative {
+  position: relative;
+}
+
+// overflow
+
+.no-overflow,
+.no-overflow-x {
+  overflow-x: hidden;
+}
+.no-overflow,
+.no-overflow-y {
+  overflow-y: hidden;
+}
+
+.scroll,
+.scroll-x {
+  overflow-x: auto;
+}
+.scroll,
+.scroll-y {
+  overflow-y: auto;
+}
+
+// cursor
+
+.forbidden {
+  cursor: not-allowed;
+}
+.no-select {
+  user-select: none;
+}
+.pointer {
+  cursor: pointer;
+}
