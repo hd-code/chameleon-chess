@@ -1,5 +1,5 @@
 export class Assets {
-    private constructor() {}
+    private constructor() {} // eslint-disable-line @typescript-eslint/no-empty-function
 
     static readonly img = Object.freeze({
         bishop: require("../assets/img/bishop.svg"),

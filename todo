@@ -1,0 +1,32 @@
+# ToDo
+
+## Logic
+
+- [ ] increase test coverage
+
+## Web
+
+### Features
+
+- [ ] provide a way to zoom in on the game board
+- [ ] add sounds for select and move of pawn
+- [ ] Add sound toggle
+- [ ] Add english translations
+- [ ] language select in settings
+- [ ] add music
+- [ ] Add music toggle
+
+### Bugs
+
+- [ ] check SelectButtons on Safari
+- [ ] make player cards on game view responsive
+- [ ] reduce font size on smaller devices
+- [ ] check pawn rounded borders on mobile => percentage instead of em
+
+### Ideas
+
+- [ ] think about tutorial => brainstorm different ways to do it
+- [ ] think about view about the author the game and in memoriam
+- [ ] design game entry page => newsletter adding?
+- [ ] maybe use some Tracking
+- [ ] Snapshot testing for shared

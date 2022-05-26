@@ -1,11 +1,5 @@
 {
-  "trailingComma": "all",
-  "overrides": [
-    {
-      "files": ["*.ts", "*.tsx"],
-      "options": {
-        "tabWidth": 4
-      }
-    }
-  ]
+  "importOrder": ["<THIRD_PARTY_MODULES>", "^\\.\\.", "^\\."],
+  "importOrderSeparation": true,
+  "trailingComma": "all"
 }

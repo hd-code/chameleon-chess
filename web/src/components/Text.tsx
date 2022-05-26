@@ -3,6 +3,7 @@ import * as React from "react";
 // -----------------------------------------------------------------------------
 
 interface TextProps {
+    children?: string | JSX.Element | (string | JSX.Element)[];
     className?: string;
     tag?: "h1" | "h2" | "h3" | "p" | "span";
 }
@@ -10,7 +11,7 @@ interface TextProps {
 export const Text: React.FC<TextProps> = ({
     children,
     className,
-    tag: Tag = "span",
+    tag: Tag = "span", // eslint-disable-line @typescript-eslint/naming-convention
 }) => (
     <Tag className={className}>
         {(typeof children === "string" && de[children]) || children}

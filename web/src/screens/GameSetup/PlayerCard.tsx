@@ -1,13 +1,15 @@
-import { Assets } from "Assets";
-import { Color, PlayerColor, PlayerType } from "chameleon-chess-logic";
-import { Text } from "components";
+import { Color } from "chameleon-chess-logic";
 import * as React from "react";
+
+import { Assets } from "../../Assets";
+import { Text } from "../../components";
+import { PlayerType } from "../../domain/PlayerSetup";
 
 // -----------------------------------------------------------------------------
 
 interface PlayerCardProps {
     className?: string;
-    color: PlayerColor;
+    color: Color;
     onClick: () => void;
     type: PlayerType;
 }

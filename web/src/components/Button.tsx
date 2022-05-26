@@ -1,10 +1,12 @@
 import { Color } from "chameleon-chess-logic";
 import * as React from "react";
+
 import { Text } from "./Text";
 
 // -----------------------------------------------------------------------------
 
 interface ButtonProps {
+    children?: string;
     className?: string;
     color?: Color;
     disabled?: boolean;

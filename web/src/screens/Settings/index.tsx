@@ -1,22 +1,19 @@
-import { Link } from "components";
 import * as React from "react";
-import { ScreenState } from "state/ScreenState";
+
+import { Link } from "../../components";
+import { ScreenState } from "../../state/ScreenState";
 
 // -----------------------------------------------------------------------------
 
-interface SettingsScreenProps {
-    screenState: ScreenState;
-}
+type SettingsScreenProps = ScreenState;
 
-export const SettingsScreen: React.FC<SettingsScreenProps> = ({
-    screenState,
-}) => {
+export const SettingsScreen: React.FC<SettingsScreenProps> = ({ goBack }) => {
     return (
         <div className="text-center">
             <p className="c-white text-border mb-1">
                 Einstellungen sind noch nicht verfügbar.
             </p>
-            <Link onClick={() => screenState.goBack()}>zurück</Link>
+            <Link onClick={() => goBack()}>zurück</Link>
         </div>
     );
 };

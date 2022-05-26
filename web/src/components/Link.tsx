@@ -1,9 +1,11 @@
 import * as React from "react";
+
 import { Text } from "./Text";
 
 // -----------------------------------------------------------------------------
 
 interface LinkProps {
+    children: string;
     className?: string;
     onClick?: () => void;
 }

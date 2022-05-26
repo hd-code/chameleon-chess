@@ -1,22 +1,24 @@
-import { Color, PlayerColor } from "chameleon-chess-logic";
+import { Color } from "chameleon-chess-logic";
 import * as React from "react";
-import { PlayersState } from "state/PlayersState";
+
+import { PlayerSetupState } from "../../state/PlayerSetupState";
+
 import { PlayerCard } from "./PlayerCard";
 
 // -----------------------------------------------------------------------------
 
-interface PlayerConfigProps extends PlayersState {
+interface PlayerConfigProps extends PlayerSetupState {
     className?: string;
 }
 
 export const PlayerConfig: React.FC<PlayerConfigProps> = ({
     className = "",
-    players,
+    playerSetup,
     onClickPlayer,
 }) => {
-    const getProps = (playerColor: PlayerColor) => ({
+    const getProps = (playerColor: Color) => ({
         color: playerColor,
-        type: players[playerColor],
+        type: playerSetup[playerColor],
         onClick: () => onClickPlayer(playerColor),
     });
     return (

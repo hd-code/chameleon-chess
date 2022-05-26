@@ -3,30 +3,33 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "all": "npm-run-all check format lint build",
     "build": "webpack --mode production",
     "check": "tsc --noEmit",
     "format": "prettier --write src",
+    "lint": "eslint src",
     "start": "webpack --watch --mode development",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
     "chameleon-chess-logic": "file:../logic",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.17.7",
-    "@babel/preset-env": "^7.16.11",
-    "@babel/preset-react": "^7.16.7",
-    "@babel/preset-typescript": "^7.16.7",
-    "@types/react": "^17.0.40",
-    "@types/react-dom": "^17.0.13",
-    "babel-loader": "^8.2.3",
+    "@babel/core": "^7.18.2",
+    "@babel/preset-env": "^7.18.2",
+    "@babel/preset-react": "^7.17.12",
+    "@babel/preset-typescript": "^7.17.12",
+    "@types/react": "^18.0.9",
+    "@types/react-dom": "^18.0.5",
+    "babel-loader": "^8.2.5",
     "css-loader": "^6.7.1",
-    "sass": "^1.49.9",
-    "sass-loader": "^12.6.0",
+    "eslint-plugin-react": "^7.30.0",
+    "sass": "^1.52.1",
+    "sass-loader": "^13.0.0",
     "style-loader": "^3.3.1",
-    "webpack": "^5.70.0",
+    "webpack": "^5.72.1",
     "webpack-cli": "^4.9.2"
   }
 }

@@ -17,7 +17,7 @@ export interface ScreenState {
 
 export function useScreenState(
     init: Screen = Screen.home,
-    historyLimit: number = 5,
+    historyLimit = 5,
 ): ScreenState {
     const [screens, setScreens] = React.useState([init]);
 

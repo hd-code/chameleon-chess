@@ -1,28 +1,45 @@
-import { Button, Link, SelectButtons, Text } from "components";
+import { AILevel, Color } from "chameleon-chess-logic";
 import * as React from "react";
-import { usePlayersState } from "state/PlayersState";
-import { ScreenState } from "state/ScreenState";
+
+import { Button, Link, SelectButtons, Text } from "../../components";
+import { isValidPlayerSetup } from "../../domain/PlayerSetup";
+import { GameState } from "../../state/GameState";
+import { usePlayerSetupState } from "../../state/PlayerSetupState";
+import { Screen, ScreenState } from "../../state/ScreenState";
+
 import { PlayerConfig } from "./PlayerConfig";
 
 // -----------------------------------------------------------------------------
 
-interface GameSetupScreenProps {
-    screenState: ScreenState;
-}
+interface GameSetupScreenProps extends GameState, ScreenState {}
 
 export const GameSetupScreen: React.FC<GameSetupScreenProps> = ({
-    screenState,
+    beginGame,
+    goBack,
+    goTo,
 }) => {
-    const playersState = usePlayersState();
+    const playerSetupState = usePlayerSetupState();
+    const [aiLevel, setAILevel] = React.useState(AILevel.normal);
+
+    const onBeginGame = () => {
+        if (beginGame(playerSetupState.playerSetup, aiLevel)) {
+            goTo(Screen.game);
+        }
+    };
+
     return (
         <div className="text-center scroll-y">
             <Text className="c-white fz-120 text-border" tag="h1">
                 Ein neues Spiel starten
             </Text>
 
-            <PlayerConfig className="my-3" {...playersState} />
+            <PlayerConfig className="my-3" {...playerSetupState} />
 
-            <Button color={1} disabled={!false} onClick={() => {}}>
+            <Button
+                color={Color.green}
+                disabled={!isValidPlayerSetup(playerSetupState.playerSetup)}
+                onClick={onBeginGame}
+            >
                 Spiel beginnen
             </Button>
 
@@ -36,15 +53,21 @@ export const GameSetupScreen: React.FC<GameSetupScreenProps> = ({
                     KI-Schwierigkeit:
                 </Text>
                 <SelectButtons
-                    onSelect={() => {}}
-                    options={["leicht", "mittel", "schwer"]}
-                    selected="schwer"
+                    onSelect={setAILevel}
+                    options={aiLevelOptions}
+                    selected={aiLevel}
                 />
             </div>
 
-            <Link className="block mt-2" onClick={screenState.goBack}>
+            <Link className="block mt-2" onClick={goBack}>
                 zurück
             </Link>
         </div>
     );
 };
+
+const aiLevelOptions = [
+    { value: AILevel.easy, label: "leicht" },
+    { value: AILevel.normal, label: "mittel" },
+    { value: AILevel.hard, label: "schwer" },
+];

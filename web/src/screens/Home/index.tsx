@@ -1,15 +1,15 @@
-import { Color } from "chameleon-chess-logic";
-import { Button, Logo } from "components";
+import { Color, isGameOver } from "chameleon-chess-logic";
 import * as React from "react";
-import { Screen, ScreenState } from "state/ScreenState";
+
+import { Button, Logo } from "../../components";
+import { GameState } from "../../state/GameState";
+import { Screen, ScreenState } from "../../state/ScreenState";
 
 // -----------------------------------------------------------------------------
 
-interface HomeScreenProps {
-    screenState: ScreenState;
-}
+interface HomeScreenProps extends GameState, ScreenState {}
 
-export const HomeScreen: React.FC<HomeScreenProps> = ({ screenState }) => {
+export const HomeScreen: React.FC<HomeScreenProps> = ({ game, goTo }) => {
     return (
         <div className="flex flex-col">
             <Logo className="mb-1 fz-250" />
@@ -17,8 +17,8 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ screenState }) => {
             <Button
                 className="mb-1"
                 color={Color.red}
-                disabled={false}
-                onClick={() => screenState.goTo(Screen.game)}
+                disabled={isGameOver(game.gameState)}
+                onClick={() => goTo(Screen.game)}
             >
                 Fortsetzen
             </Button>
@@ -26,7 +26,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ screenState }) => {
             <Button
                 className="mb-1"
                 color={Color.green}
-                onClick={() => screenState.goTo(Screen.gameSetup)}
+                onClick={() => goTo(Screen.gameSetup)}
             >
                 Neues Spiel
             </Button>
@@ -35,10 +35,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ screenState }) => {
                 Tutorial
             </Button>
 
-            <Button
-                color={Color.blue}
-                onClick={() => screenState.goTo(Screen.settings)}
-            >
+            <Button color={Color.blue} onClick={() => goTo(Screen.settings)}>
                 Einstellungen
             </Button>
         </div>
