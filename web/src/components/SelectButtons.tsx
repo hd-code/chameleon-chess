@@ -1,11 +1,10 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import * as React from "react";
 
-import { Text } from "./Text";
-
 // -----------------------------------------------------------------------------
 
 interface SelectButtonsProps<T> {
+    className?: string;
     options: {
         value: T;
         label: string;
@@ -15,20 +14,21 @@ interface SelectButtonsProps<T> {
 }
 
 export function SelectButtons<T>({
+    className = "",
     options,
     selected,
     onSelect,
 }: SelectButtonsProps<T>): JSX.Element {
     return (
-        <div className="flex">
+        <div className={`flex ${className}`}>
             {options.map((option, i) => (
                 <button
                     className={
-                        "p-1 border opacity-80 " +
-                        (i === 0 ? "rounded-left " : "") +
+                        "p-1 border no-select " +
+                        (i === 0 ? "rounded-left " : "no-border-l ") +
                         (i + 1 === options.length ? "rounded-right " : "") +
                         (option.value === selected
-                            ? "bgc-white "
+                            ? "bgc-white"
                             : "bgc-transparent c-white pointer")
                     }
                     key={i}
@@ -36,9 +36,21 @@ export function SelectButtons<T>({
                         option.value != selected && onSelect(option.value)
                     }
                 >
-                    <Text>{option.label}</Text>
+                    {option.label}
                 </button>
             ))}
         </div>
     );
+}
+
+interface SelectButtonProps<T extends string | number>
+    extends React.ComponentProps<"button"> {
+    value: T;
+}
+
+export function SelectButton<T extends string | number>({
+    children,
+    ...rest
+}: SelectButtonProps<T>) {
+    return <button {...rest}>{children}</button>;
 }

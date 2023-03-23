@@ -1,35 +1,43 @@
 {
-  "name": "chameleon-chess-web",
-  "version": "0.1.0",
+  "name": "@chameleon-chess/web",
+  "version": "0.2.0",
   "private": true,
   "scripts": {
-    "all": "npm-run-all check format lint build",
-    "build": "webpack --mode production",
-    "check": "tsc --noEmit",
-    "format": "prettier --write src",
+    "all": "run-s format check lint test build",
+    "build": "react-scripts build",
+    "check": "tsc",
+    "format": "prettier --write public src",
     "lint": "eslint src",
-    "start": "webpack --watch --mode development",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "react-scripts start",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
   "dependencies": {
-    "chameleon-chess-logic": "file:../logic",
-    "react": "^18.1.0",
-    "react-dom": "^18.1.0"
+    "@chameleon-chess/logic": "file:../logic",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.18.2",
-    "@babel/preset-env": "^7.18.2",
-    "@babel/preset-react": "^7.17.12",
-    "@babel/preset-typescript": "^7.17.12",
-    "@types/react": "^18.0.9",
-    "@types/react-dom": "^18.0.5",
-    "babel-loader": "^8.2.5",
-    "css-loader": "^6.7.1",
-    "eslint-plugin-react": "^7.30.0",
-    "sass": "^1.52.1",
-    "sass-loader": "^13.0.0",
-    "style-loader": "^3.3.1",
-    "webpack": "^5.72.1",
-    "webpack-cli": "^4.9.2"
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.11",
+    "react-scripts": "5.0.1"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
   }
 }

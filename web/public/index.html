@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <title>Chamäleon Schach – ein farbwechslungsreiches Spiel</title>
+        <meta name="description" content=".." />
+        <meta name="theme-color" content="#b9542d" />
+
+        <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+        <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+        <!-- See https://developers.google.com/web/fundamentals/web-app-manifest/ -->
+        <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    </head>
+    <body>
+        <div id="chameleon-chess">
+            <div class="spinner"></div>
+            <noscript>Diese App funktioniert nicht ohne JavaScript!</noscript>
+
+            <style>
+                body {
+                    margin: 0;
+                    font-family: sans-serif;
+                }
+                html,
+                body,
+                #chameleon-chess {
+                    height: 100%;
+                    width: 100%;
+                }
+                #chameleon-chess {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                }
+                #chameleon-chess .spinner {
+                    animation: rotate 1s linear infinite;
+                    border: 0.5em solid #888;
+                    border-color: #b9542d #51a230 #ddbb71 #04909d;
+                    border-radius: 50%;
+                    height: 4em;
+                    width: 4em;
+                    margin: 2em auto;
+                }
+                @keyframes rotate {
+                    from {
+                        transform: rotate(0);
+                    }
+                    to {
+                        transform: rotate(360deg);
+                    }
+                }
+            </style>
+        </div>
+    </body>
+</html>

@@ -2,14 +2,7 @@ import * as React from "react";
 
 // -----------------------------------------------------------------------------
 
-type DivProps = React.DetailedHTMLProps<
-    React.HTMLAttributes<HTMLDivElement>,
-    HTMLDivElement
->;
-
-// FIXME: Look into this problem
-// eslint-disable-next-line react/prop-types
-export const Logo: React.FC<DivProps> = ({ className = "", ...rest }) => (
+export const Logo: React.FC<React.ComponentProps<"div">> = ({ className = "", ...rest }) => (
     <div className={`text-center bold text-border ${className}`} {...rest}>
         {text.split("").map((char, i) =>
             char === "\n" ? (

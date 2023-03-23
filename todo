@@ -2,7 +2,7 @@
 
 ## Logic
 
-- [ ] increase test coverage
+- [x] increase test coverage
 
 ## Web
 
@@ -10,11 +10,11 @@
 
 - [ ] provide a way to zoom in on the game board
 - [ ] add sounds for select and move of pawn
-- [ ] Add sound toggle
-- [ ] Add english translations
+- [ ] add sound toggle
+- [ ] add english translations
 - [ ] language select in settings
 - [ ] add music
-- [ ] Add music toggle
+- [ ] add music toggle
 
 ### Bugs
 
@@ -22,6 +22,7 @@
 - [ ] make player cards on game view responsive
 - [ ] reduce font size on smaller devices
 - [ ] check pawn rounded borders on mobile => percentage instead of em
+- [ ] finding mocha types in web dir
 
 ### Ideas
 
@@ -29,4 +30,6 @@
 - [ ] think about view about the author the game and in memoriam
 - [ ] design game entry page => newsletter adding?
 - [ ] maybe use some Tracking
-- [ ] Snapshot testing for shared
+- [ ] snapshot testing for shared
+
+adding app: `npx react-native init ChameleonChess --directory app --template react-native-template-typescript`

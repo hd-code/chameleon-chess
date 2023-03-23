@@ -1,5 +1,6 @@
 {
-  "importOrder": ["<THIRD_PARTY_MODULES>", "^\\.\\.", "^\\."],
-  "importOrderSeparation": true,
+  "importOrder": ["../", "./"],
+  "importOrderGroupNamespaceSpecifiers": true,
+  "importOrderSortSpecifiers": true,
   "trailingComma": "all"
 }

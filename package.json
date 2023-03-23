@@ -1,15 +1,29 @@
 {
   "name": "chameleon-chess",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "private": true,
+  "workspaces": [
+    "logic",
+    "web"
+  ],
+  "scripts": {
+    "all": "npm run all --workspaces",
+    "build": "npm run build --workspaces",
+    "check": "npm run check --workspaces",
+    "format": "npm run format --workspaces",
+    "lint": "npm run lint --workspaces",
+    "start": "echo 'Not configured yet'",
+    "test": "npm run test --workspaces"
+  },
   "devDependencies": {
-    "@trivago/prettier-plugin-sort-imports": "^3.2.0",
-    "@types/node": "^17.0.35",
-    "@typescript-eslint/eslint-plugin": "^5.26.0",
-    "@typescript-eslint/parser": "^5.26.0",
-    "eslint": "^8.16.0",
+    "@trivago/prettier-plugin-sort-imports": "^4.1.1",
+    "@types/node": "^18.15.5",
+    "@typescript-eslint/eslint-plugin": "^5.56.0",
+    "@typescript-eslint/parser": "^5.56.0",
+    "esbuild": "~0.17.12",
+    "eslint": "^8.36.0",
     "npm-run-all": "^4.1.5",
-    "prettier": "^2.6.2",
-    "typescript": "^4.7.2"
+    "prettier": "^2.8.6",
+    "typescript": "^5.0.2"
   }
 }

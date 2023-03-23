@@ -2,9 +2,7 @@ import * as React from "react";
 
 // -----------------------------------------------------------------------------
 
-interface PopupProps {
-    children: JSX.Element | JSX.Element[];
-    className?: string;
+interface PopupProps extends React.ComponentProps<"div"> {
     onClose?: () => void;
 }
 

@@ -1,9 +1,12 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import * as React from "react";
 import * as ReactDOM from "react-dom/client";
-
 import { App } from "./App";
-import "./styles/styles.scss";
+import "./index.css";
 
-const container = document.getElementById("chameleon-chess");
-ReactDOM.createRoot(container!).render(<App />); // eslint-disable-line @typescript-eslint/no-non-null-assertion
+ReactDOM.createRoot(
+    document.getElementById("chameleon-chess") as HTMLDivElement,
+).render(
+    <React.StrictMode>
+        <App />
+    </React.StrictMode>,
+);

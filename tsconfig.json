@@ -1,7 +1,12 @@
 {
   "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
     "moduleResolution": "node",
+    "skipLibCheck": true,
     "strict": true,
-  }
+    "target": "ES6",
+  },
 }

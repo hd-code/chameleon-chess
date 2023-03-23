@@ -1,28 +1,22 @@
-import { Color } from "chameleon-chess-logic";
 import * as React from "react";
-
-import { Text } from "./Text";
+import { Color } from "@chameleon-chess/logic";
 
 // -----------------------------------------------------------------------------
 
-interface ButtonProps {
-    children?: string;
-    className?: string;
-    color?: Color;
-    disabled?: boolean;
-    onClick?: () => void;
+interface ButtonProps extends React.ComponentProps<"button"> {
+    color_: Color;
 }
 
 export const Button: React.FC<ButtonProps> = ({
     children,
-    className,
-    color,
+    className = "",
+    color_,
     ...rest
 }) => (
     <button
         className={
             "bc-black border c-white text-border p-1 rounded " +
-            mapColorClass[color ?? Color.red] +
+            mapColorClass[color_ ?? Color.red] +
             (!rest.disabled
                 ? " pointer "
                 : " overlay overlay-darken forbidden ") +
@@ -30,7 +24,7 @@ export const Button: React.FC<ButtonProps> = ({
         }
         {...rest}
     >
-        <Text>{children}</Text>
+        {children}
     </button>
 );
 
