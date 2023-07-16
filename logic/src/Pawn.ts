@@ -3,22 +3,6 @@ import { Color } from "./Color";
 import { Limits } from "./Limits";
 import { Position } from "./Position";
 
-/**
- * An enum, which represents the four chess roles a pawn could have
- * - `knight`: 0
- * - `queen`:  1
- * - `bishop`: 2
- * - `rook`:   3
- */
-export enum Role {
-    knight,
-    queen,
-    bishop,
-    rook,
-}
-
-export type Roles = [Role, Role, Role, Role];
-
 export class Pawn {
     static getInitial(player: Color): Pawn[] {
         return startPawns[player].map(
@@ -29,17 +13,17 @@ export class Pawn {
 
     constructor(
         readonly player: Color,
-        readonly knightColor: Color,
+        private knightColor: Color,
         readonly position: Position,
     ) {}
 
     get id(): string {
-        return `${Color[this.player][0]}${Color[this.knightColor][0]}`;
+        return `${this.player[0]}${this.knightColor[0]}`;
     }
     get role(): Role {
         return this.roles[Board.get(this.position)];
     }
-    get roles(): Roles {
+    get roles(): {[fieldColor in Color]: Role} {
         return mapKnightColorToRoles[this.knightColor];
     }
 
@@ -49,16 +33,16 @@ export class Pawn {
 
     getMoves(pawns: Pawn[], limits: Limits): Position[] {
         switch (this.role) {
-            case Role.knight:
+            case "knight":
                 return this.getKnightMoves(pawns, limits);
-            case Role.queen:
+            case "queen":
                 return [
                     ...this.getBishopMoves(pawns, limits),
                     ...this.getRookMoves(pawns, limits),
                 ];
-            case Role.bishop:
+            case "bishop":
                 return this.getBishopMoves(pawns, limits);
-            case Role.rook:
+            case "rook":
                 return this.getRookMoves(pawns, limits);
         }
     }
@@ -89,7 +73,7 @@ export class Pawn {
         pawns: Pawn[],
         limits: Limits,
     ): MoveType {
-        if (!limits.isInside(destination)) {
+        if (!limits.contains(destination)) {
             return MoveType.invalid;
         }
         const pawnAtPosition = pawns.find((p) =>
@@ -123,37 +107,48 @@ export class Pawn {
 }
 
 const startPawns: { [color in Color]: [number, number, Color][] } = {
-    [Color.red]: [
-        [7, 0, Color.red],
-        [7, 1, Color.green],
-        [7, 2, Color.yellow],
-        [7, 3, Color.blue],
+    red: [
+        [7, 0, "red"],
+        [7, 1, "green"],
+        [7, 2, "yellow"],
+        [7, 3, "blue"],
     ],
-    [Color.green]: [
-        [7, 7, Color.green],
-        [6, 7, Color.yellow],
-        [5, 7, Color.blue],
-        [4, 7, Color.red],
+    green: [
+        [7, 7, "green"],
+        [6, 7, "yellow"],
+        [5, 7, "blue"],
+        [4, 7, "red"],
     ],
-    [Color.yellow]: [
-        [0, 7, Color.yellow],
-        [0, 6, Color.blue],
-        [0, 5, Color.red],
-        [0, 4, Color.green],
+    yellow: [
+        [0, 7, "yellow"],
+        [0, 6, "blue"],
+        [0, 5, "red"],
+        [0, 4, "green"],
     ],
-    [Color.blue]: [
-        [0, 0, Color.blue],
-        [1, 0, Color.red],
-        [2, 0, Color.green],
-        [3, 0, Color.yellow],
+    blue: [
+        [0, 0, "blue"],
+        [1, 0, "red"],
+        [2, 0, "green"],
+        [3, 0, "yellow"],
     ],
 };
 
-const mapKnightColorToRoles: { [knightColor in Color]: Roles } = {
-    [Color.red]: [0, 1, 2, 3],
-    [Color.green]: [3, 0, 1, 2],
-    [Color.yellow]: [2, 3, 0, 1],
-    [Color.blue]: [1, 2, 3, 0],
+const colors: Color[] = ["red", "green", "yellow", "blue"];
+const roles: Role[] = ["knight", "queen", "bishop", "rook"];
+
+function getRoleMapping(startIndex: number) {
+    const colorRolePairs = colors.map((color, index) => {
+        const roleIndex = startIndex + index % roles.length;
+        return [color, roles[roleIndex]];
+    });
+    return Object.fromEntries(colorRolePairs);
+}
+
+const mapKnightColorToRoles: { [knightColor in Color]: {[fieldColor in Color]: Role}} = {
+    red: getRoleMapping(0),
+    green: getRoleMapping(3),
+    yellow: getRoleMapping(2),
+    blue: getRoleMapping(1),
 };
 
 // prettier-ignore

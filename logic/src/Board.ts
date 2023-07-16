@@ -15,7 +15,7 @@ export class Board {
     private constructor() {}
 }
 
-const [R, G, Y, B] = [Color.red, Color.green, Color.yellow, Color.blue];
+const [R, G, Y, B]: Color[] = ["red", "green", "yellow", "blue"];
 const board = Object.freeze([
     [B, R, B, Y, G, R, B, Y],
     [R, G, R, B, Y, G, R, B],

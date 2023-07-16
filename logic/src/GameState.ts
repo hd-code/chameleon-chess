@@ -1,23 +1,15 @@
 import { Color } from "./Color";
 import { Limits } from "./Limits";
-import { Pawn, Role } from "./Pawn";
+import { Pawn } from "./Pawn";
 import { Position } from "./Position";
 
 export class GameState {
-    static create(
-        red: boolean,
-        green: boolean,
-        yellow: boolean,
-        blue: boolean,
-    ): GameState {
-        const pawns: Pawn[] = [];
-        red && pawns.push(...Pawn.getInitial(Color.red));
-        green && pawns.push(...Pawn.getInitial(Color.green));
-        yellow && pawns.push(...Pawn.getInitial(Color.yellow));
-        blue && pawns.push(...Pawn.getInitial(Color.blue));
+    static create(players: {[player in Color]: boolean}): GameState {
+        const pawns = Object.keys(players).flatMap(player =>  players[player as Color] ? Pawn.getInitial(player as Color) : [])
         if (pawns.length === 0) throw new Error("No players were given");
         const limits = Limits.default().update(pawns.map((p) => p.position));
-        return new GameState(pawns, limits, Color.green).setPlayerToNext();
+        const lastPlayer = playerOrder[playerOrder.length - 1];
+        return new GameState(pawns, limits, lastPlayer).setPlayerToNext();
     }
 
     constructor(
@@ -43,7 +35,7 @@ export class GameState {
     getPlayers(): Color[] {
         const players: { [player in Color]?: boolean } = {};
         this.pawns.forEach((p) => (players[p.player] = true));
-        return Object.keys(players).map((p) => parseInt(p));
+        return Object.keys(players) as Color[];
     }
 
     isGameOver(): boolean {
@@ -74,7 +66,7 @@ export class GameState {
         const pawn = this.pawns.find((p) => p.id === pawnId);
         if (!pawn) throw new Error(`Unknown pawn id: '${pawnId}'`);
         if (pawn.player !== this.player)
-            throw new Error(`Player '${Color[pawn.player]}' is not on turn`);
+            throw new Error(`Player '${pawn.player}' is not on turn`);
         const moves = pawn.getMoves(this.pawns, this.limits);
         if (!destination.isIn(moves))
             throw new Error(
@@ -83,13 +75,13 @@ export class GameState {
     }
 
     private setPlayerToNext(): GameState {
-        let result = mapToNextPlayer[this.player];
+        let playerIndex = playerOrder.indexOf(this.player) + 1 % playerOrder.length;
         const players = this.getPlayers();
-        while (result !== this.player) {
-            if (players.includes(result)) {
-                return new GameState(this.pawns, this.limits, result);
+        while (playerOrder[playerIndex] !== this.player) {
+            if (players.includes(playerOrder[playerIndex] )) {
+                return new GameState(this.pawns, this.limits, playerOrder[playerIndex]);
             }
-            result = mapToNextPlayer[result];
+            playerIndex = playerIndex + 1 % playerOrder.length;
         }
         return this;
     }
@@ -97,15 +89,10 @@ export class GameState {
     private static isBlockedKnight(pawn: Pawn, limits: Limits): boolean {
         return (
             limits.isSmallest() &&
-            pawn.role === Role.knight &&
+            pawn.role === "knight" &&
             limits.min.add(new Position(1, 1)).equals(pawn.position)
         );
     }
 }
 
-const mapToNextPlayer = {
-    [Color.red]: Color.blue,
-    [Color.blue]: Color.yellow,
-    [Color.yellow]: Color.green,
-    [Color.green]: Color.red,
-};
+const playerOrder: Color[] = ["red", "blue", "yellow", "green"];

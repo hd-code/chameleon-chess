@@ -9,7 +9,7 @@ describe(Limits.name, function () {
         assert.deepEqual(got, want);
     });
 
-    describe(Limits.prototype.isInside.name, function () {
+    describe(Limits.prototype.contains.name, function () {
         // prettier-ignore
         const tests: [Limits, Position, boolean][] = [
             [new Limits(new Position(0, 0), new Position(2, 2)), new Position(0, 0), true],
@@ -20,7 +20,7 @@ describe(Limits.name, function () {
         ];
         tests.forEach(([limit, pos, want]) => {
             it(`[${pos}] is ${want ? "" : "not "}in ${limit}`, function () {
-                const got = limit.isInside(pos);
+                const got = limit.contains(pos);
                 assert.equal(got, want);
             });
         });

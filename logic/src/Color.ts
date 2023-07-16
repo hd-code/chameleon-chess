@@ -7,9 +7,11 @@
  * - `yellow`: 2
  * - `blue`:   3
  */
-export enum Color {
-    red,
-    green,
-    yellow,
-    blue,
-}
+// export enum Color {
+//     red,
+//     green,
+//     yellow,
+//     blue,
+// }
+
+export type Color = "red" | "green" | "yellow" | "blue";

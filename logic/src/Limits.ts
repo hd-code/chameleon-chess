@@ -7,7 +7,7 @@ export class Limits {
 
     constructor(readonly min: Position, readonly max: Position) {}
 
-    isInside(position: Position): boolean {
+    contains(position: Position): boolean {
         // prettier-ignore
         return (
             this.min.x <= position.x && position.x <= this.max.x &&
