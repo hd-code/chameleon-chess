@@ -4,8 +4,10 @@ import { Pawn } from "./Pawn";
 import { Position } from "./Position";
 
 export class GameState {
-    static create(players: {[player in Color]: boolean}): GameState {
-        const pawns = Object.keys(players).flatMap(player =>  players[player as Color] ? Pawn.getInitial(player as Color) : [])
+    static create(players: { [player in Color]: boolean }): GameState {
+        const pawns = Object.keys(players).flatMap((player) =>
+            players[player as Color] ? Pawn.getInitial(player as Color) : [],
+        );
         if (pawns.length === 0) throw new Error("No players were given");
         const limits = Limits.default().update(pawns.map((p) => p.position));
         const lastPlayer = playerOrder[playerOrder.length - 1];
@@ -34,7 +36,7 @@ export class GameState {
 
     getPlayers(): Color[] {
         const players: { [player in Color]?: boolean } = {};
-        this.pawns.forEach((p) => (players[p.player] = true));
+        this.pawns.forEach((p) => players[p.player] === true);
         return Object.keys(players) as Color[];
     }
 
@@ -75,13 +77,18 @@ export class GameState {
     }
 
     private setPlayerToNext(): GameState {
-        let playerIndex = playerOrder.indexOf(this.player) + 1 % playerOrder.length;
+        let playerIndex =
+            playerOrder.indexOf(this.player) + (1 % playerOrder.length);
         const players = this.getPlayers();
         while (playerOrder[playerIndex] !== this.player) {
-            if (players.includes(playerOrder[playerIndex] )) {
-                return new GameState(this.pawns, this.limits, playerOrder[playerIndex]);
+            if (players.includes(playerOrder[playerIndex])) {
+                return new GameState(
+                    this.pawns,
+                    this.limits,
+                    playerOrder[playerIndex],
+                );
             }
-            playerIndex = playerIndex + 1 % playerOrder.length;
+            playerIndex = playerIndex + (1 % playerOrder.length);
         }
         return this;
     }

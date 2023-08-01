@@ -12,11 +12,31 @@ describe(Limits.name, function () {
     describe(Limits.prototype.contains.name, function () {
         // prettier-ignore
         const tests: [Limits, Position, boolean][] = [
-            [new Limits(new Position(0, 0), new Position(2, 2)), new Position(0, 0), true],
-            [new Limits(new Position(3, 2), new Position(5, 4)), new Position(0, 0), false],
-            [new Limits(new Position(3, 2), new Position(5, 4)), new Position(7, 3), false],
-            [new Limits(new Position(3, 2), new Position(5, 4)), new Position(4, 5), false],
-            [new Limits(new Position(0, 0), new Position(7, 7)), new Position(3, 5), true],
+            [
+                new Limits(new Position(0, 0), new Position(2, 2)),
+                new Position(0, 0),
+                true,
+            ],
+            [
+                new Limits(new Position(3, 2), new Position(5, 4)),
+                new Position(0, 0),
+                false,
+            ],
+            [
+                new Limits(new Position(3, 2), new Position(5, 4)),
+                new Position(7, 3),
+                false,
+            ],
+            [
+                new Limits(new Position(3, 2), new Position(5, 4)),
+                new Position(4, 5),
+                false,
+            ],
+            [
+                new Limits(new Position(0, 0), new Position(7, 7)),
+                new Position(3, 5),
+                true,
+            ],
         ];
         tests.forEach(([limit, pos, want]) => {
             it(`[${pos}] is ${want ? "" : "not "}in ${limit}`, function () {

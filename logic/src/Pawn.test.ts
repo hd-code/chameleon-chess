@@ -20,7 +20,14 @@ describe(Pawn.name, function () {
         const testCases: [Color, Color, Position, string, Roles, Role][] = [
             [Color.red, Color.red, new Position(0, 0), "rr", [0, 1, 2, 3], 3],
             [Color.red, Color.red, new Position(5, 3), "rr", [0, 1, 2, 3], 2],
-            [Color.green, Color.yellow, new Position(1, 6), "gy", [2, 3, 0, 1], 2],
+            [
+                Color.green,
+                Color.yellow,
+                new Position(1, 6),
+                "gy",
+                [2, 3, 0, 1],
+                2,
+            ],
         ];
         testCases.forEach(([player, knightColor, pos, id, roles, role]) => {
             describe(`Pawn(${Color[player]}, ${Color[knightColor]}, ${pos})`, function () {

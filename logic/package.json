@@ -8,8 +8,8 @@
     "build": "tsc",
     "check": "tsc --noEmit",
     "coverage": "nyc npm run test -- -R dot",
-    "format": "prettier --write src",
-    "lint": "eslint src",
+    "format": "rome format --write src",
+    "lint": "rome lint src",
     "prepare": "npm run build",
     "start": "npm test -- --watch --watch-files src",
     "test": "mocha -r ts-node/register 'src/**/*.test.ts'"

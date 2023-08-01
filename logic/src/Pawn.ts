@@ -23,7 +23,7 @@ export class Pawn {
     get role(): Role {
         return this.roles[Board.get(this.position)];
     }
-    get roles(): {[fieldColor in Color]: Role} {
+    get roles(): { [fieldColor in Color]: Role } {
         return mapKnightColorToRoles[this.knightColor];
     }
 
@@ -138,13 +138,15 @@ const roles: Role[] = ["knight", "queen", "bishop", "rook"];
 
 function getRoleMapping(startIndex: number) {
     const colorRolePairs = colors.map((color, index) => {
-        const roleIndex = startIndex + index % roles.length;
+        const roleIndex = startIndex + (index % roles.length);
         return [color, roles[roleIndex]];
     });
     return Object.fromEntries(colorRolePairs);
 }
 
-const mapKnightColorToRoles: { [knightColor in Color]: {[fieldColor in Color]: Role}} = {
+const mapKnightColorToRoles: {
+    [knightColor in Color]: { [fieldColor in Color]: Role };
+} = {
     red: getRoleMapping(0),
     green: getRoleMapping(3),
     yellow: getRoleMapping(2),
@@ -153,14 +155,18 @@ const mapKnightColorToRoles: { [knightColor in Color]: {[fieldColor in Color]: R
 
 // prettier-ignore
 const knightMoves = [
-    new Position( 2,  1), new Position( 1,  2),
-    new Position(-2,  1), new Position( 1, -2),
-    new Position( 2, -1), new Position(-1,  2),
-    new Position(-2, -1), new Position(-1, -2),
+    new Position(2, 1),
+    new Position(1, 2),
+    new Position(-2, 1),
+    new Position(1, -2),
+    new Position(2, -1),
+    new Position(-1, 2),
+    new Position(-2, -1),
+    new Position(-1, -2),
 ];
 
 enum MoveType {
-    invalid,
-    normal,
-    beating,
+    invalid = 0,
+    normal = 1,
+    beating = 2,
 }

@@ -15,41 +15,41 @@ describe(GameState.name, function () {
             [
                 [true, false, false, false],
                 new GameState(
-                    Pawn.getInitial(Color.red),
+                    Pawn.getInitial("red"),
                     new Limits(new Position(5, 0), new Position(7, 3)),
-                    Color.red,
+                    "red",
                 ),
             ],
             [
                 [false, true, false, false],
                 new GameState(
-                    Pawn.getInitial(Color.green),
+                    Pawn.getInitial("green"),
                     new Limits(new Position(4, 5), new Position(7, 7)),
-                    Color.green,
+                    "green",
                 ),
             ],
             [
                 [false, false, true, false],
                 new GameState(
-                    Pawn.getInitial(Color.yellow),
+                    Pawn.getInitial("yellow"),
                     new Limits(new Position(0, 4), new Position(2, 7)),
-                    Color.yellow,
+                    "yellow",
                 ),
             ],
             [
                 [false, false, false, true],
                 new GameState(
-                    Pawn.getInitial(Color.blue),
+                    Pawn.getInitial("blue"),
                     new Limits(new Position(0, 0), new Position(3, 2)),
-                    Color.blue,
+                    "blue",
                 ),
             ],
             [
                 [true, false, true, false],
                 new GameState(
-                    [0, 2].flatMap((p) => Pawn.getInitial(p)),
+                    ["red", "yellow"].flatMap((p) => Pawn.getInitial(p as Color)),
                     Limits.default(),
-                    Color.red,
+                    "red",
                 ),
             ],
             [
@@ -57,7 +57,7 @@ describe(GameState.name, function () {
                 new GameState(
                     [1, 3].flatMap((p) => Pawn.getInitial(p)),
                     Limits.default(),
-                    Color.blue,
+                    "blue",
                 ),
             ],
             [
@@ -65,7 +65,7 @@ describe(GameState.name, function () {
                 new GameState(
                     [0, 2, 3].flatMap((p) => Pawn.getInitial(p)),
                     Limits.default(),
-                    Color.red,
+                    "red",
                 ),
             ],
             [
@@ -73,7 +73,7 @@ describe(GameState.name, function () {
                 new GameState(
                     [1, 2, 3].flatMap((p) => Pawn.getInitial(p)),
                     Limits.default(),
-                    Color.blue,
+                    "blue",
                 ),
             ],
             [
@@ -81,7 +81,7 @@ describe(GameState.name, function () {
                 new GameState(
                     [0, 1, 2, 3].flatMap((p) => Pawn.getInitial(p)),
                     Limits.default(),
-                    Color.red,
+                    "red",
                 ),
             ],
         ];
@@ -98,13 +98,13 @@ describe(GameState.name, function () {
     });
 
     const pawns = [
-        new Pawn(Color.red, Color.red, new Position(7, 0)),
-        new Pawn(Color.red, Color.yellow, new Position(7, 1)),
-        new Pawn(Color.yellow, Color.yellow, new Position(0, 7)),
-        new Pawn(Color.green, Color.green, new Position(3, 4)),
+        new Pawn("red", "red", new Position(7, 0)),
+        new Pawn("red", "yellow", new Position(7, 1)),
+        new Pawn("yellow", "yellow", new Position(0, 7)),
+        new Pawn("green", "green", new Position(3, 4)),
     ];
     const limits = Limits.default();
-    const sampleGameState = new GameState(pawns, limits, Color.red);
+    const sampleGameState = new GameState(pawns, limits, "red");
 
     describe(GameState.prototype.getPawn.name, function () {
         it("success", function () {
@@ -144,22 +144,22 @@ describe(GameState.name, function () {
         Object.entries({
             "sample GameState": {
                 gameState: sampleGameState,
-                want: [Color.red, Color.yellow, Color.green],
+                want: ["red", "yellow", "green"],
             },
             "red, green & yellow pawns": {
                 gameState: GameState.create(true, true, true, false),
-                want: [Color.red, Color.green, Color.yellow],
+                want: ["red", "green", "yellow"],
             },
             "red & blue pawns": {
                 gameState: GameState.create(true, false, false, true),
-                want: [Color.red, Color.blue],
+                want: ["red", "blue"],
             },
             "green pawns": {
                 gameState: GameState.create(false, true, false, false),
-                want: [Color.green],
+                want: ["green"],
             },
             "no pawns": {
-                gameState: new GameState([], Limits.default(), Color.red),
+                gameState: new GameState([], Limits.default(), "red"),
                 want: [],
             },
         }).forEach(([name, tc]) => {
@@ -190,7 +190,7 @@ describe(GameState.name, function () {
                 want: true,
             },
             "no players": {
-                gameState: new GameState([], Limits.default(), Color.red),
+                gameState: new GameState([], Limits.default(), "red"),
                 want: true,
             },
         }).forEach(([name, tc]) => {
@@ -205,13 +205,13 @@ describe(GameState.name, function () {
         const gs2Players = GameState.create(true, false, true, false);
         const gsSample = new GameState(
             [
-                new Pawn(Color.green, Color.red, new Position(6, 6)),
-                new Pawn(Color.green, Color.blue, new Position(6, 3)),
-                new Pawn(Color.yellow, Color.red, new Position(4, 4)),
-                new Pawn(Color.yellow, Color.green, new Position(3, 6)),
+                new Pawn("green", "red", new Position(6, 6)),
+                new Pawn("green", "blue", new Position(6, 3)),
+                new Pawn("yellow", "red", new Position(4, 4)),
+                new Pawn("yellow", "green", new Position(3, 6)),
             ],
             new Limits(new Position(3, 3), new Position(6, 6)),
-            Color.green,
+            "green",
         );
 
         Object.entries({
@@ -224,7 +224,7 @@ describe(GameState.name, function () {
                         p.id !== "rg" ? p : p.setPosition(new Position(5, 0)),
                     ),
                     gs2Players.limits,
-                    Color.yellow,
+                    "yellow",
                 ),
             },
             shrinkingMove: {
@@ -236,7 +236,7 @@ describe(GameState.name, function () {
                         p.id !== "rr" ? p : p.setPosition(new Position(5, 1)),
                     ),
                     new Limits(new Position(0, 1), new Position(7, 7)),
-                    Color.yellow,
+                    "yellow",
                 ),
             },
             beatingMove: {
@@ -252,7 +252,7 @@ describe(GameState.name, function () {
                         )
                         .filter((p) => p.id !== "yg"),
                     gsSample.limits,
-                    Color.yellow,
+                    "yellow",
                 ),
             },
             beatingAndShrinkingMove: {
@@ -268,65 +268,65 @@ describe(GameState.name, function () {
                         )
                         .filter((p) => p.id !== "yg"),
                     new Limits(new Position(3, 4), new Position(6, 6)),
-                    Color.yellow,
+                    "yellow",
                 ),
             },
             shrinkToSmallest: {
                 gameState: new GameState(
                     [
-                        new Pawn(Color.green, Color.blue, new Position(6, 3)),
-                        new Pawn(Color.yellow, Color.green, new Position(3, 6)),
+                        new Pawn("green", "blue", new Position(6, 3)),
+                        new Pawn("yellow", "green", new Position(3, 6)),
                     ],
                     new Limits(new Position(3, 3), new Position(6, 6)),
-                    Color.green,
+                    "green",
                 ),
                 pawnId: "gb",
                 destination: new Position(5, 4),
                 want: new GameState(
                     [
-                        new Pawn(Color.green, Color.blue, new Position(5, 4)),
-                        new Pawn(Color.yellow, Color.green, new Position(3, 6)),
+                        new Pawn("green", "blue", new Position(5, 4)),
+                        new Pawn("yellow", "green", new Position(3, 6)),
                     ],
                     new Limits(new Position(3, 4), new Position(5, 6)),
-                    Color.yellow,
+                    "yellow",
                 ),
             },
             shrinkToSmallestAndDisappearInDeadlock: {
                 gameState: new GameState(
                     [
-                        new Pawn(Color.green, Color.blue, new Position(6, 3)),
-                        new Pawn(Color.yellow, Color.green, new Position(3, 6)),
+                        new Pawn("green", "blue", new Position(6, 3)),
+                        new Pawn("yellow", "green", new Position(3, 6)),
                     ],
                     new Limits(new Position(3, 3), new Position(6, 6)),
-                    Color.green,
+                    "green",
                 ),
                 pawnId: "gb",
                 destination: new Position(4, 5),
                 want: new GameState(
-                    [new Pawn(Color.yellow, Color.green, new Position(3, 6))],
+                    [new Pawn("yellow", "green", new Position(3, 6))],
                     new Limits(new Position(3, 4), new Position(5, 6)),
-                    Color.yellow,
+                    "yellow",
                 ),
             },
             shrinkToSmallestEnemyDisappearsInDeadlock: {
                 gameState: new GameState(
                     [
-                        new Pawn(Color.green, Color.blue, new Position(6, 3)),
-                        new Pawn(Color.yellow, Color.blue, new Position(4, 5)),
-                        new Pawn(Color.yellow, Color.green, new Position(3, 6)),
+                        new Pawn("green", "blue", new Position(6, 3)),
+                        new Pawn("yellow", "blue", new Position(4, 5)),
+                        new Pawn("yellow", "green", new Position(3, 6)),
                     ],
                     new Limits(new Position(3, 3), new Position(6, 6)),
-                    Color.green,
+                    "green",
                 ),
                 pawnId: "gb",
                 destination: new Position(5, 4),
                 want: new GameState(
                     [
-                        new Pawn(Color.green, Color.blue, new Position(5, 4)),
-                        new Pawn(Color.yellow, Color.green, new Position(3, 6)),
+                        new Pawn("green", "blue", new Position(5, 4)),
+                        new Pawn("yellow", "green", new Position(3, 6)),
                     ],
                     new Limits(new Position(3, 4), new Position(5, 6)),
-                    Color.yellow,
+                    "yellow",
                 ),
             },
         }).forEach(([name, tc]) =>

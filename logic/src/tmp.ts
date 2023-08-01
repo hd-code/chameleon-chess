@@ -32,7 +32,7 @@ interface Pawn {
     readonly id: string;
     readonly player: Color;
     readonly position: Position;
-    readonly roles: {[fieldColor in Color]: Role};
+    readonly roles: { [fieldColor in Color]: Role };
     readonly currentRole: Role;
 }
 
@@ -41,9 +41,9 @@ interface GameState {
     readonly limits: Limits;
     readonly currentPlayer: Color;
 
-    init(players: {[player in Color]: boolean}): GameState;
+    init(players: { [player in Color]: boolean }): GameState;
 
-    arePlayersAlive(): {[player in Color]: boolean};
+    arePlayersAlive(): { [player in Color]: boolean };
     isOver(): boolean;
 
     getPawnAtPosition(position: Position): Pawn;
@@ -53,14 +53,14 @@ interface GameState {
     makeMove(move: Move): GameState;
 }
 
-interface Player {}
+type Player = {};
 
 interface AI {
     execute(gameState: GameState): GameState;
 }
 
 interface Game {
-    readonly players: {[player in Color]: Player};
+    readonly players: { [player in Color]: Player };
     readonly ai: AI;
     readonly moves: Move[];
 

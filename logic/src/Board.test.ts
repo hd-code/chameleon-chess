@@ -15,22 +15,28 @@ describe("Board", function () {
             });
 
             it("should only contain Colors", function () {
+                const colors: { [color in Color]: boolean } = {
+                    red: true,
+                    green: true,
+                    yellow: true,
+                    blue: true,
+                };
                 Board.get().forEach((row) =>
-                    row.forEach((val) => assert.ok(Color[val])),
+                    row.forEach((val) => assert.ok(colors[val])),
                 );
             });
         });
 
         const testCases: [Position, Color][] = [
-            [new Position(0, 0), Color.blue],
-            [new Position(3, 2), Color.green],
-            [new Position(7, 0), Color.red],
-            [new Position(7, 1), Color.green],
-            [new Position(7, 2), Color.yellow],
-            [new Position(7, 3), Color.blue],
+            [new Position(0, 0), "blue"],
+            [new Position(3, 2), "green"],
+            [new Position(7, 0), "red"],
+            [new Position(7, 1), "green"],
+            [new Position(7, 2), "yellow"],
+            [new Position(7, 3), "blue"],
         ];
         testCases.forEach(([arg, want]) => {
-            it(`get(${arg.x},${arg.y}) => ${Color[want]}`, function () {
+            it(`get(${arg.x},${arg.y}) => ${want}`, function () {
                 const got = Board.get(arg);
                 assert.equal(got, want);
             });

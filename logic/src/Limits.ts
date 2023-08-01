@@ -10,8 +10,10 @@ export class Limits {
     contains(position: Position): boolean {
         // prettier-ignore
         return (
-            this.min.x <= position.x && position.x <= this.max.x &&
-            this.min.y <= position.y && position.y <= this.max.y
+            this.min.x <= position.x &&
+            position.x <= this.max.x &&
+            this.min.y <= position.y &&
+            position.y <= this.max.y
         );
     }
 
@@ -21,26 +23,26 @@ export class Limits {
 
     update(pawnPositions: Position[]): Limits {
         const limits = Limits.fromPawnPostions(pawnPositions);
-        return limits.isBigEnough() ? limits : this.widen(limits);
+        return limits.isBigEnough() ? limits : limits.widen(this);
     }
 
-    private widen(limits: Limits): Limits {
+    private widen(formerLimits: Limits): Limits {
         let min = true;
-        let [minX, maxX] = [limits.min.x, limits.max.x];
-        let [minY, maxY] = [limits.min.y, limits.max.y];
+        let [minX, maxX] = [this.min.x, this.max.x];
+        let [minY, maxY] = [this.min.y, this.max.y];
 
         while (maxX - minX < MIN_DIFF) {
-            if (min && this.min.x < minX) {
+            if (min && formerLimits.min.x < minX) {
                 minX -= 1;
-            } else if (!min && this.max.x > maxX) {
+            } else if (!min && formerLimits.max.x > maxX) {
                 maxX += 1;
             }
             min = !min;
         }
         while (maxY - minY < MIN_DIFF) {
-            if (min && this.min.y < minY) {
+            if (min && formerLimits.min.y < minY) {
                 minY -= 1;
-            } else if (!min && this.max.y > maxY) {
+            } else if (!min && formerLimits.max.y > maxY) {
                 maxY += 1;
             }
             min = !min;
