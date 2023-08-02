@@ -1,8 +1,8 @@
 import * as assert from "assert/strict";
-import { Color } from "./Color";
 import { Limits } from "./Limits";
-import { Pawn, Role, Roles } from "./Pawn";
+import { Pawn } from "./Pawn";
 import { Position } from "./Position";
+import { Color } from "./types";
 
 describe(Pawn.name, function () {
     describe(Pawn.getInitial.name, function () {
@@ -17,7 +17,7 @@ describe(Pawn.name, function () {
 
     describe("properties", function () {
         // prettier-ignore
-        const testCases: [Color, Color, Position, string, Roles, Role][] = [
+        const testCases: [Color, Color, Position, string, Role[], Role][] = [
             [Color.red, Color.red, new Position(0, 0), "rr", [0, 1, 2, 3], 3],
             [Color.red, Color.red, new Position(5, 3), "rr", [0, 1, 2, 3], 2],
             [
@@ -41,7 +41,7 @@ describe(Pawn.name, function () {
 
     it(Pawn.prototype.setPosition.name, function () {
         const positionBefore = new Position(2, 4);
-        const pawn = new Pawn(Color.red, Color.green, positionBefore);
+        const pawn = new Pawn("red", "green", positionBefore);
         const position = new Position(5, 5);
         const got = pawn.setPosition(position);
         assert.equal(got.player, pawn.player);
@@ -52,13 +52,13 @@ describe(Pawn.name, function () {
 
     describe(Pawn.prototype.getMoves.name, function () {
         const pawns = [
-            new Pawn(Color.red, Color.yellow, new Position(5, 3)), // red knight
-            new Pawn(Color.red, Color.green, new Position(4, 1)), // red rook
-            new Pawn(Color.red, Color.red, new Position(2, 1)), // red blocking pawn
-            new Pawn(Color.yellow, Color.blue, new Position(2, 3)), // yellow bishop
-            new Pawn(Color.yellow, Color.yellow, new Position(4, 5)), // yellow queen
-            new Pawn(Color.yellow, Color.green, new Position(1, 0)), // yellow corner pawn
-            new Pawn(Color.yellow, Color.red, new Position(1, 6)), // yellow corner pawn
+            new Pawn("red", "yellow", new Position(5, 3)), // red knight
+            new Pawn("red", "green", new Position(4, 1)), // red rook
+            new Pawn("red", "red", new Position(2, 1)), // red blocking pawn
+            new Pawn("yellow", "blue", new Position(2, 3)), // yellow bishop
+            new Pawn("yellow", "yellow", new Position(4, 5)), // yellow queen
+            new Pawn("yellow", "green", new Position(1, 0)), // yellow corner pawn
+            new Pawn("yellow", "red", new Position(1, 6)), // yellow corner pawn
         ];
         const limits = new Limits(new Position(1, 0), new Position(5, 6));
 

@@ -3,6 +3,7 @@
   "compilerOptions": {
     "declaration": true,
     "outDir": "dist",
+    "target": "ESNext",
   },
   "include": ["src"],
   "exclude": ["src/**/*.test.ts"]

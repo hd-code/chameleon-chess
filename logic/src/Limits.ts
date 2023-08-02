@@ -8,12 +8,10 @@ export class Limits {
     constructor(readonly min: Position, readonly max: Position) {}
 
     contains(position: Position): boolean {
-        // prettier-ignore
+        // rome-ignore format: group by dimension
         return (
-            this.min.x <= position.x &&
-            position.x <= this.max.x &&
-            this.min.y <= position.y &&
-            position.y <= this.max.y
+            this.min.x <= position.x && position.x <= this.max.x &&
+            this.min.y <= position.y && position.y <= this.max.y
         );
     }
 

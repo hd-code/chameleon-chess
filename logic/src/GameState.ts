@@ -1,7 +1,7 @@
-import { Color } from "./Color";
 import { Limits } from "./Limits";
 import { Pawn } from "./Pawn";
 import { Position } from "./Position";
+import { Color } from "./types";
 
 export class GameState {
     static create(players: { [player in Color]: boolean }): GameState {

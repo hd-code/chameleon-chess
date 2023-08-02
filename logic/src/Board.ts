@@ -1,13 +1,12 @@
-import { Color } from "./Color";
 import { Position } from "./Position";
+import { Color } from "./types";
 
 export class Board {
-    static get(): readonly Color[][];
-    static get(position: Position): Color;
-    static get(position?: Position) {
-        if (!position) {
-            return board;
-        }
+    static get(): readonly Color[][] {
+        return board;
+    }
+
+    static getField(position: Position) {
         return board[position.x][position.y];
     }
 

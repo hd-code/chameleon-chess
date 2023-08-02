@@ -1,7 +1,7 @@
 import { Board } from "./Board";
-import { Color } from "./Color";
 import { Limits } from "./Limits";
 import { Position } from "./Position";
+import { Color, Roles } from "./types";
 
 export class Pawn {
     static getInitial(player: Color): Pawn[] {
@@ -21,9 +21,9 @@ export class Pawn {
         return `${this.player[0]}${this.knightColor[0]}`;
     }
     get role(): Role {
-        return this.roles[Board.get(this.position)];
+        return this.roles[Board.getField(this.position)];
     }
-    get roles(): { [fieldColor in Color]: Role } {
+    get roles(): Roles {
         return mapKnightColorToRoles[this.knightColor];
     }
 
@@ -136,7 +136,7 @@ const startPawns: { [color in Color]: [number, number, Color][] } = {
 const colors: Color[] = ["red", "green", "yellow", "blue"];
 const roles: Role[] = ["knight", "queen", "bishop", "rook"];
 
-function getRoleMapping(startIndex: number) {
+function getRoleMapping(startIndex: number): Roles {
     const colorRolePairs = colors.map((color, index) => {
         const roleIndex = startIndex + (index % roles.length);
         return [color, roles[roleIndex]];
@@ -144,9 +144,7 @@ function getRoleMapping(startIndex: number) {
     return Object.fromEntries(colorRolePairs);
 }
 
-const mapKnightColorToRoles: {
-    [knightColor in Color]: { [fieldColor in Color]: Role };
-} = {
+const mapKnightColorToRoles: {[knightColor in Color]: Roles} = {
     red: getRoleMapping(0),
     green: getRoleMapping(3),
     yellow: getRoleMapping(2),
