@@ -1,0 +1,16 @@
+# config
+.env
+
+# IDEs
+.idea/
+.vs/
+.vscode/
+
+# macOS
+.DS_Store
+
+# Node.js
+node_modules/
+
+# Windows
+Thumbs.db
