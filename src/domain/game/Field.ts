@@ -5,7 +5,6 @@ export class Field {
     constructor(
         readonly position: Position,
         readonly color: Color,
-        readonly isActive: boolean,
-        readonly pawn?: Pawn,
+        readonly active: boolean,
     ) {}
 }

@@ -16,8 +16,8 @@ export class Pawn {
         return `${this.player.color[0]}${this.knightColor[0]}`;
     }
 
-    get roles(): {[fieldColor in Color]: Role} {
-        const result = {} as {[fieldColor in Color]: Role};
+    get roles(): { [fieldColor in Color]: Role } {
+        const result = {} as { [fieldColor in Color]: Role };
         let colorIndex = colors.indexOf(this.knightColor);
         for (const role of roles) {
             result[colors[colorIndex]] = role;

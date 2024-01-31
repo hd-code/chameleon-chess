@@ -1,12 +1,9 @@
-import { Bounds } from "./Bounds";
 import { Field } from "./Field";
 import { Position } from "./Position";
-import { FieldColorGetter } from "./helper";
+import { Bounds, FieldColorGetter } from "./helper";
 
 export class Board implements FieldColorGetter {
-    constructor(
-        private bounds: Bounds,
-    ) {}
+    constructor(private bounds: Bounds) {}
 
     getFields(): Field[][] {
         const result: Field[][] = [];
@@ -18,7 +15,7 @@ export class Board implements FieldColorGetter {
                     new Field(
                         position,
                         fieldColors[row][col],
-                        this.bounds.isInside(position),
+                        this.bounds.contains(position),
                     ),
                 );
             }

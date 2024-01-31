@@ -5,10 +5,7 @@ export class Position {
     ) {}
 
     add(other: Position): Position {
-        return new Position(
-            this.x + other.x,
-            this.y + other.y,
-        );
+        return new Position(this.x + other.x, this.y + other.y);
     }
 
     is(other: Position): boolean {
@@ -22,5 +19,9 @@ export class Position {
             }
         }
         return false;
+    }
+
+    toString(): string {
+        return `Postion(${this.x}, ${this.y})`;
     }
 }

@@ -1,5 +1,5 @@
-import { Color } from './Color';
+import { Color } from "./Color";
 
 export interface Player {
-    readonly color: Color
+    readonly color: Color;
 }
