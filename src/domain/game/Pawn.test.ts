@@ -1,33 +1,10 @@
 import assert from "assert/strict";
-import { Color } from "./Color";
-import { Pawn } from "./Pawn";
-import { Player } from "./Player";
+import { Pawn, PawnWithPosition } from "./Pawn";
 import { Position } from "./Position";
-import { mockFieldColorGetter } from "./helper";
+import { mockFieldColorGetter } from "./mocks";
+import { Color, Player } from "./types";
 
 describe(Pawn.name, () => {
-    const position = new Position(0, 0);
-
-    describe("id", () => {
-        [
-            { playerColor: "red", knightColor: "red", want: "rr" },
-            { playerColor: "green", knightColor: "red", want: "gr" },
-            { playerColor: "red", knightColor: "yellow", want: "ry" },
-            { playerColor: "blue", knightColor: "yellow", want: "by" },
-        ].forEach(({ playerColor, knightColor, want }) => {
-            it(`${playerColor} + ${knightColor} => ${want}`, () => {
-                const player = { color: playerColor } as Player;
-                const pawn = new Pawn(
-                    player,
-                    knightColor as Color,
-                    position,
-                    mockFieldColorGetter(knightColor as Color),
-                );
-                assert.strictEqual(pawn.id, want);
-            });
-        });
-    });
-
     describe("roles", () => {
         [
             {
@@ -69,17 +46,14 @@ describe(Pawn.name, () => {
         ].forEach(({ knightColor, want }) => {
             it(`${knightColor} => ${JSON.stringify(want)}`, () => {
                 const player = { color: knightColor } as Player;
-                const pawn = new Pawn(
-                    player,
-                    knightColor as Color,
-                    position,
-                    mockFieldColorGetter(knightColor as Color),
-                );
+                const pawn = new Pawn(player, knightColor as Color);
                 assert.deepStrictEqual(pawn.roles, want);
             });
         });
     });
+});
 
+describe(PawnWithPosition.name, () => {
     describe("role", () => {
         [
             { knightColor: "red", fieldColor: "red", want: "knight" },
@@ -90,10 +64,9 @@ describe(Pawn.name, () => {
         ].forEach(({ knightColor, fieldColor, want }) => {
             it(`knight:${knightColor}, field:${fieldColor} => ${want}`, () => {
                 const player = { color: knightColor } as Player;
-                const pawn = new Pawn(
-                    player,
-                    knightColor as Color,
-                    position,
+                const pawn = new PawnWithPosition(
+                    new Pawn(player, knightColor as Color),
+                    new Position(0, 0),
                     mockFieldColorGetter(fieldColor as Color),
                 );
                 assert.strictEqual(pawn.role, want);

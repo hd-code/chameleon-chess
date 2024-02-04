@@ -1,10 +1,12 @@
-import { Color } from "./Color";
+import { Pawn } from "./Pawn";
 import { Position } from "./Position";
+import { Color } from "./types";
 
 export class Field {
     constructor(
-        readonly position: Position,
-        readonly color: Color,
         readonly active: boolean,
+        readonly color: Color,
+        readonly position: Position,
+        readonly pawn: Pawn | undefined,
     ) {}
 }

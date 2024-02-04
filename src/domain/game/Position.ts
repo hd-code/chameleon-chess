@@ -8,13 +8,13 @@ export class Position {
         return new Position(this.x + other.x, this.y + other.y);
     }
 
-    is(other: Position): boolean {
-        return this.x === other.x && this.y === other.y;
+    equals(position: Position): boolean {
+        return this.x === position.x && this.y === position.y;
     }
 
-    isIn(positions: Position[]): boolean {
+    in(positions: Position[]): boolean {
         for (const position of positions) {
-            if (this.is(position)) {
+            if (this.equals(position)) {
                 return true;
             }
         }
@@ -22,6 +22,6 @@ export class Position {
     }
 
     toString(): string {
-        return `Postion(${this.x}, ${this.y})`;
+        return `Position(${this.x}, ${this.y})`;
     }
 }

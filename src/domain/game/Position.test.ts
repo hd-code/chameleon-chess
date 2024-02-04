@@ -15,7 +15,7 @@ describe(Position.name, () => {
         });
     });
 
-    describe(Position.prototype.is.name, () => {
+    describe(Position.prototype.equals.name, () => {
         [
             { a: new Position(1, 2), b: new Position(1, 2), want: true },
             { a: new Position(1, 2), b: new Position(2, 2), want: false },
@@ -23,28 +23,50 @@ describe(Position.name, () => {
             { a: new Position(1, 2), b: new Position(0, 3), want: false },
         ].forEach(({ a, b, want }) => {
             it(`${a} is ${b} => ${want}`, () => {
-                const got = a.is(b);
+                const got = a.equals(b);
                 assert.strictEqual(got, want);
             });
         });
     });
 
-    describe(Position.prototype.isIn.name, () => {
-        const positions = [
-            new Position(1, 2),
-            new Position(3, 4),
-            new Position(5, 6),
-        ];
-
+    describe(Position.prototype.in.name, () => {
         [
-            { p: new Position(1, 2), positions, want: true },
-            { p: new Position(3, 4), positions, want: true },
-            { p: new Position(1, 1), positions, want: false },
-            { p: new Position(0, 3), positions, want: false },
-        ].forEach(({ p, positions, want }) => {
-            it(`${p} is in ${positions} => ${want}`, () => {
-                const got = p.isIn(positions);
-                assert.strictEqual(got, want);
+            {
+                name: "empty",
+                position: new Position(1, 2),
+                positions: [],
+                want: false,
+            },
+            {
+                name: "same position",
+                position: new Position(1, 2),
+                positions: [new Position(1, 2)],
+                want: true,
+            },
+            {
+                name: "is among 3 positions",
+                position: new Position(1, 2),
+                positions: [
+                    new Position(0, 1),
+                    new Position(1, 2),
+                    new Position(3, 4),
+                ],
+                want: true,
+            },
+            {
+                name: "is not among 3 positions",
+                position: new Position(1, 3),
+                positions: [
+                    new Position(0, 1),
+                    new Position(1, 2),
+                    new Position(3, 4),
+                ],
+                want: false,
+            },
+        ].forEach(({ name, position, positions, want }) => {
+            it(`${name}`, () => {
+                const got = position.in(positions);
+                assert.equal(got, want);
             });
         });
     });

@@ -3,6 +3,8 @@
   "version": "0.2.0",
   "private": true,
   "scripts": {
+    "all": "run-s format check test",
+    "check": "tsc --noEmit",
     "format": "prettier --write src",
     "test": "mocha -r ts-node/register 'src/**/*.test.ts'"
   },
@@ -10,13 +12,19 @@
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@types/mocha": "^10.0.6",
     "mocha": "^10.2.0",
+    "npm-run-all": "^4.1.5",
     "prettier": "^3.2.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
   },
   "prettier": {
-    "importOrder": ["^../", "^./"],
+    "importOrder": [
+      "^../",
+      "^./"
+    ],
     "importOrderSortSpecifiers": true,
-    "plugins": ["@trivago/prettier-plugin-sort-imports"]
+    "plugins": [
+      "@trivago/prettier-plugin-sort-imports"
+    ]
   }
 }

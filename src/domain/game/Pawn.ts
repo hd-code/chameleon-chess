@@ -1,20 +1,14 @@
-import { Color } from "./Color";
-import { Player } from "./Player";
 import { Position } from "./Position";
-import { Role } from "./Role";
-import { FieldColorGetter } from "./helper";
+import { Color, FieldColorGetter, Player, Role } from "./types";
+
+const colors: Color[] = ["red", "green", "yellow", "blue"];
+const roles: Role[] = ["knight", "queen", "bishop", "rook"];
 
 export class Pawn {
     constructor(
         readonly player: Player,
         readonly knightColor: Color,
-        readonly position: Position,
-        private fieldColorGetter: FieldColorGetter,
     ) {}
-
-    get id(): string {
-        return `${this.player.color[0]}${this.knightColor[0]}`;
-    }
 
     get roles(): { [fieldColor in Color]: Role } {
         const result = {} as { [fieldColor in Color]: Role };
@@ -25,11 +19,18 @@ export class Pawn {
         }
         return result;
     }
+}
+
+export class PawnWithPosition extends Pawn {
+    constructor(
+        pawn: Pawn,
+        readonly position: Position,
+        private fieldColorGetter: FieldColorGetter,
+    ) {
+        super(pawn.player, pawn.knightColor);
+    }
 
     get role(): Role {
         return this.roles[this.fieldColorGetter.getFieldColor(this.position)];
     }
 }
-
-const colors: Color[] = ["red", "green", "yellow", "blue"];
-const roles: Role[] = ["knight", "queen", "bishop", "rook"];
