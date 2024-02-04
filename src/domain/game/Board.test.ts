@@ -1,10 +1,10 @@
 import assert from "assert/strict";
 import { Board } from "./Board";
 import { Bounds } from "./Bounds";
-import { Field } from "./Field";
 import { Pawn } from "./Pawn";
 import { Position } from "./Position";
 import { bluePlayer, redPlayer } from "./mocks";
+import { Field } from "./types";
 
 describe.only(Board.name, () => {
     const bounds = new Bounds(2, 3, 6, 5);

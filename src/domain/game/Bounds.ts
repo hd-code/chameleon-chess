@@ -1,8 +1,5 @@
 import { Position } from "./Position";
 
-const minWidth = 3;
-const minHeight = 3;
-
 export class Bounds {
     static fromPositions(positions: Position[]): Bounds {
         const xs = positions.map((position) => position.x);
@@ -98,6 +95,9 @@ export class Bounds {
         return `Bounds(${this.minX}, ${this.minY}, ${this.maxX}, ${this.maxY})`;
     }
 }
+
+const minWidth = 3;
+const minHeight = 3;
 
 function increaseToMin(
     oldMin: number,

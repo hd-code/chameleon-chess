@@ -1,9 +1,6 @@
 import { Position } from "./Position";
 import { Color, FieldColorGetter, Player, Role } from "./types";
 
-const colors: Color[] = ["red", "green", "yellow", "blue"];
-const roles: Role[] = ["knight", "queen", "bishop", "rook"];
-
 export class Pawn {
     constructor(
         readonly player: Player,
@@ -20,6 +17,9 @@ export class Pawn {
         return result;
     }
 }
+
+const colors: Color[] = ["red", "green", "yellow", "blue"];
+const roles: Role[] = ["knight", "queen", "bishop", "rook"];
 
 export class PawnWithPosition extends Pawn {
     constructor(

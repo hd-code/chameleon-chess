@@ -1,8 +1,7 @@
 import { Bounds } from "./Bounds";
-import { Field } from "./Field";
 import { Pawn, PawnWithPosition } from "./Pawn";
 import { Position } from "./Position";
-import { Color, FieldColorGetter, Move } from "./types";
+import { Color, Field, FieldColorGetter, Move } from "./types";
 
 export class Board implements FieldColorGetter {
     constructor(
