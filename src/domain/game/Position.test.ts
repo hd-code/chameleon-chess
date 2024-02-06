@@ -70,4 +70,66 @@ describe(Position.name, () => {
             });
         });
     });
+
+    describe(Position.sort.name, () => {
+        [
+            {
+                name: "no positions",
+                positions: [],
+                want: [],
+            },
+            {
+                name: "one positions",
+                positions: [new Position(1, 2)],
+                want: [new Position(1, 2)],
+            },
+            {
+                name: "two positions already sorted",
+                positions: [new Position(1, 2), new Position(3, 4)],
+                want: [new Position(1, 2), new Position(3, 4)],
+            },
+            {
+                name: "two positions not sorted",
+                positions: [new Position(3, 4), new Position(1, 2)],
+                want: [new Position(1, 2), new Position(3, 4)],
+            },
+            {
+                name: "three positions with equal pairs per dimension",
+                positions: [
+                    new Position(2, 3),
+                    new Position(1, 2),
+                    new Position(1, 3),
+                ],
+                want: [
+                    new Position(1, 2),
+                    new Position(1, 3),
+                    new Position(2, 3),
+                ],
+            },
+            {
+                name: "six positions",
+                positions: [
+                    new Position(3, 4),
+                    new Position(1, 2),
+                    new Position(2, 3),
+                    new Position(1, 3),
+                    new Position(3, 1),
+                    new Position(1, 3),
+                ],
+                want: [
+                    new Position(1, 2),
+                    new Position(1, 3),
+                    new Position(1, 3),
+                    new Position(2, 3),
+                    new Position(3, 1),
+                    new Position(3, 4),
+                ],
+            },
+        ].forEach(({ name, positions, want }) => {
+            it(`${name}`, () => {
+                const got = positions.sort(Position.sort);
+                assert.deepEqual(got, want);
+            });
+        });
+    });
 });

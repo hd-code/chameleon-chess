@@ -1,7 +1,7 @@
 import { Bounds } from "./Bounds";
 import { Pawn, PawnWithPosition } from "./Pawn";
 import { Position } from "./Position";
-import { Color, Field, FieldColorGetter, Move } from "./types";
+import { Color, Field, FieldColorGetter, Move, Player } from "./types";
 
 export class Board implements FieldColorGetter {
     constructor(
@@ -33,25 +33,30 @@ export class Board implements FieldColorGetter {
             ([pawn, position]) => new PawnWithPosition(pawn, position, this),
         );
     }
+    get players(): Player[] {
+        const players: {[color in Color]?: Player} = {};
+        this.pawns.forEach((p) => {
+            players[p.knightColor] = p.player;
+        });
+        return Object.values(players);
+    }
 
     getField(position: Position): Field {
-        return this.fields[position.y][position.x];
+        const field = this.fields?.[position.y]?.[position.x];
+        if (field === undefined) {
+            throw new Error(`${position} is outside of the board`);
+        }
+        return field;
     }
     getFieldColor(position: Position): Color {
-        return fieldColors[position.y][position.x];
+        const fieldColor = fieldColors?.[position.y]?.[position.x];
+        if (fieldColor === undefined) {
+            throw new Error(`${position} is outside of the board`);
+        }
+        return fieldColor;
     }
     getPawn(position: Position): PawnWithPosition {
-        let pawn: Pawn | undefined = undefined;
-        if (this._fieldsCache === undefined) {
-            const index = this._pawnsWithPositions.findIndex(([_, p]) =>
-                p.equals(position),
-            );
-            if (index !== -1) {
-                pawn = this._pawnsWithPositions[index][0];
-            }
-        } else {
-            pawn = this.fields[position.y][position.x].pawn;
-        }
+        const pawn = this.getPawnOrNone(position);
         if (!pawn) {
             throw new Error(`there is no pawn at ${position}`);
         }
@@ -91,9 +96,24 @@ export class Board implements FieldColorGetter {
         return new Board(bounds, pawns).handleSpecialCase();
     }
 
+    private getPawnOrNone(position: Position): PawnWithPosition | undefined {
+        let pawn: Pawn | undefined = undefined;
+        if (this._fieldsCache === undefined) {
+            const index = this._pawnsWithPositions.findIndex(([_, p]) =>
+                p.equals(position),
+            );
+            if (index !== -1) {
+                pawn = this._pawnsWithPositions[index][0];
+            }
+        } else {
+            pawn = this.fields[position.y][position.x].pawn;
+        }
+        return pawn ? new PawnWithPosition(pawn, position, this) : undefined;
+    }
+
     private knightMoves(pawn: PawnWithPosition): Position[] {
         const targets = rookMoves.map((move) => pawn.position.add(move));
-        return targets.filter((position) => this.isValidMove(pawn, position));
+        return targets.filter((position) => this.getMoveType(pawn, position));
     }
     private queenMoves(pawn: PawnWithPosition): Position[] {
         return [...this.bishopMoves(pawn), ...this.rookMoves(pawn)];
@@ -120,15 +140,31 @@ export class Board implements FieldColorGetter {
     ): Position[] {
         const result: Position[] = [];
         let nextPosition = pawn.position.add(direction);
-        while (this.isValidMove(pawn, nextPosition)) {
+        for (let i = 0; i < 64; i++) { // upper bound
+            const moveType = this.getMoveType(pawn, nextPosition);
+            if (moveType === MoveType.invalid) {
+                break;
+            }
             result.push(nextPosition);
-            nextPosition = pawn.position.add(direction);
+            if (moveType === MoveType.beating) {
+                break;
+            }
+            nextPosition = nextPosition.add(direction);
         }
         return result;
     }
-    private isValidMove(pawn: PawnWithPosition, target: Position): boolean {
-        const field = this.getField(target);
-        return field.active && field.pawn?.player.color !== pawn.player.color;
+    private getMoveType(pawn: PawnWithPosition, target: Position): MoveType {
+        if (!this._bounds.contains(target)) {
+            return MoveType.invalid;
+        }
+        const otherPawn = this.getPawnOrNone(target);
+        if (otherPawn) {
+            if (otherPawn.player.color === pawn.player.color) {
+                return MoveType.invalid;
+            }
+            return MoveType.beating;
+        }
+        return MoveType.normal;
     }
 
     private assertMove(move: Move): void {
@@ -145,9 +181,12 @@ export class Board implements FieldColorGetter {
         if (!this._bounds.smallest) {
             return this;
         }
+        if (this._pawnsWithPositions.length <= 1) {
+            return this;
+        }
 
         const center = this._bounds.min.add(new Position(1, 1));
-        const pawn = this.getPawn(center);
+        const pawn = this.getPawnOrNone(center)
         if (!pawn || pawn.role !== "knight") {
             return this;
         }
@@ -160,6 +199,8 @@ export class Board implements FieldColorGetter {
         return new Board(this._bounds, pawns);
     }
 }
+
+enum MoveType {invalid, normal, beating}
 
 const [R, G, Y, B]: Color[] = ["red", "green", "yellow", "blue"];
 const fieldColors = Object.freeze([

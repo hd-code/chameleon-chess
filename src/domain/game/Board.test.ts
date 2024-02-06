@@ -1,22 +1,22 @@
 import assert from "assert/strict";
 import { Board } from "./Board";
 import { Bounds } from "./Bounds";
-import { Pawn } from "./Pawn";
+import { Pawn, PawnWithPosition } from "./Pawn";
 import { Position } from "./Position";
 import { bluePlayer, redPlayer } from "./mocks";
 import { Field } from "./types";
+import { testMoves } from "./tests";
 
-describe.only(Board.name, () => {
-    const bounds = new Bounds(2, 3, 6, 5);
-    const pawnsAndPositions: [Pawn, Position][] = [
-        [new Pawn(redPlayer, "red"), new Position(2, 5)],
-        [new Pawn(redPlayer, "green"), new Position(6, 3)],
-        [new Pawn(bluePlayer, "red"), new Position(5, 5)],
-        [new Pawn(bluePlayer, "yellow"), new Position(2, 4)],
-    ];
-    const board = new Board(bounds, pawnsAndPositions);
-
+describe(Board.name, () => {
     describe("fields", () => {
+        const bounds = new Bounds(2, 3, 6, 5);
+        const pawnsAndPositions: [Pawn, Position][] = [
+            [new Pawn(redPlayer, "red"), new Position(2, 5)],
+            [new Pawn(redPlayer, "green"), new Position(6, 3)],
+            [new Pawn(bluePlayer, "red"), new Position(5, 5)],
+            [new Pawn(bluePlayer, "yellow"), new Position(2, 4)],
+        ];
+        const board = new Board(bounds, pawnsAndPositions);
         const fields = board.fields;
 
         it("should be 8x8 fields", () => {
@@ -68,6 +68,15 @@ describe.only(Board.name, () => {
     });
 
     describe(Board.prototype.getField.name, () => {
+        const bounds = new Bounds(2, 3, 6, 5);
+        const pawnsAndPositions: [Pawn, Position][] = [
+            [new Pawn(redPlayer, "red"), new Position(2, 5)],
+            [new Pawn(redPlayer, "green"), new Position(6, 3)],
+            [new Pawn(bluePlayer, "red"), new Position(5, 5)],
+            [new Pawn(bluePlayer, "yellow"), new Position(2, 4)],
+        ];
+        const board = new Board(bounds, pawnsAndPositions);
+
         [
             {
                 name: "inactive",
@@ -95,9 +104,14 @@ describe.only(Board.name, () => {
                 assert.deepEqual(field, want);
             });
         });
+
+        it("should fail when position is outside of board", () => {
+            assert.throws(() => board.getField(new Position(8, 8)));
+        });
     });
 
     describe(Board.prototype.getFieldColor.name, () => {
+        const board = new Board(new Bounds(0, 0, 1, 1), []);
         [
             { position: new Position(0, 0), want: "blue" },
             { position: new Position(2, 2), want: "red" },
@@ -108,17 +122,153 @@ describe.only(Board.name, () => {
                 assert.equal(board.getFieldColor(position), want);
             });
         });
+
+        it("should fail when position is outside of board", () => {
+            assert.throws(() => board.getFieldColor(new Position(8, 8)));
+        });
     });
 
     describe(Board.prototype.getPawn.name, () => {
-        it("TODO");
+        const bounds = new Bounds(2, 3, 6, 5);
+        const pawnsAndPositions: [Pawn, Position][] = [
+            [new Pawn(redPlayer, "red"), new Position(2, 5)],
+            [new Pawn(redPlayer, "green"), new Position(6, 3)],
+            [new Pawn(bluePlayer, "red"), new Position(5, 5)],
+            [new Pawn(bluePlayer, "yellow"), new Position(2, 4)],
+        ];
+        const board = new Board(bounds, pawnsAndPositions);
+        [
+            {
+                name: "get existing pawn",
+                board: board,
+                position: pawnsAndPositions[0][1],
+                want: new PawnWithPosition(...pawnsAndPositions[0], board),
+            },
+            {
+                name: "get existing pawn 2",
+                board: board,
+                position: pawnsAndPositions[2][1],
+                want: new PawnWithPosition(...pawnsAndPositions[2], board),
+            },
+            {
+                name: "fail on empty field",
+                board: board,
+                position: new Position(0, 0),
+                want: undefined,
+            },
+            {
+                name: "fail on field outside of the board",
+                board: board,
+                position: new Position(9, 9),
+                want: undefined,
+            },
+        ].forEach(({ name, board, position, want }) => {
+            it(name, () => {
+                if (want === undefined) {
+                    assert.throws(() => board.getPawn(position));
+                } else {
+                    const pawn = board.getPawn(position);
+                    assert.deepEqual(pawn, want);
+                }
+            });
+        });
     });
 
     describe(Board.prototype.getPawnMoves.name, () => {
-        it("TODO");
+        it("should fail for empty field", () => {
+            const board = new Board(new Bounds(0, 0, 1, 1), []);
+            assert.throws(() => board.getPawnMoves(new Position(0, 0)));
+        });
+        it("should fail for field outside the board", () => {
+            const board = new Board(new Bounds(0, 0, 1, 1), []);
+            assert.throws(() => board.getPawnMoves(new Position(9, 9)));
+        });
+
+        const bounds = new Bounds(1, 0, 5, 4);
+        const pawnsAndPositions: [Pawn, Position][] = [
+            [new Pawn(redPlayer, "green"), new Position(1, 1)], // knight
+            [new Pawn(redPlayer, "red"), new Position(2, 3)],
+            [new Pawn(redPlayer, "blue"), new Position(2, 4)], // rook
+            [new Pawn(bluePlayer, "blue"), new Position(3, 2)], // bishop
+            [new Pawn(bluePlayer, "yellow"), new Position(5, 4)], // queen
+        ];
+        const board = new Board(bounds, pawnsAndPositions);
+        [
+            {
+                name: "knight moves",
+                position: new Position(1, 1),
+                want: [
+                    new Position(3, 2), // beating
+                    new Position(3, 0), // empty field
+                ],
+            },
+            {
+                name: "rook moves",
+                position: new Position(2, 4),
+                want: [
+                    // direction: -1, 0
+                    new Position(1, 4), // empty field
+                    // direction: 0, -1
+                    // new Position(2, 3), // own pawn
+                    // direction: 1, 0
+                    new Position(3, 4), // empty field
+                    new Position(4, 4), // empty field
+                    new Position(5, 4), // beating
+                ],
+            },
+            {
+                name: "bishop moves",
+                position: new Position(3, 2),
+                want: [
+                    // direction: -1, -1
+                    new Position(2, 1), // empty field
+                    new Position(1, 0), // empty field
+                    // direction: -1, 1
+                    new Position(2, 3), // beating
+                    // direction: 1, -1
+                    new Position(4, 1), // empty field
+                    new Position(5, 0), // empty field
+                    // direction: 1, 1
+                    new Position(4, 3), // empty field
+                    // new Position(5, 4), // own pawn
+                ],
+            },
+            {
+                name: "queen moves",
+                position: new Position(5, 4),
+                want: [
+                    // direction: -1, 0
+                    new Position(4, 4), // empty field
+                    new Position(3, 4), // empty field
+                    new Position(2, 4), // beating
+                    // direction: -1, -1
+                    new Position(4, 3), // empty field
+                    // new Position(3, 2), // own pawn
+                    // direction: 0, -1
+                    new Position(5, 3), // empty field
+                    new Position(5, 2), // empty field
+                    new Position(5, 1), // empty field
+                    new Position(5, 0), // empty field
+                ],
+            },
+        ].forEach(({ name, position, want }) => {
+            it(name, () => {
+                const moves = board.getPawnMoves(position);
+                moves.sort(Position.sort);
+                want.sort(Position.sort);
+                assert.deepEqual(moves, want);
+            });
+        });
     });
 
-    describe(Board.prototype.update.name, () => {
-        it("TODO");
+    describe.only(Board.prototype.update.name, () => {
+        testMoves.forEach(({ name, board, move, want }) => {
+            it(name, () => {
+                const got = board.update(move);
+                assert.deepEqual(got, want);
+            });
+        });
     });
 });
+
+

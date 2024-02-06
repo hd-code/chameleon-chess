@@ -21,6 +21,13 @@ export class Position {
         return false;
     }
 
+    static sort(a: Position, b: Position): number {
+        if (a.x === b.x) {
+            return a.y - b.y;
+        }
+        return a.x - b.x;
+    }
+
     toString(): string {
         return `Position(${this.x}, ${this.y})`;
     }
