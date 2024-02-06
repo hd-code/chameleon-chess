@@ -21,28 +21,51 @@ export class GameState {
         return moves.flat();
     }
     get players(): Player[] {
-        return extractPlayers(this.board);
+        return Object.values(extractPlayersMap(this.board));
     }
 
     update(move: Move): GameState {
-        // check for correct player
-        // update the board
-        // update the active player
-        throw new Error("not implemented");
+        if (this.gameOver) {
+            throw new Error(`the game is already over`);
+        }
+        const pawn = this.board.getPawn(move.from);
+        if (pawn.player.color !== this.activePlayer.color) {
+            throw new Error(`player ${pawn.player.color} is not on turn`);
+        }
+
+        const nextBoard = this.board.update(move);
+        const nextPlayer = this.getNextPlayer(nextBoard);
+
+        return new GameState(nextPlayer, nextBoard);
+    }
+
+    private getNextPlayer(nextBoard: Board): Player {
+        const players = extractPlayersMap(nextBoard);
+
+        let nextPlayerColor = mapPlayerColorToNext[this.activePlayer.color];
+        while (nextPlayerColor !== this.activePlayer.color) {
+            const nextPlayer = players[nextPlayerColor];
+            if (nextPlayer) {
+                return nextPlayer;
+            }
+            nextPlayerColor = mapPlayerColorToNext[nextPlayerColor];
+        }
+
+        return this.activePlayer;
     }
 }
 
-const nextPlayerColor: { [color in Color]: Color } = {
+const mapPlayerColorToNext: { [color in Color]: Color } = {
     red: "blue",
     green: "red",
     yellow: "green",
     blue: "yellow",
 };
 
-function extractPlayers(board: Board): Player[] {
+function extractPlayersMap(board: Board): { [color in Color]?: Player } {
     const result: { [color in Color]?: Player } = {};
     board.pawns.forEach((pawn) => {
         result[pawn.player.color] = pawn.player;
     });
-    return Object.values(result);
+    return result;
 }

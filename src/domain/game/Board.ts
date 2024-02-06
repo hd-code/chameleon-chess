@@ -1,7 +1,7 @@
 import { Bounds } from "./Bounds";
 import { Pawn, PawnWithPosition } from "./Pawn";
 import { Position } from "./Position";
-import { Color, Field, FieldColorGetter, Move, Player } from "./types";
+import { Color, Field, FieldColorGetter, Move } from "./types";
 
 export class Board implements FieldColorGetter {
     constructor(
@@ -32,13 +32,6 @@ export class Board implements FieldColorGetter {
         return this._pawnsWithPositions.map(
             ([pawn, position]) => new PawnWithPosition(pawn, position, this),
         );
-    }
-    get players(): Player[] {
-        const players: {[color in Color]?: Player} = {};
-        this.pawns.forEach((p) => {
-            players[p.knightColor] = p.player;
-        });
-        return Object.values(players);
     }
 
     getField(position: Position): Field {
@@ -140,7 +133,8 @@ export class Board implements FieldColorGetter {
     ): Position[] {
         const result: Position[] = [];
         let nextPosition = pawn.position.add(direction);
-        for (let i = 0; i < 64; i++) { // upper bound
+        for (let i = 0; i < 64; i++) {
+            // upper bound
             const moveType = this.getMoveType(pawn, nextPosition);
             if (moveType === MoveType.invalid) {
                 break;
@@ -186,7 +180,7 @@ export class Board implements FieldColorGetter {
         }
 
         const center = this._bounds.min.add(new Position(1, 1));
-        const pawn = this.getPawnOrNone(center)
+        const pawn = this.getPawnOrNone(center);
         if (!pawn || pawn.role !== "knight") {
             return this;
         }
@@ -200,7 +194,11 @@ export class Board implements FieldColorGetter {
     }
 }
 
-enum MoveType {invalid, normal, beating}
+enum MoveType {
+    invalid,
+    normal,
+    beating,
+}
 
 const [R, G, Y, B]: Color[] = ["red", "green", "yellow", "blue"];
 const fieldColors = Object.freeze([

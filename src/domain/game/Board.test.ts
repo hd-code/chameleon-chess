@@ -4,8 +4,8 @@ import { Bounds } from "./Bounds";
 import { Pawn, PawnWithPosition } from "./Pawn";
 import { Position } from "./Position";
 import { bluePlayer, redPlayer } from "./mocks";
-import { Field } from "./types";
 import { testMoves } from "./tests";
+import { Field } from "./types";
 
 describe(Board.name, () => {
     describe("fields", () => {
@@ -261,7 +261,9 @@ describe(Board.name, () => {
         });
     });
 
-    describe.only(Board.prototype.update.name, () => {
+    describe(Board.prototype.update.name, () => {
+        it("TODO: invalid moves...");
+
         testMoves.forEach(({ name, board, move, want }) => {
             it(name, () => {
                 const got = board.update(move);
@@ -270,5 +272,3 @@ describe(Board.name, () => {
         });
     });
 });
-
-
