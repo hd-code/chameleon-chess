@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="chameleon-chess">
+        <style>
+            html, body {
+                background-color: #522614;
+                height: 100%;
+                margin: 0;
+            }
+            #chameleon-chess {
+                height: 100%;
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            #chameleon-chess::after {
+                animation: rotate 1s linear infinite;
+                content: "";
+                border: 1em solid #888;
+                border-color: #b9542d #51a230 #ddbb71 #04909d;
+                border-radius: 50%;
+                display: block;
+                height: 4em;
+                width: 4em;
+                margin: 1em auto;
+            }
+            @keyframes rotate {
+                from {
+                    transform: rotate(0);
+                }
+                to {
+                    transform: rotate(360deg);
+                }
+            }
+        </style>
+    </div>
+    <script src="dist/index.js"></script>
+</body>
+</html>

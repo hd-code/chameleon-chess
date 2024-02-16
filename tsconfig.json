@@ -2,11 +2,12 @@
   "compilerOptions": {
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
+    "jsx": "react",
     "module": "commonjs",
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,
-    "target": "es2016",
+    "target": "ES2020",
   },
   "include": ["src"],
 }

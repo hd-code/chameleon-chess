@@ -1,0 +1,39 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+html, body {
+    height: 100%;
+}
+body {
+    padding: .5em;
+}
+
+.bg-red { background-color: #b9542d; }
+.bg-green { background-color: #51a230; }
+.bg-yellow { background-color: #ddbb71; }
+.bg-blue { background-color: #04909d; }
+
+.board {
+    aspect-ratio: 1/1;
+    border: 1px solid #000;
+    max-height: 90vh;
+    max-width: 90vw;
+
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+}
+.field {
+    border: 1px solid #000;
+    height: calc(100% / 8);
+    width: calc(100% / 8);
+}
+.pawn {
+    border: 1px solid #000;
+    border-radius: 25%;
+    height: calc(100% / 8 - 2%);
+    width: calc(100% / 8 - 2%);
+    position: absolute;
+}
